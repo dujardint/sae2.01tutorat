@@ -2,6 +2,8 @@ package tpsae;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.ulille.grapp.graph.ImplicitGraph;
+
 public class LoupChevreChou implements ImplicitGraph {
 
     final int BERGER = 0;
