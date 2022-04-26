@@ -1,4 +1,4 @@
-package SAE;
+package appli;
 
 import fr.ulille.but.sae2_02.donnees.DonneesPourTester;
 

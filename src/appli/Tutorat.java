@@ -1,4 +1,4 @@
-package SAE;
+package appli;
 
 import java.util.List;
 

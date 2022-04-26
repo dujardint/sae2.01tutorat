@@ -1,4 +1,4 @@
-package SAE;
+package appli;
 
 public class Enseignant extends Utilisateur {
 

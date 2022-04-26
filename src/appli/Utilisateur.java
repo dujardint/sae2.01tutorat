@@ -1,4 +1,4 @@
-package SAE;
+package appli;
 
 public abstract class Utilisateur {
 	String identifiant;

@@ -1,4 +1,4 @@
-package SAE;
+package appli;
 
 public abstract class Etudiant extends Utilisateur{
 	int annee;
