@@ -11,5 +11,10 @@ public class Tutore extends Etudiant{
 	public void inscription() {
 		// TODO Auto-generated method stub
 	}
+	
+	public static void main(String[] args) {
+		Tutore a1 = new Tutore("001", "Barthe", "Madelaine", 1, 6.9, 0);
+		
+	}
 
 }

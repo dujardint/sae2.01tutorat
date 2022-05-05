@@ -4,39 +4,36 @@ import java.util.ArrayList;
 import fr.ulille.but.sae2_02.graphes.CalculAffectation;
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue;
 
-public class ExoAffectation2{
+public class ExoAffectationOrdeMax{
 	public static void main(String [] args){
+		//on a pris le binome qui a le max gagne
+		
 		double [][] counts = new double [][]{
+		
 
-			new double [] {5,100,10,15,0},
-			new double [] {5,50,10,100,0},
-			new double [] {0,50,5,100,10}, //Madeleine
-			new double [] {0,50,5,100,10}, //huge
-			new double [] {0,50,5,100,10}}; //lucas
-			//new double [] {0.8,-4.8,-1.5,-6.8,100,100,100}, //david
-			//new double [] {2.8,-2.8,0.5,-4.8,100,100,100}}; //amelie
-
+			new double [] {67,39,55.5,70,57},
+			new double [] {83.75,55.75,72.25,86.75,73.75},
+			new double [] {91,63,79.5,94,81},
+			new double [] {98.25,70.25,86.75,101.25,88.25}, 
+			new double [] {109.75,81.75,98.25,112.75,99.75}};
+			
 
 			ArrayList<String> tutorer = new ArrayList<>();
 			tutorer.add("huge");
 			tutorer.add("Madeleine");
-			tutorer.add("Alexandria");
+			tutorer.add("Claude");
 			tutorer.add("Sabine");
 			tutorer.add("Lucas");
-			//tutorer.add("lucas");
-			//tutorer.add("david");
-			//tutorer.add("amelie");
+
 
 			ArrayList<String> tuteur = new ArrayList<>();
 			tuteur.add("François");
 			tuteur.add("Josphe");
 			tuteur.add("Martin");
+			tuteur.add("Edouard");
+			tuteur.add("Olivier");
+
 			
-			tuteur.add("Therese");
-			tuteur.add("maurice");
-			//tuteur.add("nul");
-			//tuteur.add("nul1");
-			//tuteur.add("nul2");
 			GrapheNonOrienteValue<String> graphe = new GrapheNonOrienteValue<>();
 			for(String p : tutorer){
 				graphe.ajouterSommet(p);
