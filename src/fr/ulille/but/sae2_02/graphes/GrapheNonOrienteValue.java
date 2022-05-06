@@ -100,7 +100,7 @@ public class GrapheNonOrienteValue<S> {
 	@Override
 	public String toString () {
 		String sommets = graph.vertexSet().toString();
-		sommets = "{" + sommets.substring(1, sommets.length()-1) + "}";
+		sommets = "{" + sommets.substring(1, sommets.length()-1) + "}\n";
 		
 		StringBuilder saretes = new StringBuilder();
 		for (Arete<S> a : aretes()) {
