@@ -73,7 +73,7 @@ public class Affectation {
 	CalculAffectation<String> c = new CalculAffectation<>(g, partie1, partie2);
 	System.out.println(c.getCout());
 	System.out.println(c.getAffectation());
-	for (int i=0;i<4;i++) {
+	for (int i=0;i<=4;i++) {
 		System.out.println(c.getAffectation().get(i).getExtremite1()+ " doit se mettre avec "+c.getAffectation().get(i).getExtremite2());
 		//System.out.println("Cette tâche prendra "+g.getPoids(c.getAffectation().get(i).getExtremite1(),g.getAffectation().get(i).getExtremite2()) +" jours ");
 	}
