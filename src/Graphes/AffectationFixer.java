@@ -1,13 +1,13 @@
-package tpsae;
+package Graphes;
 
 import fr.ulille.but.sae2_02.graphes.CalculAffectation ;
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue ;
 import java.util.* ;
 
-public class Affecta {
+public class AffectationFixer {
  public static void main(String[] args) {
 	GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
-	System.out.println("Affichage de la liste vide : ");
+	System.out.println("Graphe permettant de predefinir certains couples : ");
 	System.out.println(g);
 	
 	//1ÈRES ANNÉES
@@ -28,14 +28,14 @@ public class Affecta {
 
 	
 	//SOMMETS
-	g.ajouterArete("Loic", "Edouart", 7.05);
+	g.ajouterArete("Loic", "Edouart", 0);
 	g.ajouterArete("Loic", "Olivier", 5.75);
 	g.ajouterArete("Loic", "Francois", 13.5);
 	g.ajouterArete("Loic", "Martin", 7.9);
 	g.ajouterArete("Loic", "Joseph", 11.2);
 	
 	g.ajouterArete("Madeleine", "Edouart", 10.4);
-	g.ajouterArete("Madeleine", "Olivier", 9.7);
+	g.ajouterArete("Madeleine", "Olivier", 9.1);
 	g.ajouterArete("Madeleine", "Francois", 20.2);
 	g.ajouterArete("Madeleine", "Martin", 14.6);
 	g.ajouterArete("Madeleine", "Joseph", 17.9);
@@ -47,7 +47,7 @@ public class Affecta {
 	g.ajouterArete("Claude", "Joseph", 20.8);
 	
 	g.ajouterArete("Sabine", "Edouart", 13.3);
-	g.ajouterArete("Sabine", "Olivier", 12);
+	g.ajouterArete("Sabine", "Olivier", 0);
 	g.ajouterArete("Sabine", "Francois", 26);
 	g.ajouterArete("Sabine", "Martin", 20.4);
 	g.ajouterArete("Sabine", "Joseph", 23.7);

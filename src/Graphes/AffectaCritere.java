@@ -1,13 +1,13 @@
-package tpsae;
+package Graphes;
 
 import fr.ulille.but.sae2_02.graphes.CalculAffectation ;
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue ;
 import java.util.* ;
 
-public class Affecta2 {
+public class AffectaCritere {
  public static void main(String[] args) {
 	GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
-	System.out.println("Affichage de la liste vide : ");
+	System.out.println("Graphe permettant de privilegier via critere de moyennes : ");
 	System.out.println(g);
 	
 	//1ÈRES ANNÉES
@@ -28,29 +28,29 @@ public class Affecta2 {
 
 	
 	//SOMMETS
-	g.ajouterArete("Loic", "Edouart", 0);
-	g.ajouterArete("Loic", "Olivier", 5.75);
-	g.ajouterArete("Loic", "Francois", 13.5);
-	g.ajouterArete("Loic", "Martin", 7.9);
-	g.ajouterArete("Loic", "Joseph", 11.2);
+	g.ajouterArete("Loic", "Edouart", 1.22);
+	g.ajouterArete("Loic", "Olivier", 1.74);
+	g.ajouterArete("Loic", "Francois", 1.34);
+	g.ajouterArete("Loic", "Martin", 1.8);
+	g.ajouterArete("Loic", "Joseph", 2.46);
 	
-	g.ajouterArete("Madeleine", "Edouart", 10.4);
-	g.ajouterArete("Madeleine", "Olivier", 9.1);
-	g.ajouterArete("Madeleine", "Francois", 20.2);
-	g.ajouterArete("Madeleine", "Martin", 14.6);
-	g.ajouterArete("Madeleine", "Joseph", 17.9);
+	g.ajouterArete("Madeleine", "Edouart", 42.09);
+	g.ajouterArete("Madeleine", "Olivier", 60.03);
+	g.ajouterArete("Madeleine", "Francois", 46.23);
+	g.ajouterArete("Madeleine", "Martin", 62.1);
+	g.ajouterArete("Madeleine", "Joseph", 84.87);
 	
-	g.ajouterArete("Claude", "Edouart", 11.85);
-	g.ajouterArete("Claude", "Olivier", 10.55);
-	g.ajouterArete("Claude", "Francois", 23.1);
-	g.ajouterArete("Claude", "Martin", 17.5);
-	g.ajouterArete("Claude", "Joseph", 20.8);
+	g.ajouterArete("Claude", "Edouart", 105.53);
+	g.ajouterArete("Claude", "Olivier", 150.51);
+	g.ajouterArete("Claude", "Francois", 115.91);
+	g.ajouterArete("Claude", "Martin", 155.7);
+	g.ajouterArete("Claude", "Joseph", 212.79);
 	
-	g.ajouterArete("Sabine", "Edouart", 13.3);
-	g.ajouterArete("Sabine", "Olivier", 0);
-	g.ajouterArete("Sabine", "Francois", 26);
-	g.ajouterArete("Sabine", "Martin", 20.4);
-	g.ajouterArete("Sabine", "Joseph", 23.7);
+	g.ajouterArete("Sabine", "Edouart", 77.47);
+	g.ajouterArete("Sabine", "Olivier", 110.49);
+	g.ajouterArete("Sabine", "Francois", 85.09);
+	g.ajouterArete("Sabine", "Martin", 114.3);
+	g.ajouterArete("Sabine", "Joseph", 156.21);
 	
 	g.ajouterArete("null", "Edouart", 1000.1);
 	g.ajouterArete("null", "Olivier", 1000.2);
