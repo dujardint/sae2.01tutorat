@@ -4,8 +4,8 @@ package appli;
 
 public class Tuteur extends Etudiant{
 
-	public Tuteur(String identifiant, String nom, String prenom, int annee, double moyenne, int nbAbsence) {
-		super(identifiant, nom, prenom, annee, moyenne, nbAbsence);
+	public Tuteur(String identifiant, String prenom, String nom,double moyenne, int annee) {
+		super(identifiant, prenom, nom, moyenne,annee);
 	}
 
 	@Override
@@ -14,7 +14,7 @@ public class Tuteur extends Etudiant{
 	}
 	
 	public static void main(String[] args) {
-		Tuteur t1 = new Tuteur("001", "Bertaint", "Francois", 2, 13.3, 0);
+		Tuteur t1 = new Tuteur("001", "Bertaint", "Francois", 13.3,2);
 	}
 	
 	

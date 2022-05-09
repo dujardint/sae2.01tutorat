@@ -2,8 +2,8 @@ package appli;
 
 public class Tutore extends Etudiant{
 
-	public Tutore(String identifiant, String nom, String prenom, int annee, double moyenne, int nbAbsence) {
-		super(identifiant, nom, prenom, annee, moyenne, nbAbsence);
+	public Tutore(String identifiant, String prenom, String nom, double moyenne) {
+		super(identifiant, prenom,nom, moyenne,1);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -13,7 +13,7 @@ public class Tutore extends Etudiant{
 	}
 	
 	public static void main(String[] args) {
-		Tutore a1 = new Tutore("001", "Barthe", "Madelaine", 1, 6.9, 0);
+		Tutore a1 = new Tutore("001", "Barthe", "Madelaine", 6.9);
 		
 	}
 
