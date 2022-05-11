@@ -8,13 +8,39 @@ public class GroupeCandidats {
 	List<Tutore> groupeTutore;
 
 	
+	public static void main(String[] args) {
+		List<Tuteur> a = new ArrayList<Tuteur>();
+		ArrayList<Tutore> b = new ArrayList<Tutore>();
+		GroupeCandidats c = new GroupeCandidats(a, b);
+		
+		b.add(new Tutore("tutore_", "Claude", "Allard", 9.8));
+		b.add(new Tutore("tutore_", "Madeleine", "Barre", 6.9));
+		
+		a.add(new Tuteur("tuteur_","François","Bertin",13.3,2));
+		a.add(new Tuteur("tuteur_","Joseph","Boyer",7.7,2));
+		
+		System.out.println(a.get(0).getNom());
+		
+		System.out.println(c.calculDistance(a.get(0), b.get(1)));
+	}
+	
 	
 
 	public GroupeCandidats(List<Tuteur> groupeTuteur, List<Tutore> groupeTutore) {
+		
+		this.groupeTuteur = new ArrayList<Tuteur>();
+		this.groupeTutore = new ArrayList<Tutore>();
+		
+	}
+	
+	
+	//ancien constructeur
+	/*
+	 * 	public GroupeCandidats(List<Tuteur> groupeTuteur, List<Tutore> groupeTutore) {
 		this.groupeTuteur = this.triTuteur(groupeTuteur);
 		this.groupeTutore = this.triTutore(groupeTutore);
 	}
-	
+	 */
 
 
 	@Override
