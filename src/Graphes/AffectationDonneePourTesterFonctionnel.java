@@ -5,13 +5,17 @@ import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue ;
 import java.util.* ;
 
 import appli.GroupeCandidats;
-import appli.PaireCandidats;
 import appli.Tuteur;
 import appli.Tutore;
 
-public class Affectation {
+public class AffectationDonneePourTesterFonctionnel {
 	public static void main(String[] args) {
-		
+		GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
+		System.out.println("Graphe permettant l'affectation normale avec les Donn�esPourTester : ");
+		//System.out.println(g);
+
+		System.out.println("\n1ere annee :");
+		//1ÈRES ANNÉES
 		// On initialise le groupe des tutorés
 		ArrayList<Tutore> groupeTutore = new ArrayList<>();
 		groupeTutore.add(new Tutore("tutore_", "Claude", "Allard", 9.8));
@@ -43,9 +47,13 @@ public class Affectation {
 		groupeTutore.add(new Tutore("tutore_", "Agnès", "Renard", 13.2));  
 		groupeTutore.add(new Tutore("tutore_", "Marine", "Roux", 9.1));
 		groupeTutore.add(new Tutore("tutore_", "Aurore", "Schmitt", 9.9));
+		for(int i=0; i<groupeTutore.size(); i++) {
+			g.ajouterSommet(groupeTutore.get(i).getPrenomNom());
+			System.out.println(groupeTutore.get(i).getPrenomNom() + " ajouter a la liste sommet");
+		}
 
-
-		// On initialise le groupe des tuteurs
+		System.out.println("\n2e et 3 annee :");
+		//2E et 3e ANNEE
 		ArrayList<Tuteur> groupeTuteur = new ArrayList<>();
 		groupeTuteur.add(new Tuteur("tuteur_","François","Bertin",13.3,2));
 		groupeTuteur.add(new Tuteur("tuteur_","Joseph","Boyer",7.7,2));
@@ -76,56 +84,45 @@ public class Affectation {
 		groupeTuteur.add(new Tuteur("tuteur_","Josette","Nicolas",12.5,3));
 		groupeTuteur.add(new Tuteur("tuteur_","Paul","Sanchez",12.0,3));
 		groupeTuteur.add(new Tuteur("tuteur_","null","null",-40,2));
-////// ALGO
 		
-		GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
-		System.out.println("Graphe permettant l'affectation normale : ");
-		System.out.println(g);
+		for(int i=0; i<groupeTuteur.size(); i++) {
+			g.ajouterSommet(groupeTuteur.get(i).getPrenomNom());
+			System.out.println(groupeTuteur.get(i).getPrenomNom() + " ajouter a la liste sommet");
+		}
 
-		
+		GroupeCandidats etudiants = new GroupeCandidats(groupeTuteur, groupeTutore);
+		System.out.println("\ntaille tuteur " + groupeTuteur.size());
+		System.out.println("taille tutore " + groupeTutore.size()+"\n");
+		//SOMMETS
 		for(int i=0; i<groupeTuteur.size(); i++) {
-			g.ajouterSommet(groupeTuteur.get(i).getPrenom());
-		}
-		
-		for(int i=0; i<groupeTutore.size(); i++) {
-			g.ajouterSommet(groupeTutore.get(i).getPrenom());
-		}
-		
-		System.out.println("nb tutore : " + groupeTutore.size());
-		System.out.println("nb tuteur : "+ groupeTuteur.size());
-		
-		GroupeCandidats cand = new GroupeCandidats(groupeTuteur, groupeTutore);
-		
-		ArrayList<String> tuteurName=new ArrayList<String>();
-		for(int i=0; i<groupeTuteur.size(); i++) {
-			tuteurName.add((groupeTuteur.get(i).getNom()));
-			System.out.println(tuteurName.get(i));
-		}
-		System.out.println("");
-		
-		ArrayList<String> tutoreName=new ArrayList<String>();
-		for(int i=0; i<groupeTutore.size(); i++) {
-			tutoreName.add(groupeTutore.get(i).getNom()+"" + i);
-			System.out.println(tutoreName.get(i));
-		}
-		
-		//ajout des arretes
-		//	chaque tuteur on lui met tout les tutore possibles => double boucle
-			for(int i=0; i<29; i++) {
-				for(int j=0; j<29; j++) {
-					g.ajouterArete(tuteurName.get(i), tutoreName.get(j), cand.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
-				}
+			for(int j=0; j<groupeTutore.size(); j++) {
+				g.ajouterArete(groupeTuteur.get(i).getPrenomNom(), groupeTutore.get(j).getPrenomNom(), etudiants.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
+				System.out.println("" + groupeTuteur.get(i).getPrenomNom() + " " +  groupeTutore.get(j).getPrenomNom() + " distance : " + etudiants.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
 			}
-		
-		//System.out.println(cand);
-		
-		CalculAffectation<String> c = new CalculAffectation<>(g, tuteurName, tutoreName);
-		System.out.println(c.getCout());
+		}
+
+		//System.out.println(g.toString());
+
+		System.out.println();
+		List<String> tuteurPrenomNom=new ArrayList<String>();
+		for(int i=0; i<groupeTuteur.size(); i++) {
+			tuteurPrenomNom.add((groupeTuteur.get(i).getPrenomNom()));
+			System.out.println("liste tuteur : " + tuteurPrenomNom.get(i));
+		}
+		System.out.println();
+		ArrayList<String> tutorePrenomNom=new ArrayList<String>();
+		for(int i=0; i<groupeTutore.size(); i++) {
+			tutorePrenomNom.add(groupeTutore.get(i).getPrenomNom());
+			System.out.println("liste tutore : "+tutorePrenomNom.get(i));
+		}
+
+		System.out.println();
+		CalculAffectation<String> c = new CalculAffectation<>(g, tutorePrenomNom, tuteurPrenomNom);
+		System.out.println("le cout minimal est de : " + c.getCout());
 		System.out.println(c.getAffectation());
-		for (int i=0;i<=(groupeTutore.size()+groupeTuteur.size());i++) {
+		for (int i=0;i<groupeTutore.size();i++) {
 			System.out.println(c.getAffectation().get(i).getExtremite1()+ " doit se mettre avec "+c.getAffectation().get(i).getExtremite2());
 			//System.out.println("Cette tâche prendra "+g.getPoids(c.getAffectation().get(i).getExtremite1(),g.getAffectation().get(i).getExtremite2()) +" jours ");
 		}
 	}
-
 }

@@ -32,4 +32,8 @@ public abstract class Utilisateur {
 		this.prenom = prenom;
 	}
 	
+	public String getPrenomNom() {
+		return prenom+"_"+nom;
+	}
+	
 }
