@@ -86,7 +86,7 @@ public static void main(String[] args) {
 	groupeTuteur.add(new Tuteur("tuteur_","Alex","Marchand",8.7,3));
 	groupeTuteur.add(new Tuteur("tuteur_","Josette","Nicolas",12.5,3));
 	groupeTuteur.add(new Tuteur("tuteur_","Paul","Sanchez",12.0,3));
-	//groupeTuteur.add(new Tuteur("tuteur_","null","null",-40,2));
+	groupeTuteur.add(new Tuteur("tuteur_","null","null",40,2));
 
 	for(int i=0; i<groupeTuteur.size(); i++) {
 		g.ajouterSommet(groupeTuteur.get(i).getPrenom());

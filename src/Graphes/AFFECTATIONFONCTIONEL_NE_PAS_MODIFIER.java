@@ -8,7 +8,7 @@ import appli.Tuteur;
 import appli.Tutorat;
 import appli.Tutore;
 
-public class AffectationDonneePourTesterFonctionnel {
+public class AFFECTATIONFONCTIONEL_NE_PAS_MODIFIER {
 	public static void main(String[] args) {
 		GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
 		System.out.println("Graphe permettant l'affectation normale avec les Donn�esPourTester : ");
@@ -83,48 +83,25 @@ public class AffectationDonneePourTesterFonctionnel {
 		groupeTuteur.add(new Tuteur("tuteur_","Alex","Marchand",8.7,3));
 		groupeTuteur.add(new Tuteur("tuteur_","Josette","Nicolas",12.5,3));
 		groupeTuteur.add(new Tuteur("tuteur_","Paul","Sanchez",12.0,3));
-		groupeTuteur.add(new Tuteur("tuteur_","null","null",-40,2));
+		groupeTuteur.add(new Tuteur("tuteur_","Nathan","Accart",2,3));
 		
 		for(int i=0; i<groupeTuteur.size(); i++) {
 			g.ajouterSommet(groupeTuteur.get(i).getPrenomNom());
 			System.out.println(groupeTuteur.get(i).getPrenomNom() + " ajouter a la liste sommet");
 		}
 
+		//PERMET DE VERIFIER SI LES 2 LISTES ONT LE MEME NOMBRES !!!!!!!!!!!
 		Tutorat etudiants = new Tutorat(groupeTuteur, groupeTutore);
 		System.out.println("\ntaille tuteur " + groupeTuteur.size());
 		System.out.println("taille tutore " + groupeTutore.size()+"\n");
 		
-		
-		System.out.println("liste avant tri : " + etudiants.toString());
-		System.out.println("ON TRIE .... \n");
-		
-		System.out.println(etudiants.triTuteur(groupeTuteur));
-		System.out.println(etudiants.triTutore(groupeTutore));
-		
-		
-		
-		
-		for(int i=0; i<groupeTuteur.size(); i++) {
-			g.ajouterSommet(groupeTuteur.get(i).getPrenom());
-			g.ajouterSommet(groupeTuteur.get(i).getPrenomNom());
-			System.out.println(groupeTuteur.get(i).getPrenomNom() + " ajouter a la liste sommet");
-		}
-		
-		for(int i=0; i<groupeTutore.size(); i++) {
-			g.ajouterSommet(groupeTutore.get(i).getPrenom());
-		}
-
-		
-		
-		
-		//SOMMETS
+		//ARRETES
 		for(int i=0; i<groupeTuteur.size(); i++) {
 			for(int j=0; j<groupeTutore.size(); j++) {
-				g.ajouterArete(groupeTuteur.get(i).getPrenomNom(), groupeTutore.get(j).getPrenomNom(), etudiants.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
-				System.out.println("" + groupeTuteur.get(i).getPrenomNom() + " " +  groupeTutore.get(j).getPrenomNom() + " distance : " + etudiants.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
+				g.ajouterArete(groupeTuteur.get(i).getPrenomNom(), groupeTutore.get(j).getPrenomNom(), Tutorat.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
+				System.out.println("" + groupeTuteur.get(i).getPrenomNom() + " " +  groupeTutore.get(j).getPrenomNom() + " distance : " + Tutorat.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
 			}
 		}
-
 
 		//System.out.println(g.toString());
 
@@ -149,5 +126,10 @@ public class AffectationDonneePourTesterFonctionnel {
 			System.out.println(c.getAffectation().get(i).getExtremite1()+ " doit se mettre avec "+c.getAffectation().get(i).getExtremite2());
 			//System.out.println("Cette tâche prendra "+g.getPoids(c.getAffectation().get(i).getExtremite1(),g.getAffectation().get(i).getExtremite2()) +" jours ");
 		}
+		
+		System.out.println("\nL'affectation est terminé !!");
+		
+		System.out.println("triage des tuteur : \n" + etudiants.triTuteur(groupeTuteur));
+		System.out.println("triage des tutore : \n" + etudiants.triTutore(groupeTutore));
 	}
 }

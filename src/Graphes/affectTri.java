@@ -8,7 +8,7 @@ import appli.Tuteur;
 import appli.Tutorat;
 import appli.Tutore;
 
-public class affecFonctionnel {
+public class affectTri {
 	public static void main(String[] args) {
 		GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
 		System.out.println("Graphe permettant l'affectation normale avec les Donn�esPourTester : ");
@@ -83,13 +83,14 @@ public class affecFonctionnel {
 		groupeTuteur.add(new Tuteur("tuteur_","Alex","Marchand",8.7,3));
 		groupeTuteur.add(new Tuteur("tuteur_","Josette","Nicolas",12.5,3));
 		groupeTuteur.add(new Tuteur("tuteur_","Paul","Sanchez",12.0,3));
-		groupeTuteur.add(new Tuteur("tuteur_","null","null",-40,2));
+		groupeTuteur.add(new Tuteur("tuteur_","Nathan","Accart",2,3));
 		
 		for(int i=0; i<groupeTuteur.size(); i++) {
 			g.ajouterSommet(groupeTuteur.get(i).getPrenomNom());
 			System.out.println(groupeTuteur.get(i).getPrenomNom() + " ajouter a la liste sommet");
 		}
 
+		//PERMET DE VERIFIER SI LES 2 LISTES ONT LE MEME NOMBRES !!!!!!!!!!!
 		Tutorat etudiants = new Tutorat(groupeTuteur, groupeTutore);
 		System.out.println("\ntaille tuteur " + groupeTuteur.size());
 		System.out.println("taille tutore " + groupeTutore.size()+"\n");
@@ -127,5 +128,8 @@ public class affecFonctionnel {
 		}
 		
 		System.out.println("\nL'affectation est terminé !!");
+		
+		System.out.println("triage des tuteur : \n" + etudiants.triTuteur(groupeTuteur));
+		System.out.println("triage des tutore : \n" + etudiants.triTutore(groupeTutore));
 	}
 }
