@@ -4,14 +4,14 @@ import fr.ulille.but.sae2_02.graphes.CalculAffectation ;
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue ;
 import java.util.* ;
 
-import appli.GroupeCandidats;
 import appli.Tuteur;
+import appli.Tutorat;
 import appli.Tutore;
 
 public class AffectationDonneePourTesterFonctionnel {
 	public static void main(String[] args) {
 		GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
-		System.out.println("Graphe permettant l'affectation normale avec les DonnéesPourTester : ");
+		System.out.println("Graphe permettant l'affectation normale avec les Donnï¿½esPourTester : ");
 		//System.out.println(g);
 
 		System.out.println("\n1ere annee :");
@@ -90,9 +90,19 @@ public class AffectationDonneePourTesterFonctionnel {
 			System.out.println(groupeTuteur.get(i).getPrenomNom() + " ajouter a la liste sommet");
 		}
 
-		GroupeCandidats etudiants = new GroupeCandidats(groupeTuteur, groupeTutore);
+		Tutorat etudiants = new Tutorat(groupeTuteur, groupeTutore);
 		System.out.println("\ntaille tuteur " + groupeTuteur.size());
 		System.out.println("taille tutore " + groupeTutore.size()+"\n");
+		
+		
+		System.out.println("liste avant tri : " + etudiants.toString());
+		System.out.println("ON TRIE .... \n");
+		
+		System.out.println(etudiants.triTuteur(groupeTuteur));
+		System.out.println(etudiants.triTutore(groupeTutore));
+		
+		
+		
 		//SOMMETS
 		for(int i=0; i<groupeTuteur.size(); i++) {
 			for(int j=0; j<groupeTutore.size(); j++) {
