@@ -12,9 +12,9 @@ public class Tutorat  {
 	private List<Paire> listePaire;
 	
 	public Tutorat(List<Tuteur> listeTuteur, List<Tutore> listeTutore) {
-		this.listeTutore = listeTutore;
-		this.listeTuteur = listeTuteur;
-		this.listePaire  = this.genererPaires();
+		Tutorat.listeTutore = listeTutore;
+		Tutorat.listeTuteur = listeTuteur;
+		//this.listePaire  = this.genererPaires();
 	}
 	
 	/*
@@ -140,7 +140,7 @@ public class Tutorat  {
 			System.out.println(calculDistance(tuteur.get(i),tutore.get(i)));
 		}
 		
-		System.out.println(genererPaires());
+	//	System.out.println(genererPaires());
 		
 		System.out.println(etu.triTuteur(tuteur));
 		System.out.println(etu.triTutore(tutore));
@@ -181,6 +181,7 @@ public class Tutorat  {
 	
 	//* Elle retourne un tableau avec le nom du tuteur / tutorï¿½ ainsi que les ï¿½carts
 	
+	/*
 	public static List<Paire> genererPaires () {
 		List<Paire> paireCandidats = new ArrayList<Paire>();
 		for(int i = 0; i < listeTutore.size(); i++) {
@@ -194,6 +195,8 @@ public class Tutorat  {
 		}
 		return paireCandidats;
 	}
+	
+	*/
 	
 	public String paireToString() {
 		String retour = "";

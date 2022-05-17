@@ -8,7 +8,7 @@ import appli.Tuteur;
 import appli.Tutorat;
 import appli.Tutore;
 
-public class AffectationDonneePourTesterFonctionnel {
+public class affecFonctionnel {
 	public static void main(String[] args) {
 		GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
 		System.out.println("Graphe permettant l'affectation normale avec les Donn�esPourTester : ");
@@ -94,37 +94,13 @@ public class AffectationDonneePourTesterFonctionnel {
 		System.out.println("\ntaille tuteur " + groupeTuteur.size());
 		System.out.println("taille tutore " + groupeTutore.size()+"\n");
 		
-		
-		System.out.println("liste avant tri : " + etudiants.toString());
-		System.out.println("ON TRIE .... \n");
-		
-		System.out.println(etudiants.triTuteur(groupeTuteur));
-		System.out.println(etudiants.triTutore(groupeTutore));
-		
-		
-		
-		
-		for(int i=0; i<groupeTuteur.size(); i++) {
-			g.ajouterSommet(groupeTuteur.get(i).getPrenom());
-			g.ajouterSommet(groupeTuteur.get(i).getPrenomNom());
-			System.out.println(groupeTuteur.get(i).getPrenomNom() + " ajouter a la liste sommet");
-		}
-		
-		for(int i=0; i<groupeTutore.size(); i++) {
-			g.ajouterSommet(groupeTutore.get(i).getPrenom());
-		}
-
-		
-		
-		
-		//SOMMETS
+		//ARRETES
 		for(int i=0; i<groupeTuteur.size(); i++) {
 			for(int j=0; j<groupeTutore.size(); j++) {
-				g.ajouterArete(groupeTuteur.get(i).getPrenomNom(), groupeTutore.get(j).getPrenomNom(), etudiants.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
-				System.out.println("" + groupeTuteur.get(i).getPrenomNom() + " " +  groupeTutore.get(j).getPrenomNom() + " distance : " + etudiants.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
+				g.ajouterArete(groupeTuteur.get(i).getPrenomNom(), groupeTutore.get(j).getPrenomNom(), Tutorat.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
+				System.out.println("" + groupeTuteur.get(i).getPrenomNom() + " " +  groupeTutore.get(j).getPrenomNom() + " distance : " + Tutorat.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
 			}
 		}
-
 
 		//System.out.println(g.toString());
 
@@ -149,5 +125,7 @@ public class AffectationDonneePourTesterFonctionnel {
 			System.out.println(c.getAffectation().get(i).getExtremite1()+ " doit se mettre avec "+c.getAffectation().get(i).getExtremite2());
 			//System.out.println("Cette tâche prendra "+g.getPoids(c.getAffectation().get(i).getExtremite1(),g.getAffectation().get(i).getExtremite2()) +" jours ");
 		}
+		
+		System.out.println("\nL'affectation est terminé !!");
 	}
 }
