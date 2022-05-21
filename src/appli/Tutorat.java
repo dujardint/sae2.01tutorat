@@ -10,30 +10,30 @@ public class Tutorat  {
 	private static List<Tutore> listeTutore;
 	private static List<Tuteur> listeTuteur;
 	private List<Paire> listePaire;
-	
+
 	public Tutorat(List<Tuteur> listeTuteur, List<Tutore> listeTutore) {
 		Tutorat.listeTutore = listeTutore;
 		Tutorat.listeTuteur = listeTuteur;
 		//this.listePaire  = this.genererPaires();
 	}
-	
+
 	/*
 	public Tutorat(List<Tuteur> listeTuteur, List<Tutore> listeTutore) {
 		this.listeTutore = this.triTutore(listeTutore);
 		this.listeTuteur = this.triTuteur(listeTuteur);
 		this.listePaire  = this.genererPaires();
 	}
-	*/
-	
+	 */
+
 	public List<Paire> getListePaire(){
 		return this.listePaire;
 	}
-	
+
 	private class Paire {
 		private String tuteur;
 		private String tutore;
 		private double distance;
-		
+
 		Paire(String tuteur, String tutore, double distance) {
 			this.tuteur = tuteur;
 			this.tutore = tutore;
@@ -58,7 +58,17 @@ public class Tutorat  {
 			this.distance = distance;
 		}
 	}
-	
+	/*public boolean addStudent(Etudiant e) {
+	        if (this.Tutore.contains(e) || this.tutors.contains(e)) {
+	            return false;
+	        }
+	        if (e.getAnnee() == 1) {
+	            return this.tutore.add((Tutore) e);
+	        } else {
+	            return this.tuteur.add((Tuteur) e);
+	        }
+	    }*/
+
 	public String toString() {
 		String listeToString = "Candidats tuteurs : \n";
 		for(int i = 0; i < listeTuteur.size(); i++) {
@@ -70,7 +80,7 @@ public class Tutorat  {
 			listeToString = listeToString + listeTutore.get(i).toString() + "\n";
 			System.out.println(" \n");
 		}
-		
+
 		return listeToString;
 	}
 
@@ -79,7 +89,7 @@ public class Tutorat  {
 	private int getPositionMin(List<Tutore> listeTutore) {
 		int position = -1;
 		double valeur = 20.0;
-		
+
 		for(int i = 0; i<listeTutore.size(); i++) {
 			if(listeTutore.get(i).getMoyenne()<= valeur) {
 				valeur = listeTutore.get(i).getMoyenne();
@@ -88,12 +98,12 @@ public class Tutorat  {
 		}
 		return position;
 	}
-	
+
 	private int getPositionMax(List<Tuteur> listeTuteur) {
 		int position = -1;
 		double valeur = 0.0;
 		double bonusMoyenne = 0.0;
-		
+
 		for(int i = 0; i<listeTuteur.size(); i++) {
 			if(listeTuteur.get(i).getAnnee() == 3) {
 				bonusMoyenne = 20.0;
@@ -105,8 +115,8 @@ public class Tutorat  {
 		}
 		return position;
 	}
-	
-	
+
+
 	public List<Tutore> triTutore (List<Tutore> listeNonTriee){
 		List<Tutore> listeTriee = new ArrayList<Tutore>();
 		int positionMin;
@@ -115,43 +125,43 @@ public class Tutorat  {
 			listeTriee.add(listeNonTriee.get(positionMin));
 			listeNonTriee.remove(positionMin);
 		}
-		
+
 		return listeTriee;
 	}
-	
+
 	public static void main(String[] args) {
 		List<Tutore> tutore = new ArrayList<Tutore>();
-		tutore.add(new Tutore("tutore_", "Claude", "Allard", 9.8));
-		tutore.add(new Tutore("tutore_", "Madeleine", "Barre", 6.9));
-		tutore.add(new Tutore("tutore_", "Sabine", "Besnard", 12.7));
-		
-		
+		tutore.add(new Tutore("tutore_", "Claude", "Allard", 9.8,1,'+'));
+		tutore.add(new Tutore("tutore_", "Madeleine", "Barre", 6.9,1,'+'));
+		tutore.add(new Tutore("tutore_", "Sabine", "Besnard", 12.7,1,'+'));
+
+
 		List<Tuteur> tuteur = new ArrayList<Tuteur>();
-		tuteur.add(new Tuteur("tuteur_","François","Bertin",13.3,2));
-		tuteur.add(new Tuteur("tuteur_","Joseph","Boyer",7.7,3));
-		tuteur.add(new Tuteur("tuteur_","Martin","Delmas",11.0,2));
-		
-		
+		tuteur.add(new Tuteur("tuteur_","François","Bertin",13.3,2,'+'));
+		tuteur.add(new Tuteur("tuteur_","Joseph","Boyer",7.7,3,'+'));
+		tuteur.add(new Tuteur("tuteur_","Martin","Delmas",11.0,2,'+'));
+
+
 		Tutorat etu = new Tutorat(tuteur, tutore);
 		System.out.println("liste avant tri : " + etu.toString());
 		System.out.println("ON TRIE .... \n");
-		
+
 		for(int i=0; i<tuteur.size(); i++) {
 			System.out.println(calculDistance(tuteur.get(i),tutore.get(i)));
 		}
-		
-	//	System.out.println(genererPaires());
-		
+
+		//	System.out.println(genererPaires());
+
 		System.out.println(etu.triTuteur(tuteur));
 		System.out.println(etu.triTutore(tutore));
 		//System.out.println("liste trie : " + etu.toString());
-		
-		
-		
+
+
+
 
 	}
-	
-	
+
+
 	public List<Tuteur> triTuteur (List<Tuteur> listeNonTriee){
 		List<Tuteur> listeTriee = new ArrayList<Tuteur>();
 		int positionMax;
@@ -160,15 +170,15 @@ public class Tutorat  {
 			listeTriee.add(listeNonTriee.get(positionMax));
 			listeNonTriee.remove(positionMax);
 		}
-		
+
 		return listeTriee;
 	}
-	
+
 	/**
-	* Cette fonction calcule l'ï¿½cart entre 2 notes d'ï¿½tudiants
-	* elle retourne la distance tuteur, tutorï¿½.
-	 
-	*/
+	 * Cette fonction calcule l'ï¿½cart entre 2 notes d'ï¿½tudiants
+	 * elle retourne la distance tuteur, tutorï¿½.
+
+	 */
 	public static double calculDistance(Tuteur tuteur, Tutore tutore) {
 		double moyenneTuteur;
 		if(tuteur.getAnnee() == 3) {
@@ -178,9 +188,9 @@ public class Tutorat  {
 		}
 		return moyenneTuteur - tutore.getMoyenne();
 	}
-	
+
 	//* Elle retourne un tableau avec le nom du tuteur / tutorï¿½ ainsi que les ï¿½carts
-	
+
 	/*
 	public static List<Paire> genererPaires () {
 		List<Paire> paireCandidats = new ArrayList<Paire>();
@@ -190,14 +200,14 @@ public class Tutorat  {
 						listeTuteur.get(j).getPrenom(),
 						listeTutore.get(i).getPrenom(),
 						calculDistance(listeTuteur.get(j), listeTutore.get(i))));
-				
+
 			}
 		}
 		return paireCandidats;
 	}
-	
-	*/
-	
+
+	 */
+
 	public String paireToString() {
 		String retour = "";
 		for (int i = 0; i < this.listePaire.size(); i++) {
@@ -205,7 +215,7 @@ public class Tutorat  {
 		}
 		return retour;
 	}
-	
+
 	public void choixEnseignant() {
 		//TODO
 	}
@@ -223,7 +233,7 @@ public class Tutorat  {
 			System.out.println(this.listeTutore.get(i).getPrenom());
 			g.ajouterSommet(this.listeTutore.get(i).getPrenom());
 		}
-		
+
 		// Aretes
 		for(int i = 0; i < this.listePaire.size(); i++) {
 			System.out.println(this.listePaire.get(i).getTuteur() + " " + this.listePaire.get(i).getTutore() + " " + this.listePaire.get(i).getDistance());
@@ -233,7 +243,7 @@ public class Tutorat  {
 		}
 		return g;
 	}
-	
+
 	public List<String> getPrenomsTuteurs(){
 		List<String> prenomsTuteurs = new ArrayList<>();
 		for(int i = 0; i < listeTuteur.size(); i++) {
@@ -241,7 +251,7 @@ public class Tutorat  {
 		}
 		return prenomsTuteurs;
 	}
-	
+
 	public List<String> getPrenomsTutores(){
 		List<String> prenomsTutores = new ArrayList<>();
 		for(int i = 0; i < listeTutore.size(); i++) {
@@ -249,6 +259,6 @@ public class Tutorat  {
 		}
 		return prenomsTutores;
 	}
-	*/
+	 */
 }
 
