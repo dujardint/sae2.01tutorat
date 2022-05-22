@@ -10,10 +10,6 @@ public class Tutore extends Etudiant{
 	public void inscription() {
 	}
 	
-	public static void main(String[] args) {
-		//Tutore a1 = new Tutore("001", "Barthe", "Madelaine", 6.9);	
-	}
-
 	@Override
 	public int compareTo(Etudiant o) {
 

@@ -28,10 +28,7 @@ public abstract class Etudiant extends Utilisateur implements Comparable<Etudian
 		this.absences = absences;
 	}
 	
-	public int commapreTo(Etudiant etudiant) {
-		return 0;  
-	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(absences, annee, motivation, moyenne);
@@ -48,6 +45,14 @@ public abstract class Etudiant extends Utilisateur implements Comparable<Etudian
 		Etudiant other = (Etudiant) obj;
 		return absences == other.absences && annee == other.annee && motivation == other.motivation
 				&& Double.doubleToLongBits(moyenne) == Double.doubleToLongBits(other.moyenne);
+	}
+	
+	public int compareTo(Etudiant etudiant) {
+        return (int) (100*(etudiant.getMoyenne()));
+    }
+	
+	public int commapreTo(Etudiant etudiant) {
+		return (int) (100*(etudiant.getAnnee()));  
 	}
 
 	public abstract void inscription();
@@ -66,6 +71,20 @@ public abstract class Etudiant extends Utilisateur implements Comparable<Etudian
 
 	public void setAnnee( int annee) {
 		this.annee = annee;
+	}
+	
+	public int getAbsences() {
+		return absences;
+	}
+
+	public void setAbsences(int absences) {
+		this.absences = absences;
+	}
+	public char getMotivation() {
+		return motivation;
+	}
+	public void setMotivation(char motivation) {
+		this.motivation = motivation;
 	}
 
 	@Override

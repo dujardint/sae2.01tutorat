@@ -19,10 +19,6 @@ public class Enseignant extends Utilisateur {
 	
 	public void rejeterCandidatTutore() {
 	}
-	
-	public List<Ressources> getRessources() {
-		return ressources;
-	}
 
 	public void accepterTutore() {	 
 	}
@@ -31,6 +27,10 @@ public class Enseignant extends Utilisateur {
 	}
 	
 	public void accepterTuteur() {		 
+	}
+	
+	public List<Ressources> getRessources() {
+		return ressources;
 	}
 	
 	@Override

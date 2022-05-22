@@ -39,6 +39,24 @@ public class Tutorat  {
 			this.tutore = tutore;
 			this.distance = distance;
 		}
+		/*
+	    private void dispatchStudents(List<Etudiant> etudiant) {
+	        for (Etudiant s : etudiant) {
+	            addStudent(s);
+	        }
+	    }
+
+	    public boolean addStudent(Etudiant s) {
+	        if (this.tutore.contains(s) || this.tuteur.contains(s)) {
+	            return false;
+	        }
+	        if (s.getAnnee() == 1) {
+	            return this.tutore.add((Tutore) s);
+	        } else {
+	            return this.tuteur.add((Tuteur) s);
+	        }
+	    }*/
+
 		public String getTuteur() {
 			return tuteur;
 		}
@@ -57,6 +75,8 @@ public class Tutorat  {
 		public void setDistance(double distance) {
 			this.distance = distance;
 		}
+		
+		
 	}
 	/*public boolean addStudent(Etudiant e) {
 	        if (this.Tutore.contains(e) || this.tutors.contains(e)) {
@@ -98,6 +118,8 @@ public class Tutorat  {
 		}
 		return position;
 	}
+	
+	
 
 	private int getPositionMax(List<Tuteur> listeTuteur) {
 		int position = -1;
@@ -115,7 +137,8 @@ public class Tutorat  {
 		}
 		return position;
 	}
-
+	
+	 
 
 	public List<Tutore> triTutore (List<Tutore> listeNonTriee){
 		List<Tutore> listeTriee = new ArrayList<Tutore>();
