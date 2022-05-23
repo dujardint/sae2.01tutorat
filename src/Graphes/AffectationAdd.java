@@ -12,10 +12,7 @@ public class AffectationAdd {
 
 	public static void main(String[] args) {
 		GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
-		System.out.println("Graphe permettant l'affectation normale avec les Donn�esPourTester : ");
 		//System.out.println(g);
-
-		System.out.println("\n1ere annee :");
 		//1ÈRES ANNÉES
 		// On initialise le groupe des tutorés
 		ArrayList<Tutore> groupeTutore = new ArrayList<>();
@@ -59,13 +56,6 @@ public class AffectationAdd {
 		groupeTutore.add(new Tutore("tutore_", "Marine", "Roux", 9.1,nbAbscenceDefaut, annee, motivation)); 
 		groupeTutore.add(new Tutore("tutore_", "Aurore", "Schmitt", 9.9,nbAbscenceDefaut, annee, motivation)); 
 
-
-
-
-
-
-
-		System.out.println("\n2e et 3 annee :");
 		//2E et 3e ANNEE
 		ArrayList<Tuteur> groupeTuteur = new ArrayList<>();
 		groupeTuteur.add(new Tuteur("tuteur_","François","Bertin",13.3,nbAbscenceDefaut, second, motivation)); 
@@ -108,29 +98,26 @@ public class AffectationAdd {
 
 		while (demande) {
 
+			System.out.println("\nBienvenue dans l'application officiel de tutorat !\nQue voulez-vous faire ? ");
 
-			System.out.println(("0 pour quitter\n1 pour verifier la taille\n2 pour supprimer un candidat\n3 pour ajouter un tuteur\n4 pour ajouter un tutore\n5 pour calculer"));
-			int choix = scan.nextInt();
-			if(choix==0) {
+			System.out.println(("0 pour quitter\n1 pour verifier la taille\n2 pour supprimer un candidat\n3 pour ajouter un candidat (tuteur ou tutore) \n4 pour calculer"));
+			String choix = scan.nextLine();
+			if(choix.equals("0")) {
 				System.out.println("Vous avez demander la femeture du programme !");
 				demande=false;
 			}
-			if(choix==1) {
+			if(choix.equals("1")) {
 				System.out.println(etudiants.tailleEgale());
 			}
-			else if(choix==2){
+			else if(choix.equals("2")){
 				etudiants.supprimeCandidat();
 			}
-			else if(choix==3) {
-				Tutorat.ajoutTuteur();
+			else if(choix.equals("3")) {
+				Tutorat.ajoutCandidat();
 			}
-			else if(choix==4) {
-				Tutorat.ajoutTutore();
-			}
-			else if(choix==5){
+			else if(choix.equals("4")){
+				demande=false;
 				System.out.println("Vous avez decidé de ne rien modifier ! l'algo va s'executer !");
-		
-
 
 				for(int i=0; i<groupeTutore.size(); i++) {
 					g.ajouterSommet(groupeTutore.get(i).getPrenomNom());
@@ -179,6 +166,9 @@ public class AffectationAdd {
 
 				//System.out.println("triage des tuteur : \n" + etudiants.triTuteur(groupeTuteur));
 				//System.out.println("triage des tutore : \n" + etudiants.triTutore(groupeTutore));
+			}
+			else {
+				System.out.println("Nous n'avons pas compris votre choix, veuillez ressayer merci !");
 			}
 		}
 	}
