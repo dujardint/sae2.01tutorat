@@ -2,13 +2,13 @@ package appli;
 
 import java.util.Objects;
 
-public abstract class Etudiant extends Utilisateur implements Comparable<Etudiant>{
+public abstract class Etudiant extends Utilisateur implements Comparable<Etudiant>, CharSequence{
 	int annee;
 	double moyenne;
 	int absences;
 	char motivation;
 
-	public Etudiant(String identifiant, String prenom, String nom, double moyenne, int annee,int absences,char motivation) 
+	public Etudiant(String identifiant, String prenom, String nom, double moyenne,int absences, int annee,char motivation) 
 			throws IllegalArgumentException {
 		super(identifiant, prenom, identifiant);
 		if (moyenne < 0 || moyenne > 20) {
