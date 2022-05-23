@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.MonController">
+  <children>
+    <SplitPane dividerPositions="0.2505567928730512, 0.7583518930957683" focusTraversable="true" prefHeight="399.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
+      <items>
+        <AnchorPane>
+               <children>
+                  <ImageView fitHeight="102.0" fitWidth="97.0" layoutX="76.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Bureau/eleve.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="59.0" layoutY="25.0" text="détail de l'élève" />
+                  <TextArea fx:id="contenueEleve" editable="false" layoutX="27.0" layoutY="222.0" prefHeight="77.0" prefWidth="164.0" text="Thomas Dujardin&#10;1ère année&#10;9.8/20 de moyenne" />
+                  <Button layoutX="52.0" layoutY="342.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" text="A exclure" />
+               </children>
+        </AnchorPane>
+        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+          <content>
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
+              <children>
+                <Label alignment="CENTER" layoutX="14.0" layoutY="15.0" prefHeight="21.0" prefWidth="177.0" style="&#10;" text="Tutorer" textAlignment="CENTER" wrapText="false">
+                           <font>
+                      <Font size="18.0" fx:id="x1" />
+                           </font>
+                           <textFill>
+                      <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
+                           </textFill>
+                        </Label>
+                  <Label alignment="CENTER" font="$x1" layoutX="236.0" layoutY="15.0" prefHeight="21.0" prefWidth="194.0" style="&#10;" text="Tuteurs" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                        <HBox layoutY="49.0" prefHeight="384.0" prefWidth="436.0">
+                           <children>
+                              <ListView fx:id="listeEleves" prefHeight="200.0" prefWidth="200.0" />
+                              <ScrollBar orientation="VERTICAL" />
+                              <ScrollBar orientation="VERTICAL" />
+                              <ListView fx:id="listeTuteurs" prefHeight="384.0" prefWidth="208.0" />
+                           </children>
+                        </HBox>
+                        <TextField fx:id="rechercheTuteur" layoutX="38.0" layoutY="455.0" prefHeight="24.0" prefWidth="102.0" />
+                        <TextField layoutX="282.0" layoutY="455.0" prefHeight="24.0" prefWidth="102.0" />
+                        <Label layoutX="46.0" layoutY="433.0" text="Rechercher : " />
+                        <Label layoutX="289.0" layoutY="433.0" text="Rechercher : " />
+              </children>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+        <AnchorPane prefHeight="551.0" prefWidth="177.0">
+               <children>
+                  <Label layoutX="71.0" layoutY="27.0" text="détail du tuteur" />
+                  <ImageView fitHeight="102.0" fitWidth="69.0" layoutX="76.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Bureau/tuteur.png" />
+                     </image>
+                  </ImageView>
+                  <TextArea fx:id="contenuTuteur" editable="false" layoutX="20.0" layoutY="210.0" prefHeight="77.0" prefWidth="180.0" text="Francois Bertin&#10;3ème année&#10;13.3/20 de moyenne" />
+                  <Button layoutX="53.0" layoutY="334.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" text="A exclure" />
+               </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+    <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="102.0" prefWidth="900.0" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Pane prefHeight="120.0" prefWidth="894.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button layoutX="677.0" layoutY="29.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="186.0" text="Calculer les affectations" />
+                  <Button layoutX="356.0" layoutY="29.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="164.0" text="Affecter le couple" />
+                  <Button fx:id="monLabel" layoutX="33.0" layoutY="29.0" mnemonicParsing="false" onAction="#pressedButtonPlus" prefHeight="39.0" prefWidth="164.0" text="Quitter" />
+               </children>
+            </Pane>
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+  </children>
+</VBox>

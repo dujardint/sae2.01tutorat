@@ -119,11 +119,7 @@ public class Tutorat  {
 		return listeTriee;
 	}
 
-	/**
-	 * Cette fonction calcule l'ï¿½cart entre 2 notes d'ï¿½tudiants
-	 * elle retourne la distance tuteur, tutorï¿½.
 
-	 */
 	public static double calculDistance(Tuteur tuteur, Tutore tutore) {
 		double moyenneTuteur;
 		if(tuteur.getAnnee() == 3) {
@@ -194,7 +190,7 @@ public class Tutorat  {
 					System.out.println("il existe deja !!");	
 					return false;
 				}
-			}
+			
 				else {
 					System.out.println(nom);
 					for(int j=0; j<listeTuteur.size(); j++) {
@@ -208,12 +204,36 @@ public class Tutorat  {
 							return listeTutore.add(new Tutore("tutore_", nom, prenom, moyenne,nbAbsence, annee, motivation)); 
 						}
 					}
-					return true;
+					
 				}
-			}
+			}return true;
 	}
 
 
+
+				public static boolean ajoutTutore() {
+					Scanner scan = new Scanner(System.in);
+					System.out.println("Entre le nom pour ajouter un tuteur");
+					String nom = scan.nextLine();
+
+					System.out.println("Entre le prenom");
+					String prenom = scan.nextLine();
+
+					System.out.println("Entre la moyenne");
+					double moyenne = scan.nextDouble();
+
+					System.out.println("Entre le nombre d'abscence");
+					int nbAbsence = scan.nextInt();
+
+					System.out.println("Entre l'annee");
+					int annee = scan.nextInt();
+
+					System.out.println("Entre la motivation (+,-,=)");
+					char motivation = scan.next().charAt(0);
+
+					return listeTutore.add(new Tutore("tutore_", nom, prenom, moyenne,nbAbsence, annee, motivation)); 
+				}
+				
 
 				public static boolean ajoutTuteur() {
 					Scanner scan = new Scanner(System.in);
