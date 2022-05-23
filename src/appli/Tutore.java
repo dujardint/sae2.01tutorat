@@ -6,6 +6,7 @@ public class Tutore extends Etudiant{
         super(identifiant, prenom, nom, moyenne, absences, annee, motivation);
     }
 
+
 	@Override
 	public void inscription() {
 	}

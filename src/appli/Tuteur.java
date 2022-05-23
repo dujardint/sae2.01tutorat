@@ -1,5 +1,7 @@
 package appli;
 
+import java.util.Scanner;
+
 //import com.sun.tools.javac.launcher.Main;
 
 public class Tuteur extends Etudiant{
@@ -57,6 +59,15 @@ public class Tuteur extends Etudiant{
 		// TODO Auto-generated method stub
 		return this.prenom + "_" + this.nom;
 	}
+	
+	
+	
+
+	
+	
+	
+	
+	
 	
 
 

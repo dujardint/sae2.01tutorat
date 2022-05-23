@@ -2,6 +2,7 @@ package appli;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue;
 
@@ -144,5 +145,121 @@ public class Tutorat  {
 	public void choixEnseignant() {
 		//TODO
 	}
-}
+
+
+	public boolean tailleEgale() {
+		while(listeTuteur.size()!=listeTutore.size()) {
+			if((listeTuteur.size()>listeTutore.size())){
+				System.out.println("\ntaille tuteur " + listeTuteur.size());
+				System.out.println("taille tutore " + listeTutore.size()+"\n");
+				System.out.println("il y a plus de tuteur que de tutore !");
+				Tutorat.ajoutTutore();
+			}
+			else {
+				System.out.println("\ntaille tuteur " + listeTuteur.size());
+				System.out.println("taille tutore " + listeTutore.size()+"\n");
+				System.out.println("il y a plus de tutore que de tuteur !");
+				Tutorat.ajoutTuteur();
+			}
+		}
+		return true;
+	}
+
+
+
+
+
+	public static boolean ajoutCandidat() {
+
+
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Entre le nom pour ajouter un tutore");
+		String nom = scan.nextLine();
+		System.out.println("Entre le prenom");
+		String prenom = scan.nextLine();
+		nom=  nom + "_" + prenom;
+		
+		System.out.println("Entre la moyenne");
+		double moyenne = scan.nextDouble();
+		System.out.println("Entre le nombre d'abscence");
+		int nbAbsence = scan.nextInt();
+		System.out.println("Entre l'annee");
+		int annee = scan.nextInt();
+		System.out.println("Entre la motivation (+,-,=)");
+		char motivation = scan.next().charAt(0);
+
+		if(annee==1) {
+			for(int i=0; i<listeTutore.size(); i++) {
+				if(nom.equals(listeTutore.get(i).getPrenomNom())){
+					System.out.println("il existe deja !!");	
+					return false;
+				}
+			}
+				else {
+					System.out.println(nom);
+					for(int j=0; j<listeTuteur.size(); j++) {
+
+						if(nom.equals(listeTuteur.get(j).getPrenomNom())){
+							System.out.println("il existe deja !!");	
+							listeTuteur.add(new Tuteur("tutore_", nom, prenom, moyenne, nbAbsence, annee, motivation));
+							return false;
+
+
+							return listeTutore.add(new Tutore("tutore_", nom, prenom, moyenne,nbAbsence, annee, motivation)); 
+						}
+					}
+					return true;
+				}
+			}
+	}
+
+
+
+				public static boolean ajoutTuteur() {
+					Scanner scan = new Scanner(System.in);
+					System.out.println("Entre le nom pour ajouter un tuteur");
+					String nom = scan.nextLine();
+
+					System.out.println("Entre le prenom");
+					String prenom = scan.nextLine();
+
+					System.out.println("Entre la moyenne");
+					double moyenne = scan.nextDouble();
+
+					System.out.println("Entre le nombre d'abscence");
+					int nbAbsence = scan.nextInt();
+
+					System.out.println("Entre l'annee");
+					int annee = scan.nextInt();
+
+					System.out.println("Entre la motivation (+,-,=)");
+					char motivation = scan.next().charAt(0);
+
+					return listeTuteur.add(new Tuteur("tuteur_", nom, prenom, moyenne,nbAbsence, annee, motivation)); 
+				}
+
+
+
+				public boolean supprimeCandidat() {
+					Scanner scan = new Scanner(System.in);
+					System.out.println("Entre le nom pour le supprimer");
+					String nom = scan.nextLine();
+
+					System.out.println("Entre le prenom pour le supprimer");
+					String prenom = scan.nextLine();
+
+					nom = prenom+"_"+nom;
+
+					for(int i=0; i<listeTuteur.size(); i++) {
+						if(nom.equals(listeTuteur.get(i).getPrenomNom())){
+							listeTuteur.remove(i);
+							tailleEgale();
+						}
+					}
+					return true;
+				}
+
+
+
+			}
 
