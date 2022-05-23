@@ -8,7 +8,7 @@ public class Tuteur extends Etudiant{
 			throws IllegalArgumentException {
 		super(identifiant, prenom, nom, moyenne,motivation, annee, motivation);
 		if (annee == 1) {
-			throw new IllegalArgumentException("Le tuteur ne peux pas etre en premiËre annÈe");
+			throw new IllegalArgumentException("Le tuteur ne peux pas etre en premiÔøΩre annÔøΩe");
 		} else if (annee >= 2) {
 			this.annee = annee;
 		}
@@ -44,6 +44,18 @@ public class Tuteur extends Etudiant{
 	public CharSequence subSequence(int start, int end) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public static void main(String[] args) {
+	   Tuteur t1 = new Tuteur("tuteur_","Fran√ßois","Bertin",13.3,1, 2, '+');
+	   System.out.println(t1);
+	   System.out.println(t1.getPrenomNom());
+	}
+
+
+	public String getPrenomNom() {
+		// TODO Auto-generated method stub
+		return this.prenom + "_" + this.nom;
 	}
 	
 

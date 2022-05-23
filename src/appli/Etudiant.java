@@ -10,7 +10,7 @@ public abstract class Etudiant extends Utilisateur implements Comparable<Etudian
 
 	public Etudiant(String identifiant, String prenom, String nom, double moyenne,int absences, int annee,char motivation) 
 			throws IllegalArgumentException {
-		super(identifiant, prenom, identifiant);
+		super(identifiant, prenom, nom);
 		if (moyenne < 0 || moyenne > 20) {
 			throw new IllegalArgumentException("La moyenne doit etre comprit entre 0 et 20");
 		} else {

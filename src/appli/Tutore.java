@@ -34,5 +34,10 @@ public class Tutore extends Etudiant{
 		return null;
 	}
 
+	public String getPrenomNom() {
+		
+		return this.prenom +"_"+this.nom;
+	}
+
 	
 }

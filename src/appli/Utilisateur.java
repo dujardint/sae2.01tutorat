@@ -13,7 +13,13 @@ public class Utilisateur {
 
 	@Override
 	public String toString() {
-		return "Utilisateur [identifiant=" + identifiant + ", nom=" + nom + ", prenom=" + prenom + "]";
+		return this.prenom + "_" + this.nom;
 	}
+	
+	public static void main(String[] args) {
+		   Tuteur t1 = new Tuteur("tuteur_","François","Bertin",13.3,1, 2, '+');
+		   System.out.println(t1);
+		   System.out.println(t1.getPrenomNom());
+		}
 
 }
