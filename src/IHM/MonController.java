@@ -34,16 +34,20 @@ public class MonController {
 	TextArea contenuTutore;
 	@FXML
 	TextArea contenuTuteur;
+	@FXML
+	TextArea boxCouple;
 
 	public void initialize() {
 		System.out.println("Initialisation...");
-		listeTutore.getItems().addAll("1","2","3","4","5","6","7");
-		listeTuteur.getItems().addAll("1","2","3","4","5","6","7");
+		listeTutore.getItems().addAll("Claude","Madeleine","Sabine","Hugues","Lucas","Alexandria","Anouk");
+		listeTuteur.getItems().addAll("Hortense","David","Martin","Thomas","Guy","Emile","Guillaume");
 		rechercheTuteur.getAccessibleText();
 
 		listeTutore.getSelectionModel().getSelectedItems().addListener(new MonListChangeListener());
 
 		listeTuteur.getSelectionModel().getSelectedItems().addListener(new MonListChangeListener2());
+		
+		listeTutorat.getSelectionModel().getSelectedItems().addListener(new MonListChangeListener3());
 
 	}
 
@@ -56,6 +60,12 @@ public class MonController {
 	class MonListChangeListener2 implements ListChangeListener<String> {
 		public void onChanged(Change<? extends String> report) {
 			contenuTuteur.setText(""+ report.getList());
+		}
+	}
+	
+	class MonListChangeListener3 implements ListChangeListener<String> {
+		public void onChanged(Change<? extends String> report) {
+			boxCouple.setText(""+ report.getList());
 		}
 	}
 
@@ -78,6 +88,30 @@ public class MonController {
 		}
 
 	}
+
+	
+	public void pressedButtonSuppriner(ActionEvent event) {	
+		//si rien selectionner on alerte l'utilisateur
+		
+		int idx = 0;
+		
+		for(int i =0 ; i<boxCouple.getText().length();i++) {
+			if(boxCouple.getText().charAt(i)== '-') {
+				idx = i;
+			}
+		}
+		
+		
+		
+			//ajout des 2 personnes dans la liste tutorat   			//on prend substring pour pas prendre les crochet [...]
+			listeTutore.getItems().add(boxCouple.getText().substring(1,idx));
+			listeTuteur.getItems().add(boxCouple.getText().substring(idx+2, boxCouple.getText().length()-1));
+			//suppression des 2 personnes dans les listes d'origines
+			listeTutorat.getItems().remove(boxCouple.getText().substring(1, boxCouple.getText().length()-1));
+			
+		}
+
+
 
 	public void pressedButtonExclureTutore(ActionEvent event) {
 		listeTutore.getItems().remove(contenuTutore.getText().substring(1, contenuTutore.getText().length()-1));

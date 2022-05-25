@@ -65,9 +65,9 @@
                   <Button fx:id="exclureTutore" layoutX="52.0" layoutY="342.0" mnemonicParsing="false" onAction="#pressedButtonExclureTutore" prefHeight="39.0" prefWidth="115.0" text="A exclure" />
                </children>
         </AnchorPane>
-        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+        <ScrollPane prefHeight="485.0" prefWidth="439.0">
           <content>
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="496.0" prefWidth="436.0">
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="483.0" prefWidth="422.0">
               <children>
                 <Label alignment="CENTER" layoutX="1.0" layoutY="15.0" prefHeight="27.0" prefWidth="137.0" style="&#10;" text="Tutoré" textAlignment="CENTER" wrapText="false">
                            <font>
@@ -78,17 +78,17 @@
                            </textFill>
                         </Label>
                   <Label alignment="CENTER" font="$x1" layoutX="315.0" layoutY="15.0" prefHeight="27.0" prefWidth="135.0" style="&#10;" text="Tuteurs" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                        <HBox layoutY="49.0" prefHeight="384.0" prefWidth="450.0">
+                        <HBox layoutY="49.0" prefHeight="321.0" prefWidth="450.0">
                            <children>
-                              <ListView fx:id="listeTutore" prefHeight="384.0" prefWidth="141.0" />
-                              <ListView fx:id="listeTutorat" prefHeight="384.0" prefWidth="176.0" />
-                              <ListView fx:id="listeTuteur" prefHeight="384.0" prefWidth="140.0" />
+                              <ListView fx:id="listeTutore" prefHeight="345.0" prefWidth="142.0" />
+                              <ListView fx:id="listeTutorat" prefHeight="336.0" prefWidth="174.0" />
+                              <ListView fx:id="listeTuteur" prefHeight="322.0" prefWidth="117.0" />
                            </children>
                         </HBox>
-                        <TextField fx:id="rechercheTuteur" layoutX="21.0" layoutY="455.0" prefHeight="24.0" prefWidth="102.0" />
-                        <TextField layoutX="334.0" layoutY="455.0" prefHeight="24.0" prefWidth="102.0" />
-                        <Label layoutX="38.0" layoutY="433.0" text="Rechercher : " />
-                        <Label layoutX="350.0" layoutY="433.0" text="Rechercher : " />
+                        <TextField fx:id="rechercheTuteur" layoutX="18.0" layoutY="420.0" prefHeight="24.0" prefWidth="102.0" />
+                        <TextField layoutX="331.0" layoutY="420.0" prefHeight="24.0" prefWidth="102.0" />
+                        <Label layoutX="35.0" layoutY="386.0" text="Rechercher : " />
+                        <Label layoutX="348.0" layoutY="386.0" text="Rechercher : " />
                         <Label alignment="CENTER" layoutX="139.0" layoutY="15.0" prefHeight="27.0" prefWidth="174.0" style="&#10;" text="Tutorat" textAlignment="CENTER" wrapText="false">
                            <font>
                               <Font size="18.0" fx:id="x11" />
@@ -97,11 +97,12 @@
                               <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
                            </textFill>
                         </Label>
+                        <TextArea fx:id="boxCouple" layoutX="150.0" layoutY="385.0" prefHeight="84.0" prefWidth="156.0" text="Selectionner un couple pour afficher ses détails" wrapText="true" />
               </children>
             </AnchorPane>
           </content>
         </ScrollPane>
-        <AnchorPane prefHeight="551.0" prefWidth="177.0">
+        <AnchorPane prefHeight="495.0" prefWidth="215.0">
                <children>
                   <Label layoutX="71.0" layoutY="27.0" text="détail du tuteur" />
                   <ImageView fitHeight="102.0" fitWidth="69.0" layoutX="76.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
@@ -117,11 +118,12 @@
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="102.0" prefWidth="900.0" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-        <Pane prefHeight="120.0" prefWidth="894.0" HBox.hgrow="ALWAYS">
+        <Pane prefHeight="113.0" prefWidth="906.0" HBox.hgrow="ALWAYS">
                <children>
                   <Button layoutX="677.0" layoutY="29.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="186.0" text="Calculer les affectations" />
-                  <Button fx:id="affecter" layoutX="356.0" layoutY="29.0" mnemonicParsing="false" onAction="#pressedButtonAffecter" prefHeight="39.0" prefWidth="164.0" text="Affecter le couple" />
+                  <Button fx:id="affecter" layoutX="241.0" layoutY="29.0" mnemonicParsing="false" onAction="#pressedButtonAffecter" prefHeight="39.0" prefWidth="164.0" text="Affecter le couple" />
                   <Button fx:id="quitter" layoutX="33.0" layoutY="29.0" mnemonicParsing="false" onAction="#pressedButtonQuitter" prefHeight="39.0" prefWidth="164.0" text="Quitter" />
+                  <Button fx:id="affecter2" layoutX="467.0" layoutY="28.0" mnemonicParsing="false" onAction="#pressedButtonSuppriner" prefHeight="39.0" prefWidth="164.0" text="Supprimer couple" />
                </children>
             </Pane>
       </children>
