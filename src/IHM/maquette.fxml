@@ -97,7 +97,7 @@
                               <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
                            </textFill>
                         </Label>
-                        <TextArea fx:id="boxCouple" layoutX="150.0" layoutY="385.0" prefHeight="84.0" prefWidth="156.0" text="Selectionner un couple pour afficher ses détails" wrapText="true" />
+                        <TextArea fx:id="boxCouple" editable="false" layoutX="150.0" layoutY="385.0" prefHeight="84.0" prefWidth="156.0" text="Selectionner un couple pour afficher ses détails" wrapText="true" />
               </children>
             </AnchorPane>
           </content>
