@@ -120,7 +120,7 @@
       <children>
         <Pane prefHeight="113.0" prefWidth="906.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button layoutX="677.0" layoutY="29.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="186.0" text="Calculer les affectations" />
+                  <Button fx:id="calculer" layoutX="677.0" layoutY="29.0" mnemonicParsing="false" onAction="#pressedButtonCalculer" prefHeight="39.0" prefWidth="186.0" text="Calculer les affectations" />
                   <Button fx:id="affecter" layoutX="241.0" layoutY="29.0" mnemonicParsing="false" onAction="#pressedButtonAffecter" prefHeight="39.0" prefWidth="164.0" text="Affecter le couple" />
                   <Button fx:id="quitter" layoutX="33.0" layoutY="29.0" mnemonicParsing="false" onAction="#pressedButtonQuitter" prefHeight="39.0" prefWidth="164.0" text="Quitter" />
                   <Button fx:id="affecter2" layoutX="467.0" layoutY="28.0" mnemonicParsing="false" onAction="#pressedButtonSuppriner" prefHeight="39.0" prefWidth="164.0" text="Supprimer couple" />
