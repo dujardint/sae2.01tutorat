@@ -49,27 +49,30 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.MonController">
+<VBox prefHeight="823.0" prefWidth="1226.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.MonController">
   <children>
-    <SplitPane dividerPositions="0.2505567928730512, 0.7583518930957683" focusTraversable="true" prefHeight="399.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.2505567928730512, 0.7583518930957683" focusTraversable="true" prefHeight="498.0" prefWidth="924.0" VBox.vgrow="ALWAYS">
       <items>
         <AnchorPane>
                <children>
-                  <ImageView fitHeight="102.0" fitWidth="97.0" layoutX="76.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+                  <Label layoutX="84.0" layoutY="25.0" text="détail du tutoré" />
+                  <TextArea fx:id="contenuTutore" editable="false" layoutX="38.0" layoutY="423.0" prefHeight="102.0" prefWidth="229.0" text="Selectionner un tutore pour afficher ses détails" wrapText="true" />
+                  <Button fx:id="exclureTutore" layoutX="67.0" layoutY="591.0" mnemonicParsing="false" onAction="#pressedButtonExclureTutore" prefHeight="65.0" prefWidth="136.0" style="-fx-background-color: #ae2573;" text="A exclure" textFill="#f5f0f0">
+                     <font>
+                        <Font name="Caladea" size="16.0" />
+                     </font></Button>
+                  <ImageView fitHeight="117.0" fitWidth="87.0" layoutX="95.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Bureau/eleve.png" />
+                        <Image url="@../../../../../../../Téléchargements/eleve.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="59.0" layoutY="25.0" text="détail du tutoré" />
-                  <TextArea fx:id="contenuTutore" editable="false" layoutX="27.0" layoutY="222.0" prefHeight="77.0" prefWidth="164.0" text="Selectionner un tutore pour afficher ses détails" wrapText="true" />
-                  <Button fx:id="exclureTutore" layoutX="52.0" layoutY="342.0" mnemonicParsing="false" onAction="#pressedButtonExclureTutore" prefHeight="39.0" prefWidth="115.0" text="A exclure" />
                </children>
         </AnchorPane>
         <ScrollPane prefHeight="485.0" prefWidth="439.0">
           <content>
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="483.0" prefWidth="422.0">
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="719.0" prefWidth="613.0">
               <children>
-                <Label alignment="CENTER" layoutX="1.0" layoutY="15.0" prefHeight="27.0" prefWidth="137.0" style="&#10;" text="Tutoré" textAlignment="CENTER" wrapText="false">
+                <Label alignment="CENTER" layoutX="53.0" layoutY="15.0" prefHeight="27.0" prefWidth="137.0" style="&#10;" text="Tutoré" textAlignment="CENTER" wrapText="false">
                            <font>
                       <Font size="18.0" fx:id="x1" />
                            </font>
@@ -77,19 +80,19 @@
                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
                            </textFill>
                         </Label>
-                  <Label alignment="CENTER" font="$x1" layoutX="315.0" layoutY="15.0" prefHeight="27.0" prefWidth="135.0" style="&#10;" text="Tuteurs" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                        <HBox layoutY="49.0" prefHeight="321.0" prefWidth="450.0">
+                  <Label alignment="CENTER" font="$x1" layoutX="441.0" layoutY="15.0" prefHeight="27.0" prefWidth="135.0" style="&#10;" text="Tuteurs" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                        <HBox layoutY="49.0" prefHeight="556.0" prefWidth="615.0">
                            <children>
-                              <ListView fx:id="listeTutore" prefHeight="345.0" prefWidth="142.0" />
-                              <ListView fx:id="listeTutorat" prefHeight="336.0" prefWidth="174.0" />
-                              <ListView fx:id="listeTuteur" prefHeight="322.0" prefWidth="117.0" />
+                              <ListView fx:id="listeTutore" prefHeight="556.0" prefWidth="200.0" />
+                              <ListView fx:id="listeTutorat" prefHeight="556.0" prefWidth="246.0" />
+                              <ListView fx:id="listeTuteur" prefHeight="556.0" prefWidth="212.0" />
                            </children>
                         </HBox>
-                        <TextField fx:id="rechercheTuteur" layoutX="18.0" layoutY="420.0" prefHeight="24.0" prefWidth="102.0" />
-                        <TextField layoutX="331.0" layoutY="420.0" prefHeight="24.0" prefWidth="102.0" />
-                        <Label layoutX="35.0" layoutY="386.0" text="Rechercher : " />
-                        <Label layoutX="348.0" layoutY="386.0" text="Rechercher : " />
-                        <Label alignment="CENTER" layoutX="139.0" layoutY="15.0" prefHeight="27.0" prefWidth="174.0" style="&#10;" text="Tutorat" textAlignment="CENTER" wrapText="false">
+                        <TextField fx:id="rechercheTuteur" layoutX="19.0" layoutY="655.0" prefHeight="24.0" prefWidth="102.0" />
+                        <TextField layoutX="468.0" layoutY="655.0" prefHeight="24.0" prefWidth="102.0" />
+                        <Label layoutX="26.0" layoutY="621.0" text="Rechercher : " />
+                        <Label layoutX="475.0" layoutY="613.0" text="Rechercher : " />
+                        <Label alignment="CENTER" layoutX="221.0" layoutY="15.0" prefHeight="27.0" prefWidth="174.0" style="&#10;" text="Tutorat" textAlignment="CENTER" wrapText="false">
                            <font>
                               <Font size="18.0" fx:id="x11" />
                            </font>
@@ -97,21 +100,24 @@
                               <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
                            </textFill>
                         </Label>
-                        <TextArea fx:id="boxCouple" editable="false" layoutX="150.0" layoutY="385.0" prefHeight="84.0" prefWidth="156.0" text="Selectionner un couple pour afficher ses détails" wrapText="true" />
+                        <TextArea fx:id="boxCouple" editable="false" layoutX="175.0" layoutY="613.0" prefHeight="84.0" prefWidth="236.0" text="Selectionner un couple pour afficher ses détails" wrapText="true" />
               </children>
             </AnchorPane>
           </content>
         </ScrollPane>
-        <AnchorPane prefHeight="495.0" prefWidth="215.0">
+        <AnchorPane prefHeight="512.0" prefWidth="232.0">
                <children>
-                  <Label layoutX="71.0" layoutY="27.0" text="détail du tuteur" />
-                  <ImageView fitHeight="102.0" fitWidth="69.0" layoutX="76.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+                  <Label layoutX="96.0" layoutY="26.0" text="détail du tuteur" />
+                  <TextArea fx:id="contenuTuteur" editable="false" layoutX="41.0" layoutY="433.0" prefHeight="102.0" prefWidth="215.0" text="Selectionner un tuteur pour afficher ses détails." wrapText="true" />
+                  <Button fx:id="exclureTuteur" layoutX="88.0" layoutY="595.0" mnemonicParsing="false" onAction="#pressedButtonExclureTuteur" prefHeight="65.0" prefWidth="145.0" style="-fx-background-color: #ae2573;" text="A exclure" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Button>
+                  <ImageView fitHeight="129.0" fitWidth="87.0" layoutX="117.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Bureau/tuteur.png" />
+                        <Image url="@../../../../../../../Téléchargements/tuteur.png" />
                      </image>
                   </ImageView>
-                  <TextArea fx:id="contenuTuteur" editable="false" layoutX="20.0" layoutY="210.0" prefHeight="77.0" prefWidth="180.0" text="Selectionner un tuteur pour afficher ses détails." wrapText="true" />
-                  <Button fx:id="exclureTuteur" layoutX="53.0" layoutY="334.0" mnemonicParsing="false" onAction="#pressedButtonExclureTuteur" prefHeight="39.0" prefWidth="115.0" text="A exclure" />
                </children>
         </AnchorPane>
       </items>
@@ -120,10 +126,10 @@
       <children>
         <Pane prefHeight="113.0" prefWidth="906.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="calculer" layoutX="677.0" layoutY="29.0" mnemonicParsing="false" onAction="#pressedButtonCalculer" prefHeight="39.0" prefWidth="186.0" text="Calculer les affectations" />
-                  <Button fx:id="affecter" layoutX="241.0" layoutY="29.0" mnemonicParsing="false" onAction="#pressedButtonAffecter" prefHeight="39.0" prefWidth="164.0" text="Affecter le couple" />
-                  <Button fx:id="quitter" layoutX="33.0" layoutY="29.0" mnemonicParsing="false" onAction="#pressedButtonQuitter" prefHeight="39.0" prefWidth="164.0" text="Quitter" />
-                  <Button fx:id="affecter2" layoutX="467.0" layoutY="28.0" mnemonicParsing="false" onAction="#pressedButtonSuppriner" prefHeight="39.0" prefWidth="164.0" text="Supprimer couple" />
+                  <Button fx:id="calculer" layoutX="951.0" layoutY="28.0" mnemonicParsing="false" onAction="#pressedButtonCalculer" prefHeight="39.0" prefWidth="186.0" text="Calculer les affectations" />
+                  <Button fx:id="affecter" layoutX="348.0" layoutY="28.0" mnemonicParsing="false" onAction="#pressedButtonAffecter" prefHeight="39.0" prefWidth="164.0" text="Affecter le couple" />
+                  <Button fx:id="quitter" layoutX="33.0" layoutY="29.0" mnemonicParsing="false" onAction="#pressedButtonQuitter" prefHeight="39.0" prefWidth="164.0" text="Quitter" textFill="#525266" />
+                  <Button fx:id="affecter2" layoutX="684.0" layoutY="29.0" mnemonicParsing="false" onAction="#pressedButtonSuppriner" prefHeight="39.0" prefWidth="164.0" text="Supprimer couple" />
                </children>
             </Pane>
       </children>

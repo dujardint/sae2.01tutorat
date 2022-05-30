@@ -1,6 +1,7 @@
 package IHM;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import appli.Tuteur;
@@ -119,8 +120,8 @@ public class MonController {
 
 	public void pressedButtonAffecter(ActionEvent event) {	
 		//si rien selectionner on alerte l'utilisateur
-		if(contenuTutore.getText().equals("Selectionner un tutore pour afficher ses détails") || 
-				contenuTuteur.getText().equals("Selectionner un tuteur pour afficher ses détails.") ||
+		if(contenuTutore.getText().equals("Selectionner un tutore pour afficher ses dï¿½tails") || 
+				contenuTuteur.getText().equals("Selectionner un tuteur pour afficher ses dï¿½tails.") ||
 				contenuTuteur.getText().isBlank() ||
 				contenuTutore.getText().isBlank() ||
 				contenuTutore.getText().equals(contenuTuteur.getText())){
@@ -166,7 +167,7 @@ public class MonController {
 
 	public void pressedButtonSuppriner(ActionEvent event) {	
 		//si rien selectionner on alerte l'utilisateur
-		if((boxCouple.getText().equals(("Selectionner un couple pour afficher ses détails"))) || 
+		if((boxCouple.getText().equals(("Selectionner un couple pour afficher ses dÃ©tails"))) || 
 				(boxCouple.getText().equals(("[]")) ||
 						(boxCouple.getText().isBlank()))){
 			Alert alert = new Alert(AlertType.ERROR, "selectionner un couple d'etudiants pour les supprimer !", ButtonType.OK);
@@ -243,13 +244,28 @@ public class MonController {
 
 
 	public void pressedButtonCalculer(ActionEvent event) {
+		
+		
+		//suppression listes des etud
+		
+		//suppression des 2 personnes dans les listes d'origines
+
+			//	groupeTutore.clear();
+
+		
+
+		
+		
+		
 		GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
 		System.out.println("\ntaille tuteur " + groupeTuteur.size());
 		System.out.println("taille tutore " + groupeTutore.size()+"\n");
+		
 		for(int i=0; i<groupeTutore.size(); i++) {
 			g.ajouterSommet(groupeTutore.get(i).getPrenomNom());
 			System.out.println(groupeTutore.get(i).getPrenomNom() + " ajouter a la liste sommet");
 		}
+		
 		
 		for(int i=0; i<groupeTuteur.size(); i++) {
 			g.ajouterSommet(groupeTuteur.get(i).getPrenomNom());
@@ -289,25 +305,15 @@ public class MonController {
 			
 			//System.out.println("Cette tÃ¢che prendra "+g.getPoids(c.getAffectation().get(i).getExtremite1(),g.getAffectation().get(i).getExtremite2()) +" jours ");
 		}
+	
+		listeTutore.getItems().clear();
+		listeTuteur.getItems().clear();
+		groupeTutore.clear();
+		groupeTuteur.clear();
 
 		System.out.println("\nL'affectation est terminÃ© !!");
 
-		
-		
-		
-		
-		
 	}
-
-
-
-
-
-
-
-
-
-
 
 
 	public void pressedButtonQuitter(ActionEvent event) {
