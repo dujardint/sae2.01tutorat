@@ -222,6 +222,61 @@ public class Tutorat  {
 		}
 		return true;
 	}
+	
+	public boolean vuTuteur() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Entre le nom");
+		String nom = scan.nextLine();
+		
+		System.out.println("Entre le prenom");
+		String prenom = scan.nextLine();
+		
+		nom = nom+"_"+prenom;
+		boolean trouve = false;
+		for(int i=0; i<listeTuteur.size(); i++) {
+			if(nom.equals(listeTuteur.get(i).getPrenomNom())){
+				//listeTuteur.remove(i);
+				System.out.println("annee :" + listeTuteur.get(i).getAnnee());
+				System.out.println("abs :" + listeTuteur.get(i).absences);
+				System.out.println("motivation :" + listeTuteur.get(i).motivation);
+				System.out.println("moy :" + listeTuteur.get(i).moyenne);
+				trouve = true;
+			}
+		}
+		if(!trouve) {
+			System.out.println("le tuteur n'est pas dans la liste");
+		}
+			
+		return true;
+	}
+	
+	public boolean vuTutore() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Entre le nom");
+		String nom = scan.nextLine();
+		
+		System.out.println("Entre le prenom");
+		String prenom = scan.nextLine();
+		
+		nom = nom+"_"+prenom;
+		boolean trouve = false;
+		for(int i=0; i<listeTutore.size(); i++) {
+			if(nom.equals(listeTutore.get(i).getPrenomNom())){
+				//listeTuteur.remove(i);
+				System.out.println("annee :" + listeTutore.get(i).getAnnee());
+				System.out.println("abs :" + listeTutore.get(i).absences);
+				System.out.println("motivation :" + listeTutore.get(i).motivation);
+				System.out.println("moy :" + listeTutore.get(i).moyenne);
+				trouve = true;
+			}
+		}
+		if(!trouve) {
+			System.out.println("le tutore n'est pas dans la liste");
+		}
+
+		return true;
+		
+	}
 
 }
 

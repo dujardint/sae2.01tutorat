@@ -1,4 +1,4 @@
-package Graphes;
+package dev;
 
 import fr.ulille.but.sae2_02.graphes.CalculAffectation ;
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue ;
@@ -8,7 +8,7 @@ import appli.Tuteur;
 import appli.Tutorat;
 import appli.Tutore;
 
-public class AffectationAdd {
+public class Senario {
 
 	public static void main(String[] args) {
 		GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
@@ -16,7 +16,7 @@ public class AffectationAdd {
 		//1ÈRES ANNÉES
 		// On initialise le groupe des tutorés
 		ArrayList<Tutore> groupeTutore = new ArrayList<>();
-
+		ArrayList<Tutore> affectation = new ArrayList<>();
 		int nbAbscenceDefaut = 1;
 		int annee = 1;
 		char motivation = '+';  //+ - ou =
@@ -100,13 +100,13 @@ public class AffectationAdd {
 
 			System.out.println("\nBienvenue dans l'application officiel de tutorat !\nQue voulez-vous faire ? ");
 
-			System.out.println(("0 pour quitter\n1 pour verifier la taille\n2 pour supprimer un candidat\n3 pour ajouter un candidat (tuteur ou tutore) \n4 pour calculer"));
+			System.out.println(("0 pour quitter\n1 pour verifier la taille\n2 pour supprimer un candidat\n3 pour ajouter un candidat (tuteur ou tutore) \n4 pour calculer \n5 pour voir un tuteur \n6 pour voir un tutore"));
 			String choix = scan.nextLine();
 			if(choix.equals("0")) {
 				System.out.println("Vous avez demander la femeture du programme !");
 				demande=false;
 			}
-			if(choix.equals("1")) {
+			else if(choix.equals("1")) {
 				System.out.println(etudiants.tailleEgale());
 			}
 			else if(choix.equals("2")){
@@ -116,7 +116,7 @@ public class AffectationAdd {
 				Tutorat.ajoutCandidat();
 			}
 			else if(choix.equals("4")){
-				demande=false;
+				//demande=false;
 				System.out.println("Vous avez decidé de ne rien modifier ! l'algo va s'executer !");
 
 				for(int i=0; i<groupeTutore.size(); i++) {
@@ -158,6 +158,8 @@ public class AffectationAdd {
 				//System.out.println(c.getAffectation());
 				for (int i=0;i<groupeTutore.size();i++) {
 					System.out.println(c.getAffectation().get(i).getExtremite1()+ " doit se mettre avec "+c.getAffectation().get(i).getExtremite2());
+					String res = c.getAffectation().get(i).getExtremite1()+ " doit se mettre avec "+c.getAffectation().get(i).getExtremite2();
+					
 					//System.out.println("Cette tâche prendra "+g.getPoids(c.getAffectation().get(i).getExtremite1(),g.getAffectation().get(i).getExtremite2()) +" jours ");
 				}
 
@@ -167,9 +169,20 @@ public class AffectationAdd {
 				//System.out.println("triage des tuteur : \n" + etudiants.triTuteur(groupeTuteur));
 				//System.out.println("triage des tutore : \n" + etudiants.triTutore(groupeTutore));
 			}
+			else if(choix.equals("5")) {
+				etudiants.vuTuteur();
+			}
+			else if(choix.equals("6")) {
+				etudiants.vuTutore();
+				
+			}else if(choix.equals("7")) {
+				
+			}
+			
 			else {
 				System.out.println("Nous n'avons pas compris votre choix, veuillez ressayer merci !");
 			}
+			
 		}
 	}
 }
