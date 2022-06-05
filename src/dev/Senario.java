@@ -98,9 +98,9 @@ public class Senario {
 
 		while (demande) {
 
-			System.out.println("\nBienvenue dans l'application officiel de tutorat !\nQue voulez-vous faire ? ");
+			System.out.println("\nBienvenue dans l'application officielle de tutorat !\nQue voulez-vous faire ? ");
 
-			System.out.println(("0 pour quitter\n1 pour verifier la taille\n2 pour supprimer un candidat\n3 pour ajouter un candidat (tuteur ou tutore) \n4 pour calculer \n5 pour voir un tuteur \n6 pour voir un tutore"));
+			System.out.println(("0 pour quitter\n1 pour vérifier la taille\n2 pour supprimer un candidat\n3 pour ajouter un candidat (tuteur ou tutore) \n4 pour calculer \n5 pour voir un tuteur \n6 pour voir un tutoré"));
 			String choix = scan.nextLine();
 			if(choix.equals("0")) {
 				System.out.println("Vous avez demander la femeture du programme !");

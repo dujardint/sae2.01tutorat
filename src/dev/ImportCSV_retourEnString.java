@@ -13,7 +13,7 @@ import appli.Tutore;
 import fr.ulille.but.sae2_02.graphes.CalculAffectation;
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue;
 
-public class ImportCSV {
+public class ImportCSV_retourEnString {
 
 	static String myPath =  System.getProperty("user.dir") + File.separator + "res" + File.separator;
 	static String sourceFileTutore = "tutore.csv";

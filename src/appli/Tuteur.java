@@ -21,12 +21,6 @@ public class Tuteur extends Etudiant{
 	public void inscription() {
 
 	}
-	
-	@Override
-	public String toString() {
-		return "Tuteur []";
-	}
-
 
 	@Override
 	public int length() {

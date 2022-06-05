@@ -89,7 +89,7 @@ public abstract class Etudiant extends Utilisateur implements Comparable<Etudian
 
 	@Override
 	public String toString() {
-		return super.toString() + "-> Etudiant [annee=" + annee + ", moyenne=" + moyenne + "]";
+		return super.toString() + "-> Etudiant [annee=" + annee + ", moyenne=" + moyenne + ", motivation=" + motivation + "]";
 	}
 
 }

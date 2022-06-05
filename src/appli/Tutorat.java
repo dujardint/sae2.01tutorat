@@ -52,17 +52,17 @@ public class Tutorat  {
 		}	
 	}
 	public String toString() {
-		String listeToString = "Candidats tuteurs : \n";
+		String listeToString = (listeTuteur.size() + listeTutore.size()) + " etudiants inscrits\n";
+		listeToString += listeTuteur.size() + " Candidats tuteurs : \n";
 		for(int i = 0; i < listeTuteur.size(); i++) {
 			listeToString = listeToString + listeTuteur.get(i).toString() + "\n";
-			System.out.println(" \n");
+			//System.out.println(" \n");
 		}
-		listeToString= listeToString + "Candidats tutores : \n";
+		listeToString= listeToString +  "\n" + listeTutore.size() + " Candidats tutores : \n";
 		for(int i = 0; i < listeTutore.size(); i++) {
 			listeToString = listeToString + listeTutore.get(i).toString() + "\n";
-			System.out.println(" \n");
+			//System.out.println(" \n");
 		}
-
 		return listeToString;
 	}
 
