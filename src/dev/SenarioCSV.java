@@ -69,13 +69,10 @@ public class SenarioCSV {
 
 			} else if(choix.equals("3")) {
 				String tuteurOuTutore = etudiants.ajoutCandidat();
-				if (tuteurOuTutore.equals("tuteur")) {
-					ImportCSV.writeToFileTuteur(etudiants.getListTuteur());
-				} else if (tuteurOuTutore.equals("tutoré")) {
-					ImportCSV.writeToFileTutore(etudiants.getListTutore());
-				}				
+				ImportCSV.writeToFiles(etudiant.getListTuteur(), etudiant.getListTutore());				
 			} else if(choix.equals("4")){
 				etudiants.supprimeCandidat();
+				ImportCSV.writeToFiles(etudiant.getListTuteur(), etudiant.getListTutore());
 			} else if(choix.equals("5")) {
 				etudiants.vuTuteur();
 			} else if(choix.equals("6")) {

@@ -195,4 +195,9 @@ public class ImportCSV {
 		}
 	}
 
+	public static void writeToFiles(List<Tuteur> tuteurs, List<Tutore> tutores){
+		ImportCSV.writeToFileTuteur(tuteurs);
+		ImportCSV.writeToFileTutore(tutores);
+	}
+
 }

@@ -171,7 +171,7 @@ public class Tutorat  {
 	}
 
 
-	public static String ajoutCandidat() {
+	public static boolean ajoutCandidat() {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Entre le nom pour ajouter un tutore");
 		String nom = scan.nextLine();
@@ -193,30 +193,27 @@ public class Tutorat  {
 			for(int i=0; i<listeTutore.size(); i++) {
 				if(PrenomNom.equals(listeTutore.get(i).getPrenomNom())){
 					System.out.println("Il existe deja ce tutoré. Il n'y a pas de nécessité de l'ajouter.");	
-					return "";
+					return false;
 				}
 			}
-			listeTutore.add(new Tutore("tutore_", nom, prenom, moyenne,nbAbsence, annee, motivation)); 
-			return "tutoré";
-		}
-		else {
+			return listeTutore.add(new Tutore("tutore_", nom, prenom, moyenne,nbAbsence, annee, motivation)); 
+		} else {
 			for(int i=0; i<listeTuteur.size(); i++) {
 				if(PrenomNom.equals(listeTuteur.get(i).getPrenomNom())){
 					System.out.println("il existe deja ce tuteur. Il n'y a pas de nécessité de l'ajouter.");	
-					return "";
+					return false;
 				}
 			}
-			listeTuteur.add(new Tuteur("tuteur_", nom, prenom, moyenne, nbAbsence, annee, motivation));
-			return "tuteur";
+			return listeTuteur.add(new Tuteur("tuteur_", nom, prenom, moyenne, nbAbsence, annee, motivation));
 		}
 	}
 
 	public boolean supprimeCandidat() {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Entre le nom pour le supprimer");
+		System.out.println("Entrez le nom de l'étudiant à supprimer :");
 		String nom = scan.nextLine();
 
-		System.out.println("Entre le prenom pour le supprimer");
+		System.out.println("Entrez le prénom de l'étudiant à supprimer :");
 		String prenom = scan.nextLine();
 
 		nom = nom+"_"+prenom;
@@ -225,7 +222,7 @@ public class Tutorat  {
 		for(int i=0; i<listeTuteur.size(); i++) {
 			if(nom.equals(listeTuteur.get(i).getPrenomNom())){
 				listeTuteur.remove(i);
-				System.out.println("suppression reussit !");
+				System.out.println("Suppression réussie.");
 				tailleEgale();
 			}
 		}
