@@ -20,7 +20,14 @@ public class Tutorat  {
 	public List<Paire> getListePaire(){
 		return this.listePaire;
 	}
+	
+	public List<Tutore> getListTutore(){
+		return this.listeTutore;
+	}
 
+	public List<Tuteur> getListTuteur(){
+		return this.listeTuteur;
+	}
 	private class Paire {
 		private String tuteur;
 		private String tutore;
@@ -164,7 +171,7 @@ public class Tutorat  {
 	}
 
 
-	public static boolean ajoutCandidat() {
+	public static String ajoutCandidat() {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Entre le nom pour ajouter un tutore");
 		String nom = scan.nextLine();
@@ -185,20 +192,22 @@ public class Tutorat  {
 		if(annee==1) {
 			for(int i=0; i<listeTutore.size(); i++) {
 				if(PrenomNom.equals(listeTutore.get(i).getPrenomNom())){
-					System.out.println("il existe deja en tutore !!");	
-					return false;
+					System.out.println("Il existe deja ce tutoré. Il n'y a pas de nécessité de l'ajouter.");	
+					return "";
 				}
 			}
-			return listeTutore.add(new Tutore("tutore_", nom, prenom, moyenne,nbAbsence, annee, motivation)); 
+			listeTutore.add(new Tutore("tutore_", nom, prenom, moyenne,nbAbsence, annee, motivation)); 
+			return "tutoré";
 		}
 		else {
 			for(int i=0; i<listeTuteur.size(); i++) {
 				if(PrenomNom.equals(listeTuteur.get(i).getPrenomNom())){
-					System.out.println("il existe deja en tuteur !!");	
-					return false;
+					System.out.println("il existe deja ce tuteur. Il n'y a pas de nécessité de l'ajouter.");	
+					return "";
 				}
 			}
-			return listeTuteur.add(new Tuteur("tutore_", nom, prenom, moyenne, nbAbsence, annee, motivation));
+			listeTuteur.add(new Tuteur("tuteur_", nom, prenom, moyenne, nbAbsence, annee, motivation));
+			return "tuteur";
 		}
 	}
 

@@ -22,138 +22,75 @@ public class SenarioCSV {
 
 		while (demande) {
 			g = new GrapheNonOrienteValue<String>();
-			Tutorat etudiants = new Tutorat(ExtractiongroupeTuteurCSV(myPath+sourceFileTuteur), ExtractiongroupeTutoreCSV(myPath+sourceFileTutore));
+			Tutorat etudiants = new Tutorat(ImportCSV.ExtractiongroupeTuteurCSV(myPath+sourceFileTuteur), ImportCSV.ExtractiongroupeTutoreCSV(myPath+sourceFileTutore));
 
-			System.out.println("\nBienvenue dans l'application officielle de tutorat !\nQue voulez-vous faire ? ");
+			System.out.println("Bienvenue dans l'application officielle de tutorat !\nQue souhaitez-vous faire ? ");
 			System.out.println(
-					("0 pour calculer\n"
+					"0 pour calculer\n"
 							+ "1 pour afficher la liste des etudiants inscrits\n"
-							+ "2 pour v�rifier la taille\n"
+							+ "2 pour vérifier la taille\n"
 							+ "3 pour ajouter un candidat (tuteur ou tutore) \n"
 							+ "4 pour supprimer un candidat\n"
 							+ "5 pour rechercher un tuteur \n"
-							+ "6 pour rechercher un tutor�\n"
-							+ "7 pour quitter"));
+							+ "6 pour rechercher un tutoré\n"
+							+ "7 pour quitter");
 			System.out.print("Votre choix : ");
 			String choix = scan.nextLine();
 			System.out.println();
 			if(choix.equals("0")) {
-				System.out.println("Vous avez decidé de ne rien modifier ! l'algo va s'executer !");
+				System.out.println("Vous avez decidé de ne rien modifier. L'algorithme va s'exécuter.");
 
-				ajouterSommetTutore(ExtractiongroupeTutoreCSV(myPath+sourceFileTutore));
-				ajouterSommetTuteur(ExtractiongroupeTuteurCSV(myPath+sourceFileTuteur));
-				ajouterArrete(ExtractiongroupeTutoreCSV(myPath+sourceFileTutore), ExtractiongroupeTuteurCSV(myPath+sourceFileTuteur));
-				String affectation = calculAffectation(g, ExtractiongroupeTutoreCSV(myPath+sourceFileTutore), ExtractiongroupeTuteurCSV(myPath+sourceFileTuteur));
+				ajouterSommetTutore(ImportCSV.ExtractiongroupeTutoreCSV(myPath+sourceFileTutore));
+				ajouterSommetTuteur(ImportCSV.ExtractiongroupeTuteurCSV(myPath+sourceFileTuteur));
+				ajouterArrete(ImportCSV.ExtractiongroupeTutoreCSV(myPath+sourceFileTutore), ImportCSV.ExtractiongroupeTuteurCSV(myPath+sourceFileTuteur));
+				String affectation = calculAffectation(g, ImportCSV.ExtractiongroupeTutoreCSV(myPath+sourceFileTutore), ImportCSV.ExtractiongroupeTuteurCSV(myPath+sourceFileTuteur));
 
 				System.out.println(affectation);
-				//System.out.println("triage des tuteur : \n" + etudiants.triTuteur(groupeTuteur));
-				//System.out.println("triage des tutore : \n" + etudiants.triTutore(groupeTutore));
 
-				System.out.println("Est ce que l'affectation vous va ? (=> o ou n)");
-				String convaincu = scan.nextLine();
-				if(convaincu.equals("o") || (convaincu.equals("oui")) || (convaincu.equals("OUI"))) {
-					demande=false;
+				System.out.println("Est-ce que l'affectation vous convient ? (=> o ou n)");
+				String convaincu = "";
+				while(scan.hasNext() || !convaincu.equals("o") || !convaincu.equals("oui") || !convaincu.equals("OUI")
+					!convaincu.equals("n") || !convaincu("non") || !convaincu("NON")){
+					convaincu = scan.nextLine();
+					if (convaincu.equals("o") || convaincu.equals("oui") || convaincu.equals("OUI")){
+						demande=false;
+					} else if (convaincu.equals("n") || convaincu.equals("non") || convaincu.equals("NON")){
+						demande=true;
+					} else {
+						System.out.println("La réponse n'est pas valide.");
+						System.out.println("Est-ce que l'affectation vous convient ? (=> o ou n)");
+					}
 				}
-			}
-			else if(choix.equals("1")) {
+			} else if(choix.equals("1")) {
 				System.out.println(etudiants.toString());
 
-			}
-			else if(choix.equals("2")){
+			} else if(choix.equals("2")){
 				System.out.println(etudiants.tailleEgale());
 
-			}
-			else if(choix.equals("3")) {
-				Tutorat.ajoutCandidat();
-				//METTRE A JOUR LE CSV QUAND ON AJOUTE OU SUPPRIME UN CANDIDAT !
-				
-			}
-			else if(choix.equals("4")){
+			} else if(choix.equals("3")) {
+				String tuteurOuTutore = etudiants.ajoutCandidat();
+				if (tuteurOuTutore.equals("tuteur")) {
+					ImportCSV.writeToFileTuteur(etudiants.getListTuteur());
+				} else if (tuteurOuTutore.equals("tutoré")) {
+					ImportCSV.writeToFileTutore(etudiants.getListTutore());
+				}				
+			} else if(choix.equals("4")){
 				etudiants.supprimeCandidat();
-			}
-			else if(choix.equals("5")) {
+			} else if(choix.equals("5")) {
 				etudiants.vuTuteur();
-			}
-			else if(choix.equals("6")) {
+			} else if(choix.equals("6")) {
 				etudiants.vuTutore();
 
-			}else if(choix.equals("7")) {
-				System.out.println("Vous avez demander la femeture du programme !");
+			} else if(choix.equals("7")) {
+				System.out.println("Vous avez demandé la fermeture du programme.");
 				demande=false;
-			}
-			else {
-				System.out.println("Nous n'avons pas compris votre choix, veuillez ressayer merci !");
+			} else {
+				System.out.println("Nous n'avons pas compris votre choix, veuillez réessayer.");
 			}
 		}
-		System.out.println("Merci d'avoir utilis� notre merveilleuse application !");
+		System.out.println("Merci d'avoir utilisé notre merveilleuse application ! ;-)");
 		scan.close();
 	}
-
-
-
-
-	public static ArrayList<Tutore> ExtractiongroupeTutoreCSV(String sourceFile) {
-		try {
-			ArrayList<Tutore> groupeTutore = new ArrayList<>();
-			Scanner scan = new Scanner(new File(sourceFile));
-			int annee = 0;
-			String nom;
-			String prenom;
-			double moyenne = 0;
-			int abscence = 0;
-			char motivation = 0;
-			scan.nextLine();
-			while (scan.hasNextLine()) {
-				String[] mots = scan.nextLine().split(";");
-				annee=Integer.parseInt(mots[0]);
-				prenom=mots[1];
-				nom=mots[2];
-				moyenne=Double.parseDouble(mots[3]);
-				abscence=Integer.parseInt(mots[4]);
-				motivation=mots[5].charAt(0);
-				groupeTutore.add(new Tutore("tutore_", prenom, nom, moyenne, abscence, annee, motivation));
-			}
-			return groupeTutore;
-		} catch (FileNotFoundException e) {
-			System.out.println("Le fichier n'existe pas.");
-			//}catch(IOException ioe) {
-			//System.out.println("Problème à la fermeture du flux.");
-		}
-		return null;
-	}
-
-
-
-	public static ArrayList<Tuteur> ExtractiongroupeTuteurCSV(String sourceFile) {
-		try {
-			ArrayList<Tuteur> groupeTuteur = new ArrayList<>();
-			Scanner scan = new Scanner(new File(sourceFile));
-			int annee = 0;
-			String nom;
-			String prenom;
-			double moyenne = 0;
-			int abscence = 0;
-			char motivation = 0;
-			scan.nextLine();
-			while (scan.hasNextLine()) {
-				String[] mots = scan.nextLine().split(";");
-				annee=Integer.parseInt(mots[0]);
-				prenom=mots[1];
-				nom=mots[2];
-				moyenne=Double.parseDouble(mots[3]);
-				abscence=Integer.parseInt(mots[4]);
-				motivation=mots[5].charAt(0);
-				groupeTuteur.add(new Tuteur("tuteur_", prenom, nom, moyenne, abscence, annee, motivation));
-			}
-			return groupeTuteur;
-		} catch (FileNotFoundException e) {
-			System.out.println("Le fichier n'existe pas.");
-			//}catch(IOException ioe) {
-			//System.out.println("Problème à la fermeture du flux.");
-		}
-		return null;
-	}
-
 
 	public static void ajouterSommetTutore(ArrayList<Tutore> grTutore) {
 		for(int i=0; i<grTutore.size(); i++) {
@@ -178,7 +115,6 @@ public class SenarioCSV {
 			}
 		}
 	}
-
 
 	public static String calculAffectation(GrapheNonOrienteValue<String> g2, ArrayList<Tutore> grTutore, ArrayList<Tuteur> grTuteur){
 		System.out.println(grTutore.size() + " Tutore");

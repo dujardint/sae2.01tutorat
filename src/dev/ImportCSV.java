@@ -32,68 +32,69 @@ public class ImportCSV {
 	}
 
 
-	public static ArrayList<Tutore> ExtractiongroupeTutoreCSV(String sourceFile) {
+	private static List<String> readCSVFileASStringList(String sourceFile) {
+		List<String> lignes = new ArrayList<>();
 		try {
-			ArrayList<Tutore> groupeTutore = new ArrayList<>();
 			Scanner scan = new Scanner(new File(sourceFile));
-			ArrayList<String> mot0 = new ArrayList<String>();
-			int annee = 0;
-			String nom;
-			String prenom;
-			double moyenne = 0;
-			int abscence = 0;
-			char motivation = 0;
-			scan.nextLine();
-			while (scan.hasNextLine()) {
-				String[] mots = scan.nextLine().split(";");
-				annee=Integer.parseInt(mots[0]);
-				prenom=mots[1];
-				nom=mots[2];
-				moyenne=Double.parseDouble(mots[3]);
-				abscence=Integer.parseInt(mots[4]);
-				motivation=mots[5].charAt(0);
-				groupeTutore.add(new Tutore("tutore_", prenom, nom, moyenne, abscence, annee, motivation));
+			// Remove header
+			scan.next();
+			
+			while (scan.hasNext()) {
+				lignes.add(scan.next());
 			}
-			return groupeTutore;
+			scan.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("Le fichier n'existe pas.");
-		}catch(IOException ioe) {
+			System.err.print(e.getMessage());
+		} catch(IOException ioe) {
 			System.out.println("Problème à la fermeture du flux.");
+			System.err.print(ioe.getMessage());
 		}
-		return null;
+		return lignes; 
 	}
-
-	public static ArrayList<Tuteur> ExtractiongroupeTuteurCSV(String sourceFile) {
-		try {
-			ArrayList<Tuteur> groupeTuteur = new ArrayList<>();
-			Scanner scan = new Scanner(new File(sourceFile));
-			ArrayList<String> mot0 = new ArrayList<String>();
-			int annee = 0;
-			String nom;
-			String prenom;
-			double moyenne = 0;
-			int abscence = 0;
-			char motivation = 0;
-			scan.nextLine();
-			while (scan.hasNextLine()) {
-				String[] mots = scan.nextLine().split(";");
-				annee=Integer.parseInt(mots[0]);
-				prenom=mots[1];
-				nom=mots[2];
-				moyenne=Double.parseDouble(mots[3]);
-				abscence=Integer.parseInt(mots[4]);
-				motivation=mots[5].charAt(0);
-				groupeTuteur.add(new Tuteur("tuteur_", prenom, nom, moyenne, abscence, annee, motivation));
-			}
-			return groupeTuteur;
-		} catch (FileNotFoundException e) {
-			System.out.println("Le fichier n'existe pas.");
-		}catch(IOException ioe) {
-			System.out.println("Problème à la fermeture du flux.");
+	
+	public static List<Tutore> readAndDisplayFileTutore(String sourceFile){
+		List<Tutore> tutores = new ArrayList<Tutore>();
+		List<String> lignes = readCSVFileASStringList(sourceFile);
+		String[] ligneSplit;
+		Tutore tutoreTmp;
+		int id = 0;
+		for(String ligne : lignes) {
+			ligneSplit = ligne.split(";");	
+			tutoreTmp = new Tutore(id + "",
+					ligneSplit[1],
+					ligneSplit[2],
+					Double.parseDouble(ligneSplit[3]),
+					Integer.parseInt(ligneSplit[4]),
+					Integer.parseInt(ligneSplit[0]), 
+					ligneSplit[5].charAt(0));
+			tutores.add(tutoreTmp);
+			id = id +1;
 		}
-		return null;
+		return tutores;
 	}
-
+	
+	public static List<Tuteur> readAndDisplayFileTuteur(String sourceFile){
+		List<Tuteur> tuteurs = new ArrayList<Tuteur>();
+		List<String> lignes = readCSVFileASStringList(sourceFile);
+		String[] ligneSplit;
+		Tuteur tuteurTmp;
+		int id = 0;
+		for(String ligne : lignes) {
+			ligneSplit = ligne.split(";");
+			System.out.println(ligne);
+			tuteurTmp = new Tuteur(id + "",
+					ligneSplit[1],
+					ligneSplit[2],
+					Double.parseDouble(ligneSplit[3]),
+					Integer.parseInt(ligneSplit[4]),
+					Integer.parseInt(ligneSplit[0]), 
+					ligneSplit[5].charAt(0));
+			tuteurs.add(tuteurTmp);
+			id = id +1;
+		}
+		return tuteurs;
+	}
 
 	public static void ajouterSommetTutore(ArrayList<Tutore> grTutore) {
 		for(int i=0; i<grTutore.size(); i++) {
@@ -140,6 +141,58 @@ public class ImportCSV {
 			res += c.getAffectation().get(i).getExtremite1()+ " doit se mettre avec "+c.getAffectation().get(i).getExtremite2() + "\n";
 		}
 		return res;
+	}
+
+	public static void writeToFileTutore(List<Tutore> tutores) {
+		String path = myPath + sourceFileTutore;
+		BufferedWriter out;
+		String line;
+		Tutore t;
+		String sep = ";";
+		try {
+			out = new BufferedWriter(new FileWriter(path));
+			for(int i = 0; i < tutores.size(); i++) {
+				t = tutores.get(i);
+				// annee;prenom;nom;moyenne;absence;motivation
+				line = t.getAnnee() 
+						+ sep + t.getPrenom() 
+						+ sep + t.getNom()
+						+ sep + t.getMoyenne()
+						+ sep + t.getAbsences()
+						+ sep + t.getMotivation();
+				out.write(line);
+				out.newLine();
+			}
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void writeToFileTuteur(List<Tuteur> tuteurs) {
+		String path = myPath + sourceFileTuteur;
+		BufferedWriter out;
+		String line;
+		Tuteur t;
+		String sep = ";";
+		try {
+			out = new BufferedWriter(new FileWriter(path));
+			for(int i = 0; i < tuteurs.size(); i++) {
+				t = tuteurs.get(i);
+				// annee;prenom;nom;moyenne;absence;motivation
+				line = t.getAnnee() 
+						+ sep + t.getPrenom() 
+						+ sep + t.getNom()
+						+ sep + t.getMoyenne()
+						+ sep + t.getAbsences()
+						+ sep + t.getMotivation();
+				out.write(line);
+				out.newLine();
+			}
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
