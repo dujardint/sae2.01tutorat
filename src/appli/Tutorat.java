@@ -4,21 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue;
-
 
 public class Tutorat  {
-	private static List<Tutore> listeTutore;
-	private static List<Tuteur> listeTuteur;
-	private List<Paire> listePaire;
+	private List<Tutore> listeTutore;
+	private List<Tuteur> listeTuteur;
 
 	public Tutorat(List<Tuteur> listeTuteur, List<Tutore> listeTutore) {
-		Tutorat.listeTutore = listeTutore;
-		Tutorat.listeTuteur = listeTuteur;
-		//this.listePaire  = this.genererPaires();
-	}
-	public List<Paire> getListePaire(){
-		return this.listePaire;
+		this.listeTutore = listeTutore;
+		this.listeTuteur = listeTuteur;
+		this.tailleEgale();
 	}
 	
 	public List<Tutore> getListTutore(){
@@ -28,51 +22,7 @@ public class Tutorat  {
 	public List<Tuteur> getListTuteur(){
 		return this.listeTuteur;
 	}
-	private class Paire {
-		private String tuteur;
-		private String tutore;
-		private double distance;
-
-		Paire(String tuteur, String tutore, double distance) {
-			this.tuteur = tuteur;
-			this.tutore = tutore;
-			this.distance = distance;
-		}
-
-		public String getTuteur() {
-			return tuteur;
-		}
-		public void setTuteur(String tuteur) {
-			this.tuteur = tuteur;
-		}
-		public String getTutore() {
-			return tutore;
-		}
-		public void setTutore(String tutore) {
-			this.tutore = tutore;
-		}
-		public double getDistance() {
-			return distance;
-		}
-		public void setDistance(double distance) {
-			this.distance = distance;
-		}	
-	}
-	public String toString() {
-		String listeToString = (listeTuteur.size() + listeTutore.size()) + " etudiants inscrits\n";
-		listeToString += listeTuteur.size() + " Candidats tuteurs : \n";
-		for(int i = 0; i < listeTuteur.size(); i++) {
-			listeToString = listeToString + listeTuteur.get(i).toString() + "\n";
-			//System.out.println(" \n");
-		}
-		listeToString= listeToString +  "\n" + listeTutore.size() + " Candidats tutores : \n";
-		for(int i = 0; i < listeTutore.size(); i++) {
-			listeToString = listeToString + listeTutore.get(i).toString() + "\n";
-			//System.out.println(" \n");
-		}
-		return listeToString;
-	}
-
+	
 	private int getPositionMin(List<Tutore> listeTutore) {
 		int position = -1;
 		double valeur = 20.0;
@@ -85,6 +35,7 @@ public class Tutorat  {
 		}
 		return position;
 	}
+	
 	private int getPositionMax(List<Tuteur> listeTuteur) {
 		int position = -1;
 		double valeur = 0.0;
@@ -110,7 +61,6 @@ public class Tutorat  {
 			listeTriee.add(listeNonTriee.get(positionMin));
 			listeNonTriee.remove(positionMin);
 		}
-
 		return listeTriee;
 	}
 
@@ -136,84 +86,94 @@ public class Tutorat  {
 		}
 		return moyenneTuteur - tutore.getMoyenne();
 	}
-
-	public String paireToString() {
-		String retour = "";
-		for (int i = 0; i < this.listePaire.size(); i++) {
-			retour = retour + this.listePaire.get(i).getTutore() + " " +this.listePaire.get(i).getTuteur() + " " +this.listePaire.get(i).getDistance() + "\n";
-		}
-		return retour;
-	}
-
+	
 	public void choixEnseignant() {
 		//TODO
 	}
 
 
 	public boolean tailleEgale() {
-		System.out.println("Il y a " + listeTuteur.size() + " Tuteurs et " + listeTutore.size() + " tutores.");
-		while(listeTuteur.size()!=listeTutore.size()) {
-			if((listeTuteur.size()>listeTutore.size())){
-				System.out.println("\ntaille tuteur " + listeTuteur.size());
-				System.out.println("taille tutore " + listeTutore.size()+"\n");
-				System.out.println("il y a plus de tuteur que de tutore !");
-				Tutorat.ajoutCandidat();
-			}
-			else {
-				System.out.println("\ntaille tuteur " + listeTuteur.size());
-				System.out.println("taille tutore " + listeTutore.size()+"\n");
-				System.out.println("il y a plus de tutore que de tuteur !");
-				Tutorat.ajoutCandidat();
-			}
+		Tuteur tuteurFactice = new Tuteur("999999", "PrenomVide", "NomVide", 0.00, 1000, 2, '-');
+		Tutore tutoreFactice = new Tutore("999999", "PrenomVide", "NomVide" , 20.0, 1000, 1, '-');
+		while(this.listeTuteur.remove(tuteurFactice)) {}
+		while(this.listeTutore.remove(tutoreFactice)) {}
+		
+		int difference = this.listeTuteur.size() - this.listeTutore.size();
+		if (difference > 0) {
+			System.out.println("Il y a plus de tuteurs que de tutores, nous procédons à un rééquilibrage pour la simulation.");
+			return this.ajoutCandidat(false, difference);
+		} else if (difference < 0) {
+			System.out.println("Il y a plus de tutores que de tuteurs, nous procédons à un rééquilibrage pour la simulation.");
+			return this.ajoutCandidat(false, difference);
 		}
-		System.out.println("Il y a autant de tueur que de tutoren l'algorithme peut s'executer !");
-		return true;
+		return false;
 	}
 
+	public boolean ajoutCandidat(boolean manuel, int difference) {
+		if (manuel) {
+			// C'est l'utilisateur qui entre les paramètres du Candidat
+			Scanner scan = new Scanner(System.in);
+			System.out.println("Entre le nom pour ajouter un tutore");
+			String nom = scan.nextLine();
+			System.out.println("Entre le prenom");
+			String prenom = scan.nextLine();
+			String PrenomNom = prenom + "_" + nom;
+			System.out.println(PrenomNom);
 
-	public static boolean ajoutCandidat() {
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Entre le nom pour ajouter un tutore");
-		String nom = scan.nextLine();
-		System.out.println("Entre le prenom");
-		String prenom = scan.nextLine();
-		String PrenomNom = prenom + "_" + nom;
-		System.out.println(PrenomNom);
+			System.out.println("Entre la moyenne");
+			double moyenne = scan.nextDouble();
+			System.out.println("Entre le nombre d'abscence");
+			int nbAbsence = scan.nextInt();
+			System.out.println("Entre l'annee");
+			int annee = scan.nextInt();
+			System.out.println("Entre la motivation (+,-,=)");
+			char motivation = scan.next().charAt(0);
 
-		System.out.println("Entre la moyenne");
-		double moyenne = scan.nextDouble();
-		System.out.println("Entre le nombre d'abscence");
-		int nbAbsence = scan.nextInt();
-		System.out.println("Entre l'annee");
-		int annee = scan.nextInt();
-		System.out.println("Entre la motivation (+,-,=)");
-		char motivation = scan.next().charAt(0);
-
-		if(annee==1) {
-			for(int i=0; i<listeTutore.size(); i++) {
-				if(PrenomNom.equals(listeTutore.get(i).getPrenomNom())){
-					System.out.println("Il existe deja ce tutorÃ©. Il n'y a pas de nÃ©cessitÃ© de l'ajouter.");	
-					return false;
+			if(annee==1) {
+				for(int i=0; i < listeTutore.size(); i++) {
+					if(PrenomNom.equals(listeTutore.get(i).getPrenomNom())){
+						System.out.println("Il existe deja ce tutore. Il n'y a pas de nÃ©cessitÃ© de l'ajouter.");	
+						return false;
+					}
 				}
+				return listeTutore.add(new Tutore("tutore_", nom, prenom, moyenne,nbAbsence, annee, motivation)); 
+			} else {
+				for(int i=0; i<listeTuteur.size(); i++) {
+					if(PrenomNom.equals(listeTuteur.get(i).getPrenomNom())){
+						System.out.println("il existe deja ce tuteur. Il n'y a pas de nÃ©cessitÃ© de l'ajouter.");	
+						return false;
+					}
+				}
+				return listeTuteur.add(new Tuteur("tuteur_", nom, prenom, moyenne, nbAbsence, annee, motivation));
 			}
-			return listeTutore.add(new Tutore("tutore_", nom, prenom, moyenne,nbAbsence, annee, motivation)); 
 		} else {
-			for(int i=0; i<listeTuteur.size(); i++) {
-				if(PrenomNom.equals(listeTuteur.get(i).getPrenomNom())){
-					System.out.println("il existe deja ce tuteur. Il n'y a pas de nÃ©cessitÃ© de l'ajouter.");	
-					return false;
+			 // C'est le logiciel qui entre un candidat factice
+			Tuteur tuteurFactice = new Tuteur("999999", "PrenomVide", "NomVide", 0.00, 1000, 2, '-');
+			Tutore tutoreFactice = new Tutore("999999", "PrenomVide", "NomVide" , 20.0, 1000, 1, '-');
+			if (difference > 0 ) {
+				// + de tuteurs que de tutores
+				for(int i = 0; i < difference; i++) {
+					this.listeTutore.add(tutoreFactice);
 				}
+			} else if (difference < 0 ){
+				// - de tuteurs que de tutores
+				for(int i = 0; i < Math.abs(difference); i++) {
+					this.listeTuteur.add(tuteurFactice);
+				}
+			} else {
+				// impossible
+				return false;
 			}
-			return listeTuteur.add(new Tuteur("tuteur_", nom, prenom, moyenne, nbAbsence, annee, motivation));
+			return true;
 		}
 	}
 
 	public boolean supprimeCandidat() {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Entrez le nom de l'Ã©tudiant Ã  supprimer :");
+		System.out.println("Entrez le nom de l'étudiant Ã  supprimer :");
 		String nom = scan.nextLine();
 
-		System.out.println("Entrez le prÃ©nom de l'Ã©tudiant Ã  supprimer :");
+		System.out.println("Entrez le prÃ©nom de l'étudiant Ã  supprimer :");
 		String prenom = scan.nextLine();
 
 		nom = nom+"_"+prenom;
@@ -268,20 +228,18 @@ public class Tutorat  {
 		boolean trouve = false;
 		for(int i=0; i<listeTutore.size(); i++) {
 			if(nom.equals(listeTutore.get(i).getPrenomNom())){
-				//listeTuteur.remove(i);
-				System.out.println("annee :" + listeTutore.get(i).getAnnee());
-				System.out.println("abs :" + listeTutore.get(i).absences);
-				System.out.println("motivation :" + listeTutore.get(i).motivation);
-				System.out.println("moy :" + listeTutore.get(i).moyenne);
+				System.out.println("annee : " + listeTutore.get(i).getAnnee());
+				System.out.println("abs : " + listeTutore.get(i).absences);
+				System.out.println("motivation : " + listeTutore.get(i).motivation);
+				System.out.println("moyenne : " + listeTutore.get(i).moyenne);
 				trouve = true;
 			}
 		}
 		if(!trouve) {
-			System.out.println("le tutore n'est pas dans la liste");
+			System.out.println("Le tutore n'est pas dans la liste");
 		}
 
 		return true;
-		
 	}
 
 }

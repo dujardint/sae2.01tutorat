@@ -22,4 +22,11 @@ public class Utilisateur {
 		   System.out.println(t1.getPrenomNom());
 		}
 
+	public String getPrenom() {
+		return this.prenom;
+	}
+	
+	public String getNom() {
+		return this.nom;
+	}
 }

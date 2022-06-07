@@ -1,7 +1,9 @@
 package dev;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +22,17 @@ public class ImportCSV {
 	static String sourceFileTuteur = "tuteur.csv";
 
 	static GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
+	public static String FILEPATH_TUTORE = myPath + sourceFileTutore;
+	public static String FILEPATH_TUTEUR = myPath + sourceFileTuteur;
 
-
-	public static void main(String[] args) throws IOException {		
-		ajouterSommetTutore(ExtractiongroupeTutoreCSV(myPath+sourceFileTutore));
-		ajouterSommetTuteur(ExtractiongroupeTuteurCSV(myPath+sourceFileTuteur));
-		ajouterArrete(ExtractiongroupeTutoreCSV(myPath+sourceFileTutore), ExtractiongroupeTuteurCSV(myPath+sourceFileTuteur));
-		String affectation = calculAffectation(g, ExtractiongroupeTutoreCSV(myPath+sourceFileTutore), ExtractiongroupeTuteurCSV(myPath+sourceFileTuteur));
+	public static void main(String[] args) throws IOException {	
+		Tutorat tutorat = new Tutorat(ImportCSV.readFileTuteur(ImportCSV.FILEPATH_TUTEUR),
+				ImportCSV.readFileTutore(ImportCSV.FILEPATH_TUTORE));
+		
+		ajouterSommetTutore(tutorat.getListTutore());
+		ajouterSommetTuteur(tutorat.getListTuteur());
+		ajouterArrete(tutorat.getListTutore(), tutorat.getListTuteur());
+		String affectation = calculAffectation(g, tutorat.getListTutore(), tutorat.getListTuteur());
 
 		System.out.println(affectation);
 	}
@@ -53,7 +59,7 @@ public class ImportCSV {
 		return lignes; 
 	}
 	
-	public static List<Tutore> readAndDisplayFileTutore(String sourceFile){
+	public static List<Tutore> readFileTutore(String sourceFile){
 		List<Tutore> tutores = new ArrayList<Tutore>();
 		List<String> lignes = readCSVFileASStringList(sourceFile);
 		String[] ligneSplit;
@@ -74,7 +80,7 @@ public class ImportCSV {
 		return tutores;
 	}
 	
-	public static List<Tuteur> readAndDisplayFileTuteur(String sourceFile){
+	public static List<Tuteur> readFileTuteur(String sourceFile){
 		List<Tuteur> tuteurs = new ArrayList<Tuteur>();
 		List<String> lignes = readCSVFileASStringList(sourceFile);
 		String[] ligneSplit;
@@ -96,14 +102,14 @@ public class ImportCSV {
 		return tuteurs;
 	}
 
-	public static void ajouterSommetTutore(ArrayList<Tutore> grTutore) {
-		for(int i=0; i<grTutore.size(); i++) {
-			g.ajouterSommet(grTutore.get(i).getPrenomNom());
+	public static void ajouterSommetTutore(List<Tutore> list) {
+		for(int i=0; i<list.size(); i++) {
+			g.ajouterSommet(list.get(i).getPrenomNom());
 			//System.out.println(grTutore.get(i).getPrenomNom() + " ajouter a la liste sommet");
 		}
 	}
 
-	public static void ajouterSommetTuteur(ArrayList<Tuteur> grTuteur) {
+	public static void ajouterSommetTuteur(List<Tuteur> grTuteur) {
 		for(int i=0; i<grTuteur.size(); i++) {
 			g.ajouterSommet(grTuteur.get(i).getPrenomNom());
 			//	System.out.println(grTuteur.get(i).getPrenomNom() + " ajouter a la liste en tuteur sommet");
@@ -111,7 +117,7 @@ public class ImportCSV {
 	}
 
 
-	private static void ajouterArrete(ArrayList<Tutore> grTutore, ArrayList<Tuteur> grTuteur) {
+	private static void ajouterArrete(List<Tutore> grTutore, List<Tuteur> grTuteur) {
 		for(int i=0; i<grTuteur.size(); i++) {
 			for(int j=0; j<grTutore.size(); j++) {
 				g.ajouterArete(grTuteur.get(i).getPrenomNom(), grTutore.get(j).getPrenomNom(), Tutorat.calculDistance(grTuteur.get(i), grTutore.get(j)));
@@ -121,15 +127,15 @@ public class ImportCSV {
 	}
 
 
-	private static String calculAffectation(GrapheNonOrienteValue<String> g2, ArrayList<Tutore> grTutore, ArrayList<Tuteur> grTuteur){
+	private static String calculAffectation(GrapheNonOrienteValue<String> g2, List<Tutore> grTutore, List<Tuteur> grTuteur){
 		System.out.println(grTutore.size() + " Tutore");
 		System.out.println(grTuteur.size() + " Tuteur\n");
-		ArrayList<String> tuteurPrenomNom=new ArrayList<String>();
+		List<String> tuteurPrenomNom = new ArrayList<String>();
 		for(int i=0; i<grTuteur.size(); i++) {
 			tuteurPrenomNom.add((grTuteur.get(i).getPrenomNom()));
 		}
 
-		ArrayList<String> tutorePrenomNom=new ArrayList<String>();
+		List<String> tutorePrenomNom = new ArrayList<String>();
 		for(int i=0; i<grTutore.size(); i++) {
 			tutorePrenomNom.add(grTutore.get(i).getPrenomNom());
 		}

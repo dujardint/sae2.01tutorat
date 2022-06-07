@@ -63,7 +63,7 @@ public class Test {
     }
     
     @Test
-    public void toString() {
+    public String toString() {
     	
     }
 

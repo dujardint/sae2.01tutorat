@@ -1,7 +1,5 @@
 package appli;
 
-import java.util.Scanner;
-
 //import com.sun.tools.javac.launcher.Main;
 
 public class Tuteur extends Etudiant{
@@ -43,7 +41,7 @@ public class Tuteur extends Etudiant{
 	}
 	
 	public static void main(String[] args) {
-	   Tuteur t1 = new Tuteur("tuteur_","François","Bertin",13.3,1, 2, '+');
+	   Tuteur t1 = new Tuteur("tuteur_","Francois","Bertin",13.3,1, 2, '+');
 	   System.out.println(t1);
 	   System.out.println(t1.getPrenomNom());
 	}
@@ -53,20 +51,4 @@ public class Tuteur extends Etudiant{
 		// TODO Auto-generated method stub
 		return this.prenom + "_" + this.nom;
 	}
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
 }
