@@ -10,6 +10,7 @@ import appli.Tuteur;
 import appli.Tutorat;
 import appli.Tutore;
 import dev.ImportCSV;
+import fr.ulille.but.sae2_02.graphes.Arete;
 import fr.ulille.but.sae2_02.graphes.CalculAffectation;
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue;
 import javafx.collections.ListChangeListener;
@@ -68,8 +69,8 @@ public class MonController {
 			listeTutore.getItems().add(etudiants.getListTutore().get(i).getPrenomNom());
 		}
 
-		for(int i=0; i<etudiants.getListTutore().size(); i++) {
-			listeTuteur.getItems().add(etudiants.getListTutore().get(i).getPrenomNom());
+		for(int i=0; i<etudiants.getListTuteur().size(); i++) {
+			listeTuteur.getItems().add(etudiants.getListTuteur().get(i).getPrenomNom());
 		}
 
 		rechercheTuteur.getAccessibleText();
@@ -201,7 +202,7 @@ public class MonController {
 					//groupeTuteur.remove(i);
 				}
 			}
-			//listeTutorat.getItems().remove(boxCouple.getText());*/s
+			//listeTutorat.getItems().remove(boxCouple.getText());*/
 		}	
 	}
 
@@ -212,9 +213,9 @@ public class MonController {
 			Alert alert = new Alert(AlertType.WARNING, "la liste tutore est vide !", ButtonType.OK);
 			alert.showAndWait();
 		}else {
-			for(int i=0; i<groupeTutore.size(); i++) {
-				if(contenuTutore.getText().equals(groupeTutore.get(i).getPrenomNom())) {
-					groupeTutore.remove(i);
+			for(int i=0; i<etudiants.getListTutore().size(); i++) {
+				if(contenuTutore.getText().equals(etudiants.getListTutore().get(i).getPrenomNom())) {
+					etudiants.getListTutore().remove(i);
 				}
 			}
 			listeTutore.getItems().remove(contenuTutore.getText());
@@ -227,9 +228,9 @@ public class MonController {
 			Alert alert = new Alert(AlertType.WARNING, "la liste tuteur est vide !", ButtonType.OK);
 			alert.showAndWait();
 		}else {
-			for(int i=0; i<groupeTuteur.size(); i++) {
-				if(contenuTuteur.getText().equals(groupeTuteur.get(i).getPrenomNom())) {
-					groupeTuteur.remove(i);
+			for(int i=0; i<etudiants.getListTuteur().size(); i++) {
+				if(contenuTuteur.getText().equals(etudiants.getListTuteur().get(i).getPrenomNom())) {
+					etudiants.getListTuteur().remove(i);
 				}
 			}
 			listeTuteur.getItems().remove(contenuTuteur.getText());
@@ -237,76 +238,22 @@ public class MonController {
 	}
 
 
-	public void pressedButtonCalculer(ActionEvent event) {
+	public void pressedButtonCalculer(ActionEvent event) {		
+		CalculAffectation<String>  affectation = etudiants.calculAffectation();
 		
-		
-		//suppression listes des etud
-		
-		//suppression des 2 personnes dans les listes d'origines
-
-			//	groupeTutore.clear();
-
-		
-
-		
-		
-		
-		GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
-		System.out.println("\ntaille tuteur " + groupeTuteur.size());
-		System.out.println("taille tutore " + groupeTutore.size()+"\n");
-		
-		for(int i=0; i<groupeTutore.size(); i++) {
-			g.ajouterSommet(groupeTutore.get(i).getPrenomNom());
-			System.out.println(groupeTutore.get(i).getPrenomNom() + " ajouter a la liste sommet");
-		}
-		
-		
-		for(int i=0; i<groupeTuteur.size(); i++) {
-			g.ajouterSommet(groupeTuteur.get(i).getPrenomNom());
-			System.out.println(groupeTuteur.get(i).getPrenomNom() + " ajouter a la liste sommet");
-		}
-		
-		
-		for(int i=0; i<groupeTuteur.size(); i++) {
-			for(int j=0; j<groupeTutore.size(); j++) {
-				g.ajouterArete(groupeTuteur.get(i).getPrenomNom(), groupeTutore.get(j).getPrenomNom(), tutorat.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
-				System.out.println("" + groupeTuteur.get(i).getPrenomNom() + " " +  groupeTutore.get(j).getPrenomNom() + " distance : " + Tutorat.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
-			}
-		}
-		
-		System.out.println();
-		List<String> tuteurPrenomNom=new ArrayList<String>();
-		for(int i=0; i<groupeTuteur.size(); i++) {
-			tuteurPrenomNom.add((groupeTuteur.get(i).getPrenomNom()));
-			System.out.println("liste tuteur : " + tuteurPrenomNom.get(i));
-		}
-		System.out.println();
-		ArrayList<String> tutorePrenomNom=new ArrayList<String>();
-		for(int i=0; i<groupeTutore.size(); i++) {
-			tutorePrenomNom.add(groupeTutore.get(i).getPrenomNom());
-			System.out.println("liste tutore : "+tutorePrenomNom.get(i));
-		}
-
-		System.out.println();
-		CalculAffectation<String> c = new CalculAffectation<>(g, tutorePrenomNom, tuteurPrenomNom);
-		System.out.println("le cout minimal est de : " + c.getCout());
-		System.out.println(c.getAffectation());
-		for (int i=0;i<groupeTutore.size();i++) {
-			System.out.println(c.getAffectation().get(i).getExtremite1()+ " doit se mettre avec "+c.getAffectation().get(i).getExtremite2());
-			
-			groupeTutorat.add(c.getAffectation().get(i).getExtremite1()+ " doit se mettre avec "+c.getAffectation().get(i).getExtremite2());
-			listeTutorat.getItems().add(c.getAffectation().get(i).getExtremite1()+ "-"+c.getAffectation().get(i).getExtremite2());
-			
-			//System.out.println("Cette tâche prendra "+g.getPoids(c.getAffectation().get(i).getExtremite1(),g.getAffectation().get(i).getExtremite2()) +" jours ");
+		for(Arete<String> couple : affectation.getAffectation()) {
+			listeTutorat.getItems().add(couple.getExtremite1() + "-" + couple.getExtremite2());
+			groupeTutorat.put(etudiants.getTuteur(couple.getExtremite1()), 
+					etudiants.getTutore(couple.getExtremite2()));
 		}
 	
 		listeTutore.getItems().clear();
 		listeTuteur.getItems().clear();
-		groupeTutore.clear();
-		groupeTuteur.clear();
+		
+		etudiants.getListTutore().clear();
+		etudiants.getListTuteur().clear();
 
-		System.out.println("\nL'affectation est terminé !!");
-
+		System.out.println("L'affectation est terminée.");
 	}
 
 

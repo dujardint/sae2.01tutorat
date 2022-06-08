@@ -373,5 +373,25 @@ public class Tutorat  {
 	public boolean ajouterTutore(Tutore t) {
 		return this.listeTutore.add(t);
 	}
+	
+	public Tuteur getTuteur(String prenomNom) {
+		for(Tuteur t : this.listeTuteur) {
+			if (t.getPrenomNom().equals(prenomNom)) {
+				return t;
+			}
+		}
+		// TODO - throw error
+		return null;
+	}
+	
+	public Tutore getTutore(String prenomNom) {
+		for(Tutore t : this.listeTutore) {
+			if (t.getPrenomNom().equals(prenomNom)) {
+				return t;
+			}
+		}
+		// TODO - throw error
+		return null;
+	}
 }
 
