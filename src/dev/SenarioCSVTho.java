@@ -44,6 +44,8 @@ public class SenarioCSVTho {
 				System.out.println(etudiants.toString());
 
 			} else if(choix.equals("2")){
+				System.out.println("Nombre de tuteurs : " + etudiants.getListTuteur().size());
+				System.out.println("Nombre de tutores : " + etudiants.getListTutore().size());
 				etudiants.purgeCandidatFactices();
 				if (etudiants.getListTuteur().size() != etudiants.getListTutore().size()) {
 					System.out.println("Les listes Tuteurs / Tutorés ne sont pas de taille égale. Ajout d'un candidat factice afin de pouvoir déterminer les couples possibles.");

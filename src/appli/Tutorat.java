@@ -328,11 +328,11 @@ public class Tutorat  {
 
 	public String toString() {
 		this.purgeCandidatFactices();
-		String retour = "Tutorés : \n";
+		String retour = "Tutorés : \n" + this.listeTutore.size() +"\n";
 		for(Tutore t : this.listeTutore) {
 			retour = retour + t.toString() + "\n";
 		}
-		retour = retour + "Tuteurs : \n";
+		retour = retour + "\nTuteurs : \n"+ this.listeTuteur.size()+"\n";
 		for(Tuteur t : this.listeTuteur) {
 			retour = retour + t.toString() + "\n";
 		}
