@@ -6,16 +6,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dev.Tuteur;
-import dev.Tutore;
+import appli.Tuteur;
+import appli.Tutore;
 import fr.ulille.but.sae2_02.graphes.Arete;
-import graphs.affectation.Assignment;
-import graphs.affectation.Student;
-import graphs.affectation.Tools;
-import graphs.affectation.Tutor;
-import graphs.affectation.Tutored;
-import graphs.useAffectation.BeforeEach;
-import tpOO.tp10.Test;
+
 
 /**
  * Tests unitaire des différents scénarios imaginés.
@@ -88,7 +82,7 @@ public class Test {
 		tutoreList.clear();
 		assertEquals(0, tutoreList.size());
 		tutoreList.add(u1);
-		assertEquals("-> Etudiant [annee= 1, moyenne= 9.8 , motivation= + ]", tutoreList.toString());
+		assertEquals(u1.getPrenomNom() +"-> Etudiant [annee= 1, moyenne= 9.8 , motivation= + ]", tutoreList.toString());
 
 	}
 
@@ -99,7 +93,7 @@ public class Test {
 		assertEquals('+', u1.getMotivation());
 		assertEquals("Claude_Allard", u1.getPrenomNom());
 		assertEquals(1, u1.getAbsences());
-
 	}
+		
 
 }

@@ -2,6 +2,7 @@ package appli;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import dev.ImportCSV;
@@ -29,6 +30,8 @@ public class Tutorat  {
 		return this.listeTuteur;
 	}
 	
+	private Map<Tutore, Tuteur> forcedAssignments;
+	
 	private int getPositionMin(List<Tutore> listeTutore) {
 		int position = -1;
 		double valeur = 20.0;
@@ -41,6 +44,20 @@ public class Tutorat  {
 		}
 		return position;
 	}
+	
+	  public void addForcedAssignments(Tutore tutore, Tuteur tuteur) {
+	        if (this.forcedAssignments.containsKey(tutore)){ throw new IllegalArgumentException("Cette association existe déja!");}
+	        this.forcedAssignments.put(tutore, tuteur);
+	    }
+	  
+	  
+	  
+	  public void removeForcedAssignment(Tutore tutore) {
+	        if (!this.forcedAssignments.containsKey(tutore)){throw new IllegalArgumentException("Cette association n'existe pas!");}
+	        this.forcedAssignments.remove(tutore);
+	    }
+	  
+	  
 	
 	private int getPositionMax(List<Tuteur> listeTuteur) {
 		int position = -1;

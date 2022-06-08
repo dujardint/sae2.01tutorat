@@ -14,6 +14,23 @@ public class ScenarioCSV {
 	static String sourceFileTutore = "tutore.csv";
 	static String sourceFileTuteur = "tuteur.csv";
 	static GrapheNonOrienteValue<String> g;
+	public static Tutore 
+	u1;
+	public static Tuteur 
+	t1;
+	int nbAbscenceDefaut = 1;
+	int annee = 1;
+	char motivation = '+';  //+ - ou =
+	int second = 2;
+	int troisieme = 3;
+
+	
+	public void initialize() {
+		u1 = new Tutore("tutore_", "Claude", "Allard", 9.8, nbAbscenceDefaut, annee, motivation);
+		t1 = new Tuteur("tuteur_","François","Bertin",13.3,nbAbscenceDefaut, second, motivation);
+
+		
+	}
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
@@ -77,11 +94,10 @@ public class ScenarioCSV {
 				etudiants.vuTuteur();
 			} else if(choix.equals("6")) {
 				etudiants.vuTutore();
-
-			} else if(choix.equals("7")) {
+			}  else if(choix.equals("7")) {
 				System.out.println("Vous avez demandé la fermeture du programme.");
 				demande=false;
-			} else {
+			}else {
 				System.out.println("Nous n'avons pas compris votre choix, veuillez réessayer.");
 			}
 		}
