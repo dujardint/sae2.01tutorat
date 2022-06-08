@@ -6,7 +6,7 @@ import java.util.* ;
 
 import appli.Tuteur;
 import appli.Tutorat;
-import dev.ImportCSV;
+import dev.ImportCSV1;
 
 public class AFFECTATIONFONCTIONEL_NE_PAS_MODIFIER {
 	public static void main(String[] args) {
@@ -14,8 +14,8 @@ public class AFFECTATIONFONCTIONEL_NE_PAS_MODIFIER {
 		System.out.println("Graphe permettant l'affectation normale avec les Donn�esPourTester : ");
 		//System.out.println(g);
 
-		Tutorat tutorat = new Tutorat(ImportCSV.readFileTuteur(ImportCSV.FILEPATH_TUTEUR),
-				ImportCSV.readFileTutore(ImportCSV.FILEPATH_TUTORE));
+		Tutorat tutorat = new Tutorat(ImportCSV1.readFileTuteur(ImportCSV1.FILEPATH_TUTEUR),
+				ImportCSV1.readFileTutore(ImportCSV1.FILEPATH_TUTORE));
 		
 		for(int i=0; i<tutorat.getListTutore().size(); i++) {
 			g.ajouterSommet(tutorat.getListTutore().get(i).getPrenomNom());

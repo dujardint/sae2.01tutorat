@@ -15,8 +15,8 @@ public class Scenario {
 		//System.out.println(g);
 		//1ÈRES ANNÉES
 		// On initialise le groupe des tutorés
-		Tutorat tutorat = new Tutorat(ImportCSV.readFileTuteur(ImportCSV.FILEPATH_TUTEUR),
-				ImportCSV.readFileTutore(ImportCSV.FILEPATH_TUTORE));
+		Tutorat tutorat = new Tutorat(ImportCSV1.readFileTuteur(ImportCSV1.FILEPATH_TUTEUR),
+				ImportCSV1.readFileTutore(ImportCSV1.FILEPATH_TUTORE));
 
 		Scanner scan = new Scanner(System.in);
 

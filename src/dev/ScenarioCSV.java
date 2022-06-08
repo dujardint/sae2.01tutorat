@@ -21,8 +21,8 @@ public class ScenarioCSV {
 
 		while (demande) {
 			g = new GrapheNonOrienteValue<String>();
-			Tutorat etudiants = new Tutorat(ImportCSV.readFileTuteur(ImportCSV.FILEPATH_TUTEUR),
-					ImportCSV.readFileTutore(ImportCSV.FILEPATH_TUTORE));			
+			Tutorat etudiants = new Tutorat(ImportCSV1.readFileTuteur(ImportCSV1.FILEPATH_TUTEUR),
+					ImportCSV1.readFileTutore(ImportCSV1.FILEPATH_TUTORE));			
 			
 			System.out.println("Bienvenue dans l'application officielle de tutorat !\nQue souhaitez-vous faire ? ");
 			System.out.println(
@@ -69,10 +69,10 @@ public class ScenarioCSV {
 
 			} else if(choix.equals("3")) {
 				etudiants.ajoutCandidat(true, 1);
-				ImportCSV.writeToFiles(etudiants.getListTuteur(), etudiants.getListTutore());				
+				ImportCSV1.writeToFiles(etudiants.getListTuteur(), etudiants.getListTutore());				
 			} else if(choix.equals("4")){
 				etudiants.supprimeCandidat();
-				ImportCSV.writeToFiles(etudiants.getListTuteur(), etudiants.getListTutore());
+				ImportCSV1.writeToFiles(etudiants.getListTuteur(), etudiants.getListTutore());
 			} else if(choix.equals("5")) {
 				etudiants.vuTuteur();
 			} else if(choix.equals("6")) {

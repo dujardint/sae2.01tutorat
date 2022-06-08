@@ -4,10 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import dev.ImportCSV;
+import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue;
+
 
 public class Tutorat  {
 	private List<Tutore> listeTutore;
 	private List<Tuteur> listeTuteur;
+	
+	static GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
+
 
 	public Tutorat(List<Tuteur> listeTuteur, List<Tutore> listeTutore) {
 		this.listeTutore = listeTutore;
@@ -240,6 +246,19 @@ public class Tutorat  {
 		}
 
 		return true;
+	}
+
+	public static String calculAffectation() {
+
+		g=new GrapheNonOrienteValue<String>();
+
+		ImportCSV.ajouterSommetTutore(ImportCSV.ExtractiongroupeTutoreCSV(ImportCSV.tutoreCSV));
+		ImportCSV.ajouterSommetTuteur(ImportCSV.ExtractiongroupeTuteurCSV(ImportCSV.tuteurCSV));
+		ImportCSV.ajouterArrete(ImportCSV.ExtractiongroupeTutoreCSV(ImportCSV.tutoreCSV), ImportCSV.ExtractiongroupeTuteurCSV(ImportCSV.tuteurCSV));
+		String affectation = ImportCSV.calculAffectation(g, ImportCSV.ExtractiongroupeTutoreCSV(ImportCSV.tutoreCSV), ImportCSV.ExtractiongroupeTuteurCSV(ImportCSV.tuteurCSV));
+
+
+		return affectation;
 	}
 
 }
