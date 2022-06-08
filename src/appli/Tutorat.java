@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
-import dev.ImportCSV;
 import fr.ulille.but.sae2_02.graphes.CalculAffectation;
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue;
 
@@ -29,6 +28,10 @@ public class Tutorat  {
 	
 	public List<Tuteur> getListTuteur(){
 		return this.listeTuteur;
+	}
+	
+	public void setListTuteur(List<Tuteur> tuteurs) {
+		this.listeTuteur = tuteurs;
 	}
 	
 	public GrapheNonOrienteValue<String> getGraphe(){
@@ -81,27 +84,26 @@ public class Tutorat  {
 		return position;
 	}
 
-	public List<Tutore> triTutore (List<Tutore> listeNonTriee){
+	public void triTutore (){
 		List<Tutore> listeTriee = new ArrayList<Tutore>();
 		int positionMin;
-		while(listeNonTriee.size() > 0) {
-			positionMin = getPositionMin(listeNonTriee);
-			listeTriee.add(listeNonTriee.get(positionMin));
-			listeNonTriee.remove(positionMin);
+		while(this.listeTutore.size() > 0) {
+			positionMin = getPositionMin(this.listeTutore);
+			listeTriee.add(this.listeTutore.get(positionMin));
+			this.listeTutore.remove(positionMin);
 		}
-		return listeTriee;
+		this.listeTutore = listeTriee;
 	}
 
-	public List<Tuteur> triTuteur (List<Tuteur> listeNonTriee){
+	public void triTuteur (){
 		List<Tuteur> listeTriee = new ArrayList<Tuteur>();
 		int positionMax;
-		while(listeNonTriee.size() > 0) {
-			positionMax = getPositionMax(listeNonTriee);
-			listeTriee.add(listeNonTriee.get(positionMax));
-			listeNonTriee.remove(positionMax);
+		while(this.listeTuteur.size() > 0) {
+			positionMax = getPositionMax(this.listeTuteur);
+			listeTriee.add(this.listeTuteur.get(positionMax));
+			this.listeTuteur.remove(positionMax);
 		}
-
-		return listeTriee;
+		this.listeTuteur = listeTriee;
 	}
 
 
@@ -396,6 +398,24 @@ public class Tutorat  {
 		}
 		// TODO - throw error
 		return null;
+	}
+	
+	public boolean containsTuteurVide() {
+		for(Tuteur t : this.listeTuteur) {
+			if (t.getIdentifiant().equals("999999")) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean containsTutoreVide() {
+		for(Tutore t : this.listeTutore) {
+			if(t.getIdentifiant().equals("999999")) { 
+				return true;
+			}
+		}
+		return false;
 	}
 }
 

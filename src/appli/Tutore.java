@@ -34,11 +34,5 @@ public class Tutore extends Etudiant{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	public String getPrenomNom() {
-		
-		return this.prenom +"_"+this.nom;
-	}
-
 	
 }

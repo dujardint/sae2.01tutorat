@@ -29,4 +29,8 @@ public class Utilisateur {
 	public String getNom() {
 		return this.nom;
 	}
+	
+	public String getIdentifiant() {
+		return this.identifiant;
+	}
 }

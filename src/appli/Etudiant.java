@@ -91,5 +91,9 @@ public abstract class Etudiant extends Utilisateur implements Comparable<Etudian
 	public String toString() {
 		return super.toString() + "-> Etudiant [annee=" + annee + ", moyenne=" + moyenne + ", motivation=" + motivation + "]";
 	}
+	
+	public String getPrenomNom() {
+		return this.prenom +"_"+this.nom;
+	}
 
 }
