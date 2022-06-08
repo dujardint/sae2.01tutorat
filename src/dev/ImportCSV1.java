@@ -21,7 +21,7 @@ public class ImportCSV1 {
 	static String sourceFileTutore = "tutore.csv";
 	static String sourceFileTuteur = "tuteur.csv";
 
-	static GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
+	public static GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
 	public static String FILEPATH_TUTORE = myPath + sourceFileTutore;
 	public static String FILEPATH_TUTEUR = myPath + sourceFileTuteur;
 
@@ -90,7 +90,6 @@ public class ImportCSV1 {
 		int id = 0;
 		for(String ligne : lignes) {
 			ligneSplit = ligne.split(";");
-			System.out.println(ligne);
 			tuteurTmp = new Tuteur(id + "",
 					ligneSplit[1],
 					ligneSplit[2],
@@ -134,8 +133,8 @@ public class ImportCSV1 {
 		ajouterSommetTuteur(grTuteur);
 		ajouterArrete(grTutore, grTuteur);
 		g2=new GrapheNonOrienteValue<String>();
-		System.out.println(grTutore.size() + " Tutore");
-		System.out.println(grTuteur.size() + " Tuteur\n");
+		//System.out.println(grTutore.size() + " Tutore");
+		//System.out.println(grTuteur.size() + " Tuteur\n");
 		List<String> tuteurPrenomNom = new ArrayList<String>();
 		for(int i=0; i<grTuteur.size(); i++) {
 			tuteurPrenomNom.add((grTuteur.get(i).getPrenomNom()));
@@ -145,13 +144,12 @@ public class ImportCSV1 {
 		for(int i=0; i<grTutore.size(); i++) {
 			tutorePrenomNom.add(grTutore.get(i).getPrenomNom());
 		}
-		System.out.println(tutorePrenomNom.size());
-		System.out.println(tuteurPrenomNom.size());
+		//System.out.println(tutorePrenomNom.size());
+		//System.out.println(tuteurPrenomNom.size());
 		CalculAffectation<String> c = new CalculAffectation<>(g, tutorePrenomNom, tuteurPrenomNom);
-		System.out.println("le cout minimal est de : " + c.getCout());
-		String res="";
+		String res = "Le cout minimal est de : " + c.getCout() + "\n";
 		for (int i=0;i<grTutore.size();i++) {
-			res += c.getAffectation().get(i).getExtremite1()+ " doit se mettre avec "+c.getAffectation().get(i).getExtremite2() + "\n";
+			res += c.getAffectation().get(i).getExtremite1() + " doit se mettre avec " + c.getAffectation().get(i).getExtremite2() + "\n";
 		}
 		return res;
 	}
@@ -164,9 +162,10 @@ public class ImportCSV1 {
 		String sep = ";";
 		try {
 			out = new BufferedWriter(new FileWriter(path));
+			out.write("annee;prenom;nom;moyenne;absence;motivation");
+			out.newLine();
 			for(int i = 0; i < tutores.size(); i++) {
 				t = tutores.get(i);
-				// annee;prenom;nom;moyenne;absence;motivation
 				line = t.getAnnee() 
 						+ sep + t.getPrenom() 
 						+ sep + t.getNom()
@@ -190,6 +189,8 @@ public class ImportCSV1 {
 		String sep = ";";
 		try {
 			out = new BufferedWriter(new FileWriter(path));
+			out.write("annee;prenom;nom;moyenne;absence;motivation");
+			out.newLine();
 			for(int i = 0; i < tuteurs.size(); i++) {
 				t = tuteurs.get(i);
 				// annee;prenom;nom;moyenne;absence;motivation

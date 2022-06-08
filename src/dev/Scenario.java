@@ -20,20 +20,19 @@ public class Scenario {
 
 		Scanner scan = new Scanner(System.in);
 
-
 		boolean demande = true;
 
 		while (demande) {
-
 			System.out.println("\nBienvenue dans l'application officielle de tutorat !\nQue voulez-vous faire ? ");
 
 			System.out.println(("0 pour quitter\n1 pour vérifier la taille\n2 pour supprimer un candidat\n3 pour ajouter un candidat (tuteur ou tutore) \n4 pour calculer \n5 pour voir un tuteur \n6 pour voir un tutoré"));
 			String choix = scan.nextLine();
 			if(choix.equals("0")) {
-				System.out.println("Vous avez demander la femeture du programme !");
+				System.out.println("Vous avez demander la fermeture du programme.");
 				demande=false;
 			}
 			else if(choix.equals("1")) {
+				System.out.println(tutorat.getListTuteur().size() + " tutorés : " + tutorat.getListTutore().size());
 				System.out.println(tutorat.tailleEgale());
 			}
 			else if(choix.equals("2")){
@@ -109,7 +108,7 @@ public class Scenario {
 			else {
 				System.out.println("Nous n'avons pas compris votre choix, veuillez ressayer merci !");
 			}
-			
 		}
+		scan.close();
 	}
 }

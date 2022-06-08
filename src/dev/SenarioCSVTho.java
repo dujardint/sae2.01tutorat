@@ -1,36 +1,22 @@
 package dev;
 
-import fr.ulille.but.sae2_02.graphes.CalculAffectation ;
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue ;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.* ;
-import appli.Tuteur;
 import appli.Tutorat;
-import appli.Tutore;
 
 public class SenarioCSVTho {
-
-	static String myPath =  System.getProperty("user.dir") + File.separator + "res" + File.separator;
-	static String sourceFileTutore = "tutore.csv";
-	static String sourceFileTuteur = "tuteur.csv";
-
-	static String tuteurCSV = ""+ myPath +sourceFileTuteur;
-	static String tutoreCSV = ""+ myPath +sourceFileTutore;
-
-
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		boolean demande = true;
 
 		while (demande) {
-			ImportCSV.g=new GrapheNonOrienteValue<String>();
-			//writeToFiles()
-			Tutorat etudiants = new Tutorat(ImportCSV.ExtractiongroupeTuteurCSV(tuteurCSV), ImportCSV.ExtractiongroupeTutoreCSV(tutoreCSV));
+			ImportCSV1.g=new GrapheNonOrienteValue<String>();
 
-			System.out.println("\nBienvenue dans l'application officielle de tutorat !\nQue voulez-vous faire ? ");
+			Tutorat etudiants = new Tutorat(ImportCSV1.readFileTuteur(ImportCSV1.FILEPATH_TUTEUR),
+					ImportCSV1.readFileTutore(ImportCSV1.FILEPATH_TUTORE));	
+			
+			System.out.println("Bienvenue dans l'application officielle de tutorat !\nQue voulez-vous faire ? ");
 			System.out.println(
 					("0 pour calculer\n"
 							+ "1 pour afficher la liste des etudiants inscrits\n"
@@ -53,22 +39,24 @@ public class SenarioCSVTho {
 				if(convaincu.equals("o") || (convaincu.equals("oui")) || (convaincu.equals("OUI"))) {
 					demande=false;
 				}
-			}
-			else if(choix.equals("1")) {
+			} else if(choix.equals("1")) {
 				System.out.println(etudiants.toString());
 
-			}
-			else if(choix.equals("2")){
-				System.out.println(etudiants.tailleEgale());
-
-			}
-			else if(choix.equals("3")) {
+			} else if(choix.equals("2")){
+				etudiants.purgeCandidatFactices();
+				if (etudiants.getListTuteur().size() != etudiants.getListTutore().size()) {
+					System.out.println("Les listes Tuteurs / Tutorés ne sont pas de taille égale. Ajout d'un candidat factice afin de pouvoir déterminer les couples possibles.");
+					etudiants.tailleEgale();
+				} else {
+					System.out.println("Les listes Tuteurs / Tutorés sont de taille égale. Nous pouvons déterminer les couples possibles.");
+				}
+			} else if(choix.equals("3")) {
 				etudiants.ajoutCandidat(true,1);
-				//METTRE A JOUR LE CSV QUAND ON AJOUTE OU SUPPRIME UN CANDIDAT !
-
-			}
-			else if(choix.equals("4")){
+				ImportCSV1.writeToFiles(etudiants.getListTuteur(), etudiants.getListTutore());	
+			} else if(choix.equals("4")){
 				etudiants.supprimeCandidat();
+				ImportCSV1.writeToFiles(etudiants.getListTuteur(), etudiants.getListTutore());	
+				System.out.println("Le candidat est bien supprimé.");
 			}
 			else if(choix.equals("5")) {
 				etudiants.vuTuteur();
@@ -77,14 +65,14 @@ public class SenarioCSVTho {
 				etudiants.vuTutore();
 
 			}else if(choix.equals("7")) {
-				System.out.println("Vous avez demander la femeture du programme !");
+				System.out.println("Vous avez demandé la fermeture du programme.");
 				demande=false;
 			}
 			else {
-				System.out.println("Nous n'avons pas compris votre choix, veuillez ressayer merci !");
+				System.out.println("Nous n'avons pas compris votre choix, veuillez reessayer.");
 			}
 		}
-		System.out.println("Merci d'avoir utilisé notre merveilleuse application !");
+		System.out.println("Merci d'avoir utilisé notre merveilleuse application.");
 		scan.close();
 	}
 

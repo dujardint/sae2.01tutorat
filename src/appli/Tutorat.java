@@ -25,7 +25,7 @@ public class Tutorat  {
 	public List<Tutore> getListTutore(){
 		return this.listeTutore;
 	}
-
+	
 	public List<Tuteur> getListTuteur(){
 		return this.listeTuteur;
 	}
@@ -114,47 +114,49 @@ public class Tutorat  {
 		//TODO
 	}
 
-
-	public boolean tailleEgale() {
+	public boolean purgeCandidatFactices() {
 		Tuteur tuteurFactice = new Tuteur("999999", "PrenomVide", "NomVide", 0.00, 1000, 2, '-');
 		Tutore tutoreFactice = new Tutore("999999", "PrenomVide", "NomVide" , 20.0, 1000, 1, '-');
 		while(this.listeTuteur.remove(tuteurFactice)) {}
 		while(this.listeTutore.remove(tutoreFactice)) {}
-		
+		return true;
+	}
+	public boolean tailleEgale() {
+		purgeCandidatFactices();
 		int difference = this.listeTuteur.size() - this.listeTutore.size();
 		if (difference > 0) {
-			System.out.println("Il y a plus de tuteurs que de tutores, nous procédons à un rééquilibrage pour la simulation.");
+			//System.out.println("Il y a plus de tuteurs que de tutores, nous procédons à un rééquilibrage pour la simulation.");
 			return this.ajoutCandidat(false, difference);
 		} else if (difference < 0) {
-			System.out.println("Il y a plus de tutores que de tuteurs, nous procédons à un rééquilibrage pour la simulation.");
+			//System.out.println("Il y a plus de tutores que de tuteurs, nous procédons à un rééquilibrage pour la simulation.");
 			return this.ajoutCandidat(false, difference);
-		}
-		return false;
+		} 
+		return true;
 	}
 
 	public boolean ajoutCandidat(boolean manuel, int difference) {
 		if (manuel) {
 			// C'est l'utilisateur qui entre les paramètres du Candidat
 			Scanner scan = new Scanner(System.in);
-			System.out.println("Entre le nom pour ajouter un tutore");
+			System.out.println("Entrez le nom pour ajouter un tutore");
 			String nom = scan.nextLine();
-			System.out.println("Entre le prenom");
+			System.out.println("Entrez le prenom");
 			String prenom = scan.nextLine();
-			String PrenomNom = prenom + "_" + nom;
-			System.out.println(PrenomNom);
+			String prenomNom = prenom + "_" + nom;
+			System.out.println(prenomNom);
 
-			System.out.println("Entre la moyenne");
-			double moyenne = scan.nextDouble();
-			System.out.println("Entre le nombre d'abscence");
+			System.out.println("Entrez la moyenne");
+			double moyenne = Double.parseDouble(scan.nextLine().replace(',', '.'));
+			System.out.println("Entrez le nombre d'abscence(s)");
 			int nbAbsence = scan.nextInt();
-			System.out.println("Entre l'annee");
+			System.out.println("Entrez l'année");
 			int annee = scan.nextInt();
-			System.out.println("Entre la motivation (+,-,=)");
+			System.out.println("Entrez la motivation (+,-,=)");
 			char motivation = scan.next().charAt(0);
 
 			if(annee==1) {
 				for(int i=0; i < listeTutore.size(); i++) {
-					if(PrenomNom.equals(listeTutore.get(i).getPrenomNom())){
+					if(prenomNom.equals(listeTutore.get(i).getPrenomNom())){
 						System.out.println("Il existe deja ce tutore. Il n'y a pas de nÃ©cessitÃ© de l'ajouter.");	
 						return false;
 					}
@@ -162,7 +164,7 @@ public class Tutorat  {
 				return listeTutore.add(new Tutore("tutore_", nom, prenom, moyenne,nbAbsence, annee, motivation)); 
 			} else {
 				for(int i=0; i<listeTuteur.size(); i++) {
-					if(PrenomNom.equals(listeTuteur.get(i).getPrenomNom())){
+					if(prenomNom.equals(listeTuteur.get(i).getPrenomNom())){
 						System.out.println("il existe deja ce tuteur. Il n'y a pas de nÃ©cessitÃ© de l'ajouter.");	
 						return false;
 					}
@@ -193,22 +195,28 @@ public class Tutorat  {
 
 	public boolean supprimeCandidat() {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Entrez le nom de l'étudiant Ã  supprimer :");
+		System.out.println("Entrez le nom de l'étudiant à supprimer :");
 		String nom = scan.nextLine();
 
-		System.out.println("Entrez le prÃ©nom de l'étudiant Ã  supprimer :");
+		System.out.println("Entrez le prÃ©nom de l'étudiant  supprimer :");
 		String prenom = scan.nextLine();
 
 		nom = nom+"_"+prenom;
 		System.out.println(nom);
 
-		for(int i=0; i<listeTuteur.size(); i++) {
-			if(nom.equals(listeTuteur.get(i).getPrenomNom())){
+		for(int i=0; i<this.listeTuteur.size(); i++) {
+			if(nom.equals(this.listeTuteur.get(i).getPrenomNom())){
 				listeTuteur.remove(i);
-				System.out.println("Suppression rÃ©ussie.");
-				tailleEgale();
+				System.out.println("Suppression du tuteur réussie.");
 			}
 		}
+		for(int i=0; i<this.listeTutore.size(); i++) {
+			if(nom.equals(this.listeTutore.get(i).getPrenomNom())){
+				listeTuteur.remove(i);
+				System.out.println("Suppression du tutoré réussie.");
+			}
+		}
+		this.tailleEgale();
 		return true;
 	}
 	
@@ -274,9 +282,23 @@ public class Tutorat  {
 		ImportCSV.ajouterArrete(ImportCSV.ExtractiongroupeTutoreCSV(ImportCSV.tutoreCSV), ImportCSV.ExtractiongroupeTuteurCSV(ImportCSV.tuteurCSV));
 		String affectation = ImportCSV.calculAffectation(g, ImportCSV.ExtractiongroupeTutoreCSV(ImportCSV.tutoreCSV), ImportCSV.ExtractiongroupeTuteurCSV(ImportCSV.tuteurCSV));
 
-
 		return affectation;
 	}
 
+	public String toString() {
+		this.purgeCandidatFactices();
+		String retour = "Tutorés : \n";
+		for(Tutore t : this.listeTutore) {
+			retour = retour + t.toString() + "\n";
+		}
+		retour = retour + "Tuteurs : \n";
+		for(Tuteur t : this.listeTuteur) {
+			retour = retour + t.toString() + "\n";
+		}
+		this.tailleEgale();
+		return retour;
+	}
+	
+	
 }
 
