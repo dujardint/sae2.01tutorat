@@ -49,12 +49,30 @@ public class MonController {
 	TextArea contenuTuteur;
 	@FXML
 	TextArea boxCouple;
+	@FXML
+	TextField moyTutore;
+	@FXML
+	TextField annneTutore;
+	@FXML
+	TextField prenomTutore;
+	@FXML
+	TextField nomTutore;
+	@FXML
+	TextField moyTuteur;
+	@FXML
+	TextField annneTuteur;
+	@FXML
+	TextField prenomTuteur;
+	@FXML
+	TextField nomTuteur;
+	
 
 	Tutorat etudiants;
 	//ArrayList<Tutore> groupeTutore = new ArrayList<>();
 	//ArrayList<Tuteur> groupeTuteur = new ArrayList<>();
 	//ArrayList<Object> groupeTutorat = new ArrayList<>();
 	Map<Tuteur, Tutore> groupeTutorat;
+	int val = 0; 
 
 
 
@@ -81,11 +99,22 @@ public class MonController {
 
 		listeTutorat.getSelectionModel().getSelectedItems().addListener(new MonListChangeListener3());
 	}
+	
+	public int recherche(String nom) {
+		for (int i=0; i<nom.length();i++) {
+			if(nom.charAt(i)=='_') {
+				return i;
+			}
+		}
+		return 0;
+	}
 
 	class MonListChangeListener implements ListChangeListener<String> {
 		public void onChanged(Change<? extends String> report) {
 			contenuTutore.setText("" + report.getList());
 			contenuTutore.setText(contenuTutore.getText().substring(1, contenuTutore.getText().length()-1));
+			prenomTutore.setText(contenuTutore.getText().substring(0, recherche(contenuTutore.getText())));
+			nomTutore.setText(contenuTutore.getText().substring(recherche(contenuTutore.getText())+1,contenuTutore.getText().length()));
 		}
 	}
 
@@ -93,6 +122,8 @@ public class MonController {
 		public void onChanged(Change<? extends String> report) {
 			contenuTuteur.setText(""+ report.getList());
 			contenuTuteur.setText(contenuTuteur.getText().substring(1, contenuTuteur.getText().length()-1));
+			prenomTuteur.setText(contenuTuteur.getText().substring(0, recherche(contenuTuteur.getText())));
+			nomTuteur.setText(contenuTuteur.getText().substring(recherche(contenuTuteur.getText())+1,contenuTuteur.getText().length()));
 		}
 	}
 
