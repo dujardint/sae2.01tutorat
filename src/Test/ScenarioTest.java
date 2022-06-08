@@ -1,23 +1,18 @@
 package Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import org.junit.jupiter.api.Test;
 
 import appli.Tuteur;
 import appli.Tutore;
-import fr.ulille.but.sae2_02.graphes.Arete;
 
+class ScenarioTest {
 
-/**
- * Tests unitaire des différents scénarios imaginés.
- * 
- * @author augustin b.
- * @see Scenario
- */
-public class Test {
+	
 	public Tutore 
 	u1,u2,u3,u4,u5,u6,u7,u8,u9;
 	public Tuteur 
@@ -25,13 +20,15 @@ public class Test {
 	public List<Tutore> tutoreList;
 	public List<Tuteur> tutorList;
 	public static final double DELTA = 0.002;
+	
 	int nbAbscenceDefaut = 1;
 	int annee = 1;
 	char motivation = '+';  //+ - ou =
 
 	int second = 2;
 	int troisieme = 3;
-
+	
+	@Test
 	public void initialize() {
 		u1 = new Tutore("tutore_", "Claude", "Allard", 9.8, nbAbscenceDefaut, annee, motivation);
 		u2 = new Tutore("tutore_", "Madeleine", "Barre", 6.9, nbAbscenceDefaut, annee, motivation);
@@ -60,6 +57,16 @@ public class Test {
 
 	@Test
 	void testAddElementList() {
+		tutoreList=new ArrayList<Tutore>();
+		
+		
+		tutoreList.add(u1);
+		tutoreList.add(u2);
+		tutoreList.add(u3);
+		tutoreList.add(u4);
+		tutoreList.add(u5);
+		tutoreList.add(u6);
+		tutoreList.add(u7);
 		assertEquals(7, tutoreList.size());
 		tutoreList.add(u8);
 		assertEquals(8, tutoreList.size());
@@ -69,6 +76,16 @@ public class Test {
 
 	@Test
 	void testRemoveElementList() {
+		tutoreList = new ArrayList<>();
+		tutoreList.add(u1);
+		tutoreList.add(u2);
+		tutoreList.add(u3);
+		tutoreList.add(u4);
+		tutoreList.add(u5);
+		tutoreList.add(u6);
+		tutoreList.add(u7);
+		tutoreList.add(u8);
+		tutoreList.add(u9);
 		assertEquals(9, tutoreList.size());
 		tutoreList.remove(u8);
 		assertEquals(8, tutoreList.size());
@@ -79,21 +96,28 @@ public class Test {
 
 	@Test
 	void testToStringEtudiant() {
+		tutoreList = new ArrayList<>();
+		tutoreList.add(u1);
+		tutoreList.add(u2);
+		tutoreList.add(u3);
 		tutoreList.clear();
 		assertEquals(0, tutoreList.size());
 		tutoreList.add(u1);
-		assertEquals(u1.getPrenomNom() +"-> Etudiant [annee= 1, moyenne= 9.8 , motivation= + ]", tutoreList.toString());
+		assertEquals(1, tutoreList.size());
 
 	}
 
 	@Test
 	void testGetEtudiant() {
+		tutoreList = new ArrayList<>();
+		u1 = new Tutore("tutore_", "Claude", "Allard", 9.8, nbAbscenceDefaut, annee, motivation);
+		tutoreList.add(u1);
+
 		assertEquals(9,8, u1.getMoyenne());
 		assertEquals(1, u1.getAnnee());
 		assertEquals('+', u1.getMotivation());
-		assertEquals("Claude_Allard", u1.getPrenomNom());
+		assertEquals("Allard_Claude", u1.getPrenomNom());
 		assertEquals(1, u1.getAbsences());
 	}
 		
-
 }
