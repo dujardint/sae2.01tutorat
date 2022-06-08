@@ -3,7 +3,7 @@ package dev;
 import java.util.* ;
 import appli.Tutorat;
 
-public class SenarioCSVTho {
+public class ScenarioCSV {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		boolean demande = true;

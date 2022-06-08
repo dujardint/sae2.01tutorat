@@ -61,10 +61,10 @@ public class MonController {
 	public void initialize() {
 		System.out.println("Initialisation...");
 		this.groupeTutorat = new HashMap<>();
-		
+
 		etudiants = new Tutorat(ImportCSV.readFileTuteur(ImportCSV.FILEPATH_TUTEUR),
 				ImportCSV.readFileTutore(ImportCSV.FILEPATH_TUTORE));
-	
+
 		for(int i=0; i<etudiants.getListTutore().size(); i++) {
 			listeTutore.getItems().add(etudiants.getListTutore().get(i).getPrenomNom());
 		}
@@ -107,7 +107,7 @@ public class MonController {
 	public void pressedButtonAffecter(ActionEvent event) {	
 		Tuteur tuteurSelectionne = null;
 		Tutore tutoreSelectionne = null ;
-		
+
 		//si rien selectionner on alerte l'utilisateur
 		if(contenuTutore.getText().equals("Selectionner un tutore pour afficher ses d�tails") || 
 				contenuTuteur.getText().equals("Selectionner un tuteur pour afficher ses d�tails.") ||
@@ -119,27 +119,27 @@ public class MonController {
 		}
 		else {
 			//ajout des 2 personnes dans la liste tutorat
-			
-			
+
+
 			for(int i=0; i<etudiants.getListTutore().size(); i++) {
 				if(contenuTutore.getText().equals(etudiants.getListTutore().get(i).getPrenomNom())) {
 					tutoreSelectionne = etudiants.getListTutore().get(i);
 				}
 			}
-			
+
 			for(int i=0; i<etudiants.getListTuteur().size(); i++) {
 				if(contenuTuteur.getText().equals(etudiants.getListTuteur().get(i).getPrenomNom())) {
 					tuteurSelectionne = etudiants.getListTuteur().get(i);
 				}
 			}
-			
+
 			groupeTutorat.put(tuteurSelectionne, tutoreSelectionne);
-			
+
 			listeTutorat.getItems().add(""+contenuTutore.getText() + "-" + contenuTuteur.getText());
 
 			etudiants.supprimeCandidat(contenuTutore.getText());
 			etudiants.supprimeCandidat(contenuTuteur.getText());
-			
+
 			listeTutore.getItems().remove(contenuTutore.getText());
 			listeTuteur.getItems().remove(contenuTuteur.getText());
 		}
@@ -163,40 +163,46 @@ public class MonController {
 					idx = i;
 				}
 			}
-			
+
 			for (Map.Entry<Tuteur, Tutore> entry : groupeTutorat.entrySet()) {
-			      //System.out.println("Key : " + entry.getKey() + " value : " + entry.getValue());
-				if (entry.getKey().getPrenomNom().equals(boxCouple.getText().substring(idx + 1))) {
+				System.out.println("avant if Key : " + entry.getKey() + " value : " + entry.getValue());
+
+				System.out.println(boxCouple.getText().substring(idx + 1));
+
+				if (entry.getKey().getPrenomNom().equals(boxCouple.getText().substring(0, idx))) {
 					// On remet les tuteurs et tutores dans leur listes initiales candidat en mémoire
 					etudiants.ajouterTuteur(entry.getKey());
 					etudiants.ajouterTutore(entry.getValue());
-					// n remet les tuteurs et tutores dans leur listes initiales candidat en IHM
+					System.out.println("Key : " + entry.getKey() + " value : " + entry.getValue());
+
+					// on remet les tuteurs et tutores dans leur listes initiales candidat en IHM
 					listeTutore.getItems().add(entry.getValue().getPrenomNom());
 					listeTuteur.getItems().add(entry.getKey().getPrenomNom());
-					
+
 					groupeTutorat.remove(entry.getKey());
 					listeTutorat.getItems().remove(boxCouple.getText());
 				}
 			}
-			
-			
-			//ajout des 2 personnes dans la liste tutorat   			
+
+
+			/*	//ajout des 2 personnes dans la liste tutorat   			
 			//on prend substring pour separer le tutore du tuteur
-			//for(int i=0; i<groupeTutore.size(); i++) {
-				//if(boxCouple.getText().substring(0, idx).equals(groupeTutore.get(i).getPrenomNom())) {
+			for(int i=0; i<groupeTutore.size(); i++) {
+				if(boxCouple.getText().substring(0, idx).equals(groupeTutore.get(i).getPrenomNom())) {
 					//groupeTutore.remove(i);
-				//}
-			//}
-			
-			/*for(int i=0; i<groupeTuteur.size(); i++) {
+				}
+			}
+
+			for(int i=0; i<groupeTuteur.size(); i++) {
 				if(boxCouple.getText().substring(idx+1, boxCouple.getText().length()).equals(groupeTuteur.get(i).getPrenomNom())) {
 					groupeTuteur.remove(i);
 				}
-			}*/
-				
+			}
+			 */
+
 			//suppression des 2 personnes dans les listes d'origines
-			
-			
+
+
 			/*for(int i=0; i<groupeTuteur.size(); i++) {
 				//if(contenuTuteur.getText().equals(groupeTuteur.get(i).getPrenomNom())) {
 					//groupeTuteur.remove(i);
@@ -219,7 +225,7 @@ public class MonController {
 				}
 			}
 			listeTutore.getItems().remove(contenuTutore.getText());
-			
+
 		}
 	}
 
@@ -240,16 +246,17 @@ public class MonController {
 
 	public void pressedButtonCalculer(ActionEvent event) {		
 		CalculAffectation<String>  affectation = etudiants.calculAffectation();
-		
+
+
 		for(Arete<String> couple : affectation.getAffectation()) {
 			listeTutorat.getItems().add(couple.getExtremite1() + "-" + couple.getExtremite2());
 			groupeTutorat.put(etudiants.getTuteur(couple.getExtremite1()), 
 					etudiants.getTutore(couple.getExtremite2()));
 		}
-	
+
 		listeTutore.getItems().clear();
 		listeTuteur.getItems().clear();
-		
+
 		etudiants.getListTutore().clear();
 		etudiants.getListTuteur().clear();
 
@@ -258,6 +265,8 @@ public class MonController {
 
 
 	public void pressedButtonQuitter(ActionEvent event) {
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Souhaitez-vous sauvegarder puis quitter ?", ButtonType.OK);
+		alert.showAndWait();
 		((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
 	}
 }

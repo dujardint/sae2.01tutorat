@@ -14,7 +14,7 @@ import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue;
 public class Tutorat  {
 	private List<Tutore> listeTutore;
 	private List<Tuteur> listeTuteur;
-	private GrapheNonOrienteValue<String> graphe = new GrapheNonOrienteValue<String>();
+	private GrapheNonOrienteValue<String> graphe;
 
 	public Tutorat(List<Tuteur> listeTuteur, List<Tutore> listeTutore) {
 		this.listeTutore = listeTutore;
@@ -185,8 +185,8 @@ public class Tutorat  {
 			if (difference > 0 ) {
 				// + de tuteurs que de tutores
 				for(int i = 0; i < difference; i++) {
-					prenomVide = "PrenomVide" + rand.nextInt(2147483647);
-					nomVide = "NomVide" + rand.nextInt(2147483647);
+					prenomVide = "P_" + rand.nextInt(1000);
+					nomVide = "N_" + rand.nextInt(1000);
 					tutoreFactice = new Tutore("999999", prenomVide, nomVide , 20.0, 1000, 1, '-');
 					this.listeTutore.add(tutoreFactice);
 				}
@@ -317,6 +317,10 @@ public class Tutorat  {
 	}
 	
 	public CalculAffectation<String> calculAffectation() {
+		//egale des listes
+		this.tailleEgale();
+		//reinitialiation graphe 
+		this.graphe=new GrapheNonOrienteValue<String>();
 		// Ajouter Sommets au graphe
 		this.ajouterSommetsTuteur();
 		this.ajouterSommetsTutore();
