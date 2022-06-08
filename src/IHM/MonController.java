@@ -115,6 +115,7 @@ public class MonController {
 			contenuTutore.setText(contenuTutore.getText().substring(1, contenuTutore.getText().length()-1));
 			prenomTutore.setText(contenuTutore.getText().substring(0, recherche(contenuTutore.getText())));
 			nomTutore.setText(contenuTutore.getText().substring(recherche(contenuTutore.getText())+1,contenuTutore.getText().length()));
+			annneTutore.setText(1+"");
 		}
 	}
 
@@ -167,6 +168,7 @@ public class MonController {
 			groupeTutorat.put(tuteurSelectionne, tutoreSelectionne);
 
 			listeTutorat.getItems().add(""+contenuTutore.getText() + "-" + contenuTuteur.getText());
+			//listeTutorat.setStyle("-fx-text-inner-color: red;");
 
 			etudiants.supprimeCandidat(contenuTutore.getText());
 			etudiants.supprimeCandidat(contenuTuteur.getText());
