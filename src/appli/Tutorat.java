@@ -6,20 +6,20 @@ import java.util.Map;
 import java.util.Scanner;
 
 import dev.ImportCSV;
+import fr.ulille.but.sae2_02.graphes.CalculAffectation;
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue;
 
 
 public class Tutorat  {
 	private List<Tutore> listeTutore;
 	private List<Tuteur> listeTuteur;
-	
-	static GrapheNonOrienteValue<String> g = new GrapheNonOrienteValue<String>();
-
+	private GrapheNonOrienteValue<String> graphe = new GrapheNonOrienteValue<String>();
 
 	public Tutorat(List<Tuteur> listeTuteur, List<Tutore> listeTutore) {
 		this.listeTutore = listeTutore;
 		this.listeTuteur = listeTuteur;
 		this.tailleEgale();
+		this.graphe= new GrapheNonOrienteValue<String>();
 	}
 	
 	public List<Tutore> getListTutore(){
@@ -28,6 +28,10 @@ public class Tutorat  {
 	
 	public List<Tuteur> getListTuteur(){
 		return this.listeTuteur;
+	}
+	
+	public GrapheNonOrienteValue<String> getGraphe(){
+		return this.graphe;
 	}
 	
 	private Map<Tutore, Tuteur> forcedAssignments;
@@ -100,7 +104,7 @@ public class Tutorat  {
 	}
 
 
-	public static double calculDistance(Tuteur tuteur, Tutore tutore) {
+	public double calculDistance(Tuteur tuteur, Tutore tutore) {
 		double moyenneTuteur;
 		if(tuteur.getAnnee() == 3) {
 			moyenneTuteur = 40.0 + tuteur.getMoyenne();
@@ -212,7 +216,7 @@ public class Tutorat  {
 		}
 		for(int i=0; i<this.listeTutore.size(); i++) {
 			if(nom.equals(this.listeTutore.get(i).getPrenomNom())){
-				listeTuteur.remove(i);
+				listeTutore.remove(i);
 				System.out.println("Suppression du tutoré réussie.");
 			}
 		}
@@ -273,16 +277,53 @@ public class Tutorat  {
 		return true;
 	}
 
-	public static String calculAffectation() {
-
-		g=new GrapheNonOrienteValue<String>();
-
-		ImportCSV.ajouterSommetTutore(ImportCSV.ExtractiongroupeTutoreCSV(ImportCSV.tutoreCSV));
-		ImportCSV.ajouterSommetTuteur(ImportCSV.ExtractiongroupeTuteurCSV(ImportCSV.tuteurCSV));
-		ImportCSV.ajouterArrete(ImportCSV.ExtractiongroupeTutoreCSV(ImportCSV.tutoreCSV), ImportCSV.ExtractiongroupeTuteurCSV(ImportCSV.tuteurCSV));
-		String affectation = ImportCSV.calculAffectation(g, ImportCSV.ExtractiongroupeTutoreCSV(ImportCSV.tutoreCSV), ImportCSV.ExtractiongroupeTuteurCSV(ImportCSV.tuteurCSV));
-
-		return affectation;
+	private void ajouterSommetsTutore() {
+		for(Tutore t : this.listeTutore) {
+			this.graphe.ajouterSommet(t.getPrenomNom());
+		}
+	}
+	
+	private void ajouterSommetsTuteur() {
+		for(Tuteur t : this.listeTuteur) {
+			this.graphe.ajouterSommet(t.getPrenomNom());
+		}
+	}
+	
+	private void ajouterAretes() {
+		for(Tuteur tuteur : this.listeTuteur) {
+			for(Tutore tutore : this.listeTutore) {
+				this.graphe.ajouterArete(
+						tuteur.getPrenomNom(), 
+						tuteur.getPrenomNom(), 
+						this.calculDistance(tuteur, tutore));
+			}
+		}
+	}
+	public CalculAffectation<String> calculAffectation() {
+		// Ajouter Sommets au graphe
+		this.ajouterSommetsTuteur();
+		this.ajouterSommetsTutore();
+		// Ajouter arete au graphe
+		this.ajouterAretes();
+		//String affectation = ImportCSV.calculAffectation(this.graphe, ImportCSV.ExtractiongroupeTutoreCSV(ImportCSV.tutoreCSV), ImportCSV.ExtractiongroupeTuteurCSV(ImportCSV.tuteurCSV));
+		// Calcul affectation
+		List<String> tuteurPrenomNom = new ArrayList<String>();
+		List<String> tutorePrenomNom = new ArrayList<String>();
+		for(Tuteur t : this.listeTuteur) {
+			tuteurPrenomNom.add(t.getPrenomNom());
+		}
+		for(Tutore t : this.listeTutore) {
+			tutorePrenomNom.add(t.getPrenomNom());
+		}
+		
+		CalculAffectation<String> calculAffectation = new CalculAffectation<>(this.graphe, tutorePrenomNom, tuteurPrenomNom);
+		
+		//System.out.println("le cout minimal est de : " + c.getCout());
+		String res="";
+		//for (int i=0;i<grTutore.size();i++) {
+			//res += c.getAffectation().get(i).getExtremite1()+ " doit se mettre avec "+c.getAffectation().get(i).getExtremite2() + "\n";
+		//}
+		return calculAffectation;
 	}
 
 	public String toString() {

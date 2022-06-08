@@ -1,5 +1,6 @@
 package dev;
 
+import fr.ulille.but.sae2_02.graphes.CalculAffectation;
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue ;
 
 import java.util.* ;
@@ -31,8 +32,8 @@ public class SenarioCSVTho {
 			System.out.println();
 			if(choix.equals("0")) {
 				System.out.println("Vous avez decidé de ne rien modifier ! l'algo va s'executer !");
-				String affectation = Tutorat.calculAffectation();
-				System.out.println(affectation);
+				CalculAffectation<String> affectations = etudiants.calculAffectation();
+				
 
 				System.out.println("Est ce que l'affectation vous va ? (=> o ou n)");
 				String convaincu = scan.nextLine();
