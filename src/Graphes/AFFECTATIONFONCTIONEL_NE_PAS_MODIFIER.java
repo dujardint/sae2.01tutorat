@@ -6,7 +6,7 @@ import java.util.* ;
 
 import appli.Tuteur;
 import appli.Tutorat;
-import dev.ImportCSV1;
+import dev.ImportCSV;
 
 public class AFFECTATIONFONCTIONEL_NE_PAS_MODIFIER {
 	public static void main(String[] args) {
@@ -14,10 +14,10 @@ public class AFFECTATIONFONCTIONEL_NE_PAS_MODIFIER {
 		System.out.println("Graphe permettant l'affectation normale avec les Donnï¿½esPourTester : ");
 		//System.out.println(g);
 
-		Tutorat tutorat = new Tutorat(ImportCSV1.readFileTuteur(ImportCSV1.FILEPATH_TUTEUR),
-				ImportCSV1.readFileTutore(ImportCSV1.FILEPATH_TUTORE));
+		Tutorat tutorat = new Tutorat(ImportCSV.readFileTuteur(ImportCSV.FILEPATH_TUTEUR),
+				ImportCSV.readFileTutore(ImportCSV.FILEPATH_TUTORE));
 		
-		for(int i=0; i<tutorat.getListTutore().size(); i++) {
+		for(int i=0; i < tutorat.getListTutore().size(); i++) {
 			g.ajouterSommet(tutorat.getListTutore().get(i).getPrenomNom());
 			System.out.println(tutorat.getListTutore().get(i).getPrenomNom() + " ajouter a la liste sommet");
 		}
@@ -34,21 +34,21 @@ public class AFFECTATIONFONCTIONEL_NE_PAS_MODIFIER {
 		//ARRETES
 		for(int i=0; i<tutorat.getListTuteur().size(); i++) {
 			for(int j=0; j<tutorat.getListTutore().size(); j++) {
-				g.ajouterArete(tutorat.getListTuteur().get(i).getPrenomNom(), tutorat.getListTutore().get(j).getPrenomNom(), Tutorat.calculDistance(tutorat.getListTuteur().get(i), tutorat.getListTutore().get(j)));
-				System.out.println("" + tutorat.getListTuteur().get(i).getPrenomNom() + " " + tutorat.getListTutore().get(j).getPrenomNom() + " distance : " + Tutorat.calculDistance(tutorat.getListTuteur().get(i), tutorat.getListTutore().get(j)));
+				g.ajouterArete(tutorat.getListTuteur().get(i).getPrenomNom(), tutorat.getListTutore().get(j).getPrenomNom(), tutorat.calculDistance(tutorat.getListTuteur().get(i), tutorat.getListTutore().get(j)));
+				System.out.println("" + tutorat.getListTuteur().get(i).getPrenomNom() + " " + tutorat.getListTutore().get(j).getPrenomNom() + " distance : " + tutorat.calculDistance(tutorat.getListTuteur().get(i), tutorat.getListTutore().get(j)));
 			}
 		}
 
 		//System.out.println(g.toString());
 
 		System.out.println();
-		List<String> tuteurPrenomNom=new ArrayList<String>();
+		List<String> tuteurPrenomNom = new ArrayList<String>();
 		for(int i=0; i < tutorat.getListTuteur().size(); i++) {
 			tuteurPrenomNom.add(tutorat.getListTuteur().get(i).getPrenomNom());
 			System.out.println("liste tuteur : " + tuteurPrenomNom.get(i));
 		}
 		System.out.println();
-		ArrayList<String> tutorePrenomNom=new ArrayList<String>();
+		ArrayList<String> tutorePrenomNom = new ArrayList<String>();
 		for(int i=0; i < tutorat.getListTutore().size(); i++) {
 			tutorePrenomNom.add(tutorat.getListTutore().get(i).getPrenomNom());
 			System.out.println("liste tutore : "+tutorePrenomNom.get(i));
@@ -63,6 +63,6 @@ public class AFFECTATIONFONCTIONEL_NE_PAS_MODIFIER {
 			//System.out.println("Cette tÃ¢che prendra "+g.getPoids(c.getAffectation().get(i).getExtremite1(),g.getAffectation().get(i).getExtremite2()) +" jours ");
 		}
 
-		System.out.println("\nL'affectation est terminée");
+		System.out.println("\nL'affectation est terminï¿½e");
 	}
 }

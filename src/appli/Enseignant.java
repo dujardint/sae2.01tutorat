@@ -10,9 +10,9 @@ public class Enseignant extends Utilisateur {
 		this.ressources = ressources;
 	}
 	
-	 public boolean addResource(Ressources resource) {
+	public boolean addResource(Ressources resource) {
 	        return this.ressources.add(resource);
-	    }
+	}
 
 	public void imposerBinome() {
 	}

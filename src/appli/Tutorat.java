@@ -3,6 +3,7 @@ package appli;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 import dev.ImportCSV;
@@ -50,7 +51,7 @@ public class Tutorat  {
 	}
 	
 	  public void addForcedAssignments(Tutore tutore, Tuteur tuteur) {
-	        if (this.forcedAssignments.containsKey(tutore)){ throw new IllegalArgumentException("Cette association existe déja!");}
+	        if (this.forcedAssignments.containsKey(tutore)){ throw new IllegalArgumentException("Cette association existe dï¿½ja!");}
 	        this.forcedAssignments.put(tutore, tuteur);
 	    }
 	  
@@ -129,10 +130,10 @@ public class Tutorat  {
 		purgeCandidatFactices();
 		int difference = this.listeTuteur.size() - this.listeTutore.size();
 		if (difference > 0) {
-			//System.out.println("Il y a plus de tuteurs que de tutores, nous procédons à un rééquilibrage pour la simulation.");
+			//System.out.println("Il y a plus de tuteurs que de tutores, nous procï¿½dons ï¿½ un rï¿½ï¿½quilibrage pour la simulation.");
 			return this.ajoutCandidat(false, difference);
 		} else if (difference < 0) {
-			//System.out.println("Il y a plus de tutores que de tuteurs, nous procédons à un rééquilibrage pour la simulation.");
+			//System.out.println("Il y a plus de tutores que de tuteurs, nous procï¿½dons ï¿½ un rï¿½ï¿½quilibrage pour la simulation.");
 			return this.ajoutCandidat(false, difference);
 		} 
 		return true;
@@ -140,7 +141,7 @@ public class Tutorat  {
 
 	public boolean ajoutCandidat(boolean manuel, int difference) {
 		if (manuel) {
-			// C'est l'utilisateur qui entre les paramètres du Candidat
+			// C'est l'utilisateur qui entre les paramï¿½tres du Candidat
 			Scanner scan = new Scanner(System.in);
 			System.out.println("Entrez le nom pour ajouter un tutore");
 			String nom = scan.nextLine();
@@ -153,7 +154,7 @@ public class Tutorat  {
 			double moyenne = Double.parseDouble(scan.nextLine().replace(',', '.'));
 			System.out.println("Entrez le nombre d'abscence(s)");
 			int nbAbsence = scan.nextInt();
-			System.out.println("Entrez l'année");
+			System.out.println("Entrez l'annï¿½e");
 			int annee = scan.nextInt();
 			System.out.println("Entrez la motivation (+,-,=)");
 			char motivation = scan.next().charAt(0);
@@ -177,16 +178,24 @@ public class Tutorat  {
 			}
 		} else {
 			 // C'est le logiciel qui entre un candidat factice
-			Tuteur tuteurFactice = new Tuteur("999999", "PrenomVide", "NomVide", 0.00, 1000, 2, '-');
-			Tutore tutoreFactice = new Tutore("999999", "PrenomVide", "NomVide" , 20.0, 1000, 1, '-');
+			Random rand = new Random();
+			Tuteur tuteurFactice;
+			Tutore tutoreFactice;
+			String prenomVide, nomVide;
 			if (difference > 0 ) {
 				// + de tuteurs que de tutores
 				for(int i = 0; i < difference; i++) {
+					prenomVide = "PrenomVide" + rand.nextInt(2147483647);
+					nomVide = "NomVide" + rand.nextInt(2147483647);
+					tutoreFactice = new Tutore("999999", prenomVide, nomVide , 20.0, 1000, 1, '-');
 					this.listeTutore.add(tutoreFactice);
 				}
 			} else if (difference < 0 ){
 				// - de tuteurs que de tutores
 				for(int i = 0; i < Math.abs(difference); i++) {
+					prenomVide = "PrenomVide" + rand.nextInt(2147483647);
+					nomVide = "NomVide" + rand.nextInt(2147483647);
+					tuteurFactice = new Tuteur("999999", prenomVide, nomVide, 0.00, 1000, 2, '-');
 					this.listeTuteur.add(tuteurFactice);
 				}
 			} else {
@@ -199,29 +208,36 @@ public class Tutorat  {
 
 	public boolean supprimeCandidat() {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Entrez le nom de l'étudiant à supprimer :");
+		System.out.println("Entrez le nom de l'ï¿½tudiant ï¿½ supprimer :");
 		String nom = scan.nextLine();
 
-		System.out.println("Entrez le prÃ©nom de l'étudiant  supprimer :");
+		System.out.println("Entrez le prÃ©nom de l'ï¿½tudiant  supprimer :");
 		String prenom = scan.nextLine();
 
-		nom = nom+"_"+prenom;
-		System.out.println(nom);
+		String prenomNom = nom+"_"+prenom;
+		System.out.println(prenomNom);
 
+		this.supprimeCandidat(prenomNom);
+		this.tailleEgale();
+		return true;
+	}
+	
+	public boolean supprimeCandidat(String prenomNom) {
 		for(int i=0; i<this.listeTuteur.size(); i++) {
-			if(nom.equals(this.listeTuteur.get(i).getPrenomNom())){
+			if(prenomNom.equals(this.listeTuteur.get(i).getPrenomNom())){
 				listeTuteur.remove(i);
-				System.out.println("Suppression du tuteur réussie.");
+				System.out.println("Suppression du tuteur rï¿½ussie.");
+				return true;
 			}
 		}
 		for(int i=0; i<this.listeTutore.size(); i++) {
-			if(nom.equals(this.listeTutore.get(i).getPrenomNom())){
+			if(prenomNom.equals(this.listeTutore.get(i).getPrenomNom())){
 				listeTutore.remove(i);
-				System.out.println("Suppression du tutoré réussie.");
+				System.out.println("Suppression du tutorï¿½ rï¿½ussie.");
+				return true;
 			}
 		}
-		this.tailleEgale();
-		return true;
+		return false;
 	}
 	
 	public boolean vuTuteur() {
@@ -294,11 +310,12 @@ public class Tutorat  {
 			for(Tutore tutore : this.listeTutore) {
 				this.graphe.ajouterArete(
 						tuteur.getPrenomNom(), 
-						tuteur.getPrenomNom(), 
+						tutore.getPrenomNom(), 
 						this.calculDistance(tuteur, tutore));
 			}
 		}
 	}
+	
 	public CalculAffectation<String> calculAffectation() {
 		// Ajouter Sommets au graphe
 		this.ajouterSommetsTuteur();
@@ -309,6 +326,7 @@ public class Tutorat  {
 		// Calcul affectation
 		List<String> tuteurPrenomNom = new ArrayList<String>();
 		List<String> tutorePrenomNom = new ArrayList<String>();
+		
 		for(Tuteur t : this.listeTuteur) {
 			tuteurPrenomNom.add(t.getPrenomNom());
 		}
@@ -319,16 +337,24 @@ public class Tutorat  {
 		CalculAffectation<String> calculAffectation = new CalculAffectation<>(this.graphe, tutorePrenomNom, tuteurPrenomNom);
 		
 		//System.out.println("le cout minimal est de : " + c.getCout());
-		String res="";
-		//for (int i=0;i<grTutore.size();i++) {
-			//res += c.getAffectation().get(i).getExtremite1()+ " doit se mettre avec "+c.getAffectation().get(i).getExtremite2() + "\n";
-		//}
+		
 		return calculAffectation;
+	}
+	
+	public String afficherResultatAffectation() {
+		CalculAffectation<String> calcul = this.calculAffectation();
+		String res = "";
+		
+		for(int i = 0; i < calcul.getAffectation().size(); i++) {
+			res += calcul.getAffectation().get(i).getExtremite1() + " doit se mettre avec " + calcul.getAffectation().get(i).getExtremite2() + "\n";
+		}
+		
+		return res;
 	}
 
 	public String toString() {
 		this.purgeCandidatFactices();
-		String retour = "Tutorés : \n" + this.listeTutore.size() +"\n";
+		String retour = "TutorÃ©s : \n" + this.listeTutore.size() +"\n";
 		for(Tutore t : this.listeTutore) {
 			retour = retour + t.toString() + "\n";
 		}
@@ -340,6 +366,12 @@ public class Tutorat  {
 		return retour;
 	}
 	
+	public boolean ajouterTuteur(Tuteur t) {
+		return this.listeTuteur.add(t);
+	}
 	
+	public boolean ajouterTutore(Tutore t) {
+		return this.listeTutore.add(t);
+	}
 }
 

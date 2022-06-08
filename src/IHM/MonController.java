@@ -2,11 +2,14 @@ package IHM;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import appli.Tuteur;
 import appli.Tutorat;
 import appli.Tutore;
+import dev.ImportCSV;
 import fr.ulille.but.sae2_02.graphes.CalculAffectation;
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue;
 import javafx.collections.ListChangeListener;
@@ -46,42 +49,28 @@ public class MonController {
 	@FXML
 	TextArea boxCouple;
 
-	ArrayList<Tutore> groupeTutore = new ArrayList<>();
-	ArrayList<Tuteur> groupeTuteur = new ArrayList<>();
-	ArrayList<Object> groupeTutorat = new ArrayList<>();
+	Tutorat etudiants;
+	//ArrayList<Tutore> groupeTutore = new ArrayList<>();
+	//ArrayList<Tuteur> groupeTuteur = new ArrayList<>();
+	//ArrayList<Object> groupeTutorat = new ArrayList<>();
+	Map<Tuteur, Tutore> groupeTutorat;
 
 
 
 	public void initialize() {
 		System.out.println("Initialisation...");
-		int nbAbscenceDefaut = 1;
-		int annee = 1;
-		char motivation = '+';  //+ - ou =
-
-		int second = 2;
-		int troisieme = 3;
+		this.groupeTutorat = new HashMap<>();
 		
-		groupeTutore.add(new Tutore("tutore_", "Claude", "Allard", 9.8, nbAbscenceDefaut, annee, motivation));
-		groupeTutore.add(new Tutore("tutore_", "Madeleine", "Barre", 6.9, nbAbscenceDefaut, annee, motivation));
-		groupeTutore.add(new Tutore("tutore_", "Sabine", "Besnard", 12.7, nbAbscenceDefaut, annee, motivation));
-		groupeTutore.add(new Tutore("tutore_", "Hugues", "Bigot", 0.2, nbAbscenceDefaut, annee, motivation));
-		groupeTutore.add(new Tutore("tutore_", "Lucas", "Bouchet", 17.3, nbAbscenceDefaut, annee, motivation));
-		
-		for(int i=0; i<groupeTutore.size(); i++) {
-			listeTutore.getItems().add(groupeTutore.get(i).getPrenomNom());
-		}
-		
-		groupeTuteur.add(new Tuteur("tuteur_","François","Bertin",13.3,nbAbscenceDefaut, second, motivation));
-		groupeTuteur.add(new Tuteur("tuteur_","Joseph","Boyer",7.7,nbAbscenceDefaut, second, motivation)); 
-		groupeTuteur.add(new Tuteur("tuteur_","Martin","Delmas",11.0,nbAbscenceDefaut, second, motivation)); 
-		groupeTuteur.add(new Tuteur("tuteur_","Maurice","Fernandez",5.7,nbAbscenceDefaut, second, motivation));
-		groupeTuteur.add(new Tuteur("tuteur_","Thérèse","Gay",11.5,nbAbscenceDefaut, second, motivation)); 
-
-
-		for(int i=0; i<groupeTuteur.size(); i++) {
-			listeTuteur.getItems().add(groupeTuteur.get(i).getPrenomNom());
+		etudiants = new Tutorat(ImportCSV.readFileTuteur(ImportCSV.FILEPATH_TUTEUR),
+				ImportCSV.readFileTutore(ImportCSV.FILEPATH_TUTORE));
+	
+		for(int i=0; i<etudiants.getListTutore().size(); i++) {
+			listeTutore.getItems().add(etudiants.getListTutore().get(i).getPrenomNom());
 		}
 
+		for(int i=0; i<etudiants.getListTutore().size(); i++) {
+			listeTuteur.getItems().add(etudiants.getListTutore().get(i).getPrenomNom());
+		}
 
 		rechercheTuteur.getAccessibleText();
 
@@ -90,35 +79,34 @@ public class MonController {
 		listeTuteur.getSelectionModel().getSelectedItems().addListener(new MonListChangeListener2());
 
 		listeTutorat.getSelectionModel().getSelectedItems().addListener(new MonListChangeListener3());
-
 	}
 
 	class MonListChangeListener implements ListChangeListener<String> {
 		public void onChanged(Change<? extends String> report) {
 			contenuTutore.setText("" + report.getList());
-			String texte = contenuTutore.getText().substring(1, contenuTutore.getText().length()-1);
-			contenuTutore.setText(texte);
+			contenuTutore.setText(contenuTutore.getText().substring(1, contenuTutore.getText().length()-1));
 		}
 	}
 
 	class MonListChangeListener2 implements ListChangeListener<String> {
 		public void onChanged(Change<? extends String> report) {
 			contenuTuteur.setText(""+ report.getList());
-			String texte = contenuTuteur.getText().substring(1, contenuTuteur.getText().length()-1);
-			contenuTuteur.setText(texte);
+			contenuTuteur.setText(contenuTuteur.getText().substring(1, contenuTuteur.getText().length()-1));
 		}
 	}
 
 	class MonListChangeListener3 implements ListChangeListener<String> {
 		public void onChanged(Change<? extends String> report) {
 			boxCouple.setText(""+ report.getList());
-			String texte = boxCouple.getText().substring(1, boxCouple.getText().length()-1);
-			boxCouple.setText(texte);
+			boxCouple.setText(boxCouple.getText().substring(1, boxCouple.getText().length()-1));
 		}
 	}
 
 
 	public void pressedButtonAffecter(ActionEvent event) {	
+		Tuteur tuteurSelectionne = null;
+		Tutore tutoreSelectionne = null ;
+		
 		//si rien selectionner on alerte l'utilisateur
 		if(contenuTutore.getText().equals("Selectionner un tutore pour afficher ses d�tails") || 
 				contenuTuteur.getText().equals("Selectionner un tuteur pour afficher ses d�tails.") ||
@@ -132,33 +120,26 @@ public class MonController {
 			//ajout des 2 personnes dans la liste tutorat
 			
 			
-			for(int i=0; i<groupeTutore.size(); i++) {
-				if(contenuTutore.getText().equals(groupeTutore.get(i).getPrenomNom())) {
-					groupeTutorat.add(groupeTutore.get(i));
+			for(int i=0; i<etudiants.getListTutore().size(); i++) {
+				if(contenuTutore.getText().equals(etudiants.getListTutore().get(i).getPrenomNom())) {
+					tutoreSelectionne = etudiants.getListTutore().get(i);
 				}
 			}
 			
-			for(int i=0; i<groupeTuteur.size(); i++) {
-				if(contenuTuteur.getText().equals(groupeTuteur.get(i).getPrenomNom())) {
-					groupeTutorat.add(groupeTuteur.get(i));
+			for(int i=0; i<etudiants.getListTuteur().size(); i++) {
+				if(contenuTuteur.getText().equals(etudiants.getListTuteur().get(i).getPrenomNom())) {
+					tuteurSelectionne = etudiants.getListTuteur().get(i);
 				}
 			}
+			
+			groupeTutorat.put(tuteurSelectionne, tutoreSelectionne);
 			
 			listeTutorat.getItems().add(""+contenuTutore.getText() + "-" + contenuTuteur.getText());
 
-			//suppression des 2 personnes dans les listes d'origines
-			for(int i=0; i<groupeTutore.size(); i++) {
-				if(contenuTutore.getText().equals(groupeTutore.get(i).getPrenomNom())) {
-					groupeTutore.remove(i);
-				}
-			}
+			etudiants.supprimeCandidat(contenuTutore.getText());
+			etudiants.supprimeCandidat(contenuTuteur.getText());
+			
 			listeTutore.getItems().remove(contenuTutore.getText());
-
-			for(int i=0; i<groupeTuteur.size(); i++) {
-				if(contenuTuteur.getText().equals(groupeTuteur.get(i).getPrenomNom())) {
-					groupeTuteur.remove(i);
-				}
-			}
 			listeTuteur.getItems().remove(contenuTuteur.getText());
 		}
 
@@ -167,10 +148,10 @@ public class MonController {
 
 	public void pressedButtonSuppriner(ActionEvent event) {	
 		//si rien selectionner on alerte l'utilisateur
-		if((boxCouple.getText().equals(("Selectionner un couple pour afficher ses détails"))) || 
+		if((boxCouple.getText().equals(("Sélectionner un couple pour afficher ses détails"))) || 
 				(boxCouple.getText().equals(("[]")) ||
 						(boxCouple.getText().isBlank()))){
-			Alert alert = new Alert(AlertType.ERROR, "selectionner un couple d'etudiants pour les supprimer !", ButtonType.OK);
+			Alert alert = new Alert(AlertType.ERROR, "Sélectionner un couple d'étudiants pour les supprimer.", ButtonType.OK);
 			alert.showAndWait();
 		}
 		else {
@@ -181,33 +162,46 @@ public class MonController {
 					idx = i;
 				}
 			}
-
-			//ajout des 2 personnes dans la liste tutorat   			//on prend substring pour separer le tutore du tuteur
 			
-			for(int i=0; i<groupeTutore.size(); i++) {
-				if(boxCouple.getText().substring(0, idx).equals(groupeTutore.get(i).getPrenomNom())) {
-					groupeTutore.remove(i);
+			for (Map.Entry<Tuteur, Tutore> entry : groupeTutorat.entrySet()) {
+			      //System.out.println("Key : " + entry.getKey() + " value : " + entry.getValue());
+				if (entry.getKey().getPrenomNom().equals(boxCouple.getText().substring(idx + 1))) {
+					// On remet les tuteurs et tutores dans leur listes initiales candidat en mémoire
+					etudiants.ajouterTuteur(entry.getKey());
+					etudiants.ajouterTutore(entry.getValue());
+					// n remet les tuteurs et tutores dans leur listes initiales candidat en IHM
+					listeTutore.getItems().add(entry.getValue().getPrenomNom());
+					listeTuteur.getItems().add(entry.getKey().getPrenomNom());
+					
+					groupeTutorat.remove(entry.getKey());
+					listeTutorat.getItems().remove(boxCouple.getText());
 				}
 			}
 			
-			listeTutore.getItems().add(boxCouple.getText().substring(0, idx));
 			
-			for(int i=0; i<groupeTuteur.size(); i++) {
+			//ajout des 2 personnes dans la liste tutorat   			
+			//on prend substring pour separer le tutore du tuteur
+			//for(int i=0; i<groupeTutore.size(); i++) {
+				//if(boxCouple.getText().substring(0, idx).equals(groupeTutore.get(i).getPrenomNom())) {
+					//groupeTutore.remove(i);
+				//}
+			//}
+			
+			/*for(int i=0; i<groupeTuteur.size(); i++) {
 				if(boxCouple.getText().substring(idx+1, boxCouple.getText().length()).equals(groupeTuteur.get(i).getPrenomNom())) {
 					groupeTuteur.remove(i);
 				}
-			}
-			
-			listeTuteur.getItems().add(boxCouple.getText().substring(idx+1, boxCouple.getText().length()));
+			}*/
+				
 			//suppression des 2 personnes dans les listes d'origines
 			
 			
-			for(int i=0; i<groupeTuteur.size(); i++) {
-				if(contenuTuteur.getText().equals(groupeTuteur.get(i).getPrenomNom())) {
+			/*for(int i=0; i<groupeTuteur.size(); i++) {
+				//if(contenuTuteur.getText().equals(groupeTuteur.get(i).getPrenomNom())) {
 					//groupeTuteur.remove(i);
 				}
 			}
-			listeTutorat.getItems().remove(boxCouple.getText());
+			//listeTutorat.getItems().remove(boxCouple.getText());*/s
 		}	
 	}
 
@@ -275,7 +269,7 @@ public class MonController {
 		
 		for(int i=0; i<groupeTuteur.size(); i++) {
 			for(int j=0; j<groupeTutore.size(); j++) {
-				g.ajouterArete(groupeTuteur.get(i).getPrenomNom(), groupeTutore.get(j).getPrenomNom(), Tutorat.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
+				g.ajouterArete(groupeTuteur.get(i).getPrenomNom(), groupeTutore.get(j).getPrenomNom(), tutorat.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
 				System.out.println("" + groupeTuteur.get(i).getPrenomNom() + " " +  groupeTutore.get(j).getPrenomNom() + " distance : " + Tutorat.calculDistance(groupeTuteur.get(i), groupeTutore.get(j)));
 			}
 		}
