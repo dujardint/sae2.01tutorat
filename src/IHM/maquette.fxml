@@ -56,7 +56,7 @@
         <AnchorPane>
                <children>
                   <Label layoutX="84.0" layoutY="25.0" text="détail du tutoré" />
-                  <TextArea fx:id="contenuTutore" editable="false" layoutX="24.0" layoutY="443.0" prefHeight="102.0" prefWidth="229.0" text="Selectionner un tutore pour afficher ses détails" wrapText="true" />
+                  <TextArea fx:id="contenuTutore" editable="false" layoutX="24.0" layoutY="443.0" prefHeight="102.0" prefWidth="229.0" text="Selectionner un tutore pour afficher ses details" wrapText="true" />
                   <Button fx:id="exclureTutore" layoutX="67.0" layoutY="591.0" mnemonicParsing="false" onAction="#pressedButtonExclureTutore" prefHeight="65.0" prefWidth="136.0" style="-fx-background-color: #ae2573;" text="A exclure" textFill="#f5f0f0">
                      <font>
                         <Font name="Caladea" size="16.0" />
@@ -69,7 +69,7 @@
                   <TextField fx:id="nomTutore" layoutX="32.0" layoutY="248.0" />
                   <TextField fx:id="prenomTutore" layoutX="32.0" layoutY="315.0" />
                   <TextField fx:id="moyTutore" layoutX="32.0" layoutY="380.0" prefHeight="26.0" prefWidth="70.0" />
-                  <TextField fx:id="annneTutore" layoutX="151.0" layoutY="380.0" prefHeight="26.0" prefWidth="70.0" />
+                  <TextField fx:id="anneeTutore" layoutX="151.0" layoutY="380.0" prefHeight="26.0" prefWidth="70.0" />
                   <Label layoutX="32.0" layoutY="221.0" text="Nom" />
                   <Label layoutX="32.0" layoutY="288.0" text="Prenom" />
                   <Label layoutX="32.0" layoutY="350.0" text="Moyenne" />
@@ -108,7 +108,7 @@
                               <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
                            </textFill>
                         </Label>
-                        <TextArea fx:id="boxCouple" editable="false" layoutX="176.0" layoutY="597.0" prefHeight="84.0" prefWidth="236.0" text="Selectionner un couple pour afficher ses détails" wrapText="true" />
+                        <TextArea fx:id="boxCouple" editable="false" layoutX="176.0" layoutY="597.0" prefHeight="84.0" prefWidth="236.0" text="Selectionner un couple pour afficher ses details" wrapText="true" />
               </children>
             </AnchorPane>
           </content>
@@ -116,7 +116,7 @@
         <AnchorPane prefHeight="512.0" prefWidth="232.0">
                <children>
                   <Label layoutX="96.0" layoutY="26.0" text="détail du tuteur" />
-                  <TextArea fx:id="contenuTuteur" editable="false" layoutX="38.0" layoutY="442.0" prefHeight="102.0" prefWidth="215.0" text="Selectionner un tuteur pour afficher ses détails." wrapText="true" />
+                  <TextArea fx:id="contenuTuteur" editable="false" layoutX="38.0" layoutY="442.0" prefHeight="102.0" prefWidth="215.0" text="Selectionner un tuteur pour afficher ses details" wrapText="true" />
                   <Button fx:id="exclureTuteur" layoutX="88.0" layoutY="595.0" mnemonicParsing="false" onAction="#pressedButtonExclureTuteur" prefHeight="65.0" prefWidth="145.0" style="-fx-background-color: #ae2573;" text="A exclure" textFill="WHITE">
                      <font>
                         <Font size="16.0" />

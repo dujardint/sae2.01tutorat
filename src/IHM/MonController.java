@@ -53,7 +53,7 @@ public class MonController {
 	@FXML
 	TextField moyTutore;
 	@FXML
-	TextField annneTutore;
+	TextField anneeTutore;
 	@FXML
 	TextField prenomTutore;
 	@FXML
@@ -61,18 +61,18 @@ public class MonController {
 	@FXML
 	TextField moyTuteur;
 	@FXML
-	TextField annneTuteur;
+	TextField anneeTuteur;
 	@FXML
 	TextField prenomTuteur;
 	@FXML
 	TextField nomTuteur;
-	
+
 
 	Tutorat etudiants;
 	//ArrayList<Tutore> groupeTutore = new ArrayList<>();
 	//ArrayList<Tuteur> groupeTuteur = new ArrayList<>();
 	//ArrayList<Object> groupeTutorat = new ArrayList<>();
-	Map<Tuteur, Tutore> groupeTutorat;
+	Map<Tutore, Tuteur> groupeTutorat;
 	int val = 0; 
 
 
@@ -100,7 +100,7 @@ public class MonController {
 
 		listeTutorat.getSelectionModel().getSelectedItems().addListener(new MonListChangeListener3());
 	}
-	
+
 	public int recherche(String nom) {
 		for (int i=0; i<nom.length();i++) {
 			if(nom.charAt(i)=='_') {
@@ -112,13 +112,20 @@ public class MonController {
 
 	class MonListChangeListener implements ListChangeListener<String> {
 		public void onChanged(Change<? extends String> report) {
+			//on recupere son nom sur l'eleement clique dans la liste
 			contenuTutore.setText("" + report.getList());
+			//on enleve les crochet
 			contenuTutore.setText(contenuTutore.getText().substring(1, contenuTutore.getText().length()-1));
-			prenomTutore.setText(contenuTutore.getText().substring(0, recherche(contenuTutore.getText())));
-			nomTutore.setText(contenuTutore.getText().substring(recherche(contenuTutore.getText())+1,contenuTutore.getText().length()));
-			annneTutore.setText(1+"");
-			moyTutore.setText(""+ Math.random() * ( 20.0 - 0.0 ));
-			
+			Tutore temp=null;
+			for(int i=0; i<etudiants.getListTutore().size(); i++) {
+				if(contenuTutore.getText().equals(etudiants.getListTutore().get(i).getPrenomNom())){
+					temp=etudiants.getListTutore().get(i);
+				}
+			}
+			prenomTutore.setText(temp.getPrenom());
+			nomTutore.setText(temp.getNom());
+			moyTutore.setText(""+temp.getMoyenne());
+			anneeTutore.setText(""+temp.getAnnee());
 		}
 	}
 
@@ -126,9 +133,17 @@ public class MonController {
 		public void onChanged(Change<? extends String> report) {
 			contenuTuteur.setText(""+ report.getList());
 			contenuTuteur.setText(contenuTuteur.getText().substring(1, contenuTuteur.getText().length()-1));
-			prenomTuteur.setText(contenuTuteur.getText().substring(0, recherche(contenuTuteur.getText())));
-			nomTuteur.setText(contenuTuteur.getText().substring(recherche(contenuTuteur.getText())+1,contenuTuteur.getText().length()));
-		
+
+			Tuteur temp1=null;
+			for(int i=0; i<etudiants.getListTuteur().size(); i++) {
+				if(contenuTuteur.getText().equals(etudiants.getListTuteur().get(i).getPrenomNom())){
+					temp1=etudiants.getListTuteur().get(i);
+				}
+			}
+			prenomTuteur.setText(temp1.getPrenom());
+			nomTuteur.setText(temp1.getNom());
+			moyTuteur.setText(""+temp1.getMoyenne());
+			anneeTuteur.setText(""+temp1.getAnnee());
 		}
 	}
 
@@ -145,8 +160,8 @@ public class MonController {
 		Tutore tutoreSelectionne = null ;
 
 		//si rien selectionner on alerte l'utilisateur
-		if(contenuTutore.getText().equals("Selectionner un tutore pour afficher ses d�tails") || 
-				contenuTuteur.getText().equals("Selectionner un tuteur pour afficher ses d�tails.") ||
+		if(contenuTutore.getText().equals("Selectionner un tutore pour afficher ses details") || 
+				contenuTuteur.getText().equals("Selectionner un tuteur pour afficher ses details.") ||
 				contenuTuteur.getText().isBlank() ||
 				contenuTutore.getText().isBlank() ||
 				contenuTutore.getText().equals(contenuTuteur.getText())){
@@ -169,7 +184,7 @@ public class MonController {
 				}
 			}
 
-			groupeTutorat.put(tuteurSelectionne, tutoreSelectionne);
+			groupeTutorat.put(tutoreSelectionne, tuteurSelectionne);
 
 			listeTutorat.getItems().add(""+contenuTutore.getText() + "-" + contenuTuteur.getText());
 			//listeTutorat.setStyle("-fx-text-inner-color: red;");
@@ -185,11 +200,14 @@ public class MonController {
 
 
 	public void pressedButtonSuppriner(ActionEvent event) {	
+		Tuteur tuteurSelectionne = null;
+		Tutore tutoreSelectionne = null ;
+
 		//si rien selectionner on alerte l'utilisateur
-		if((boxCouple.getText().equals(("Sélectionner un couple pour afficher ses détails"))) || 
+		if((boxCouple.getText().equals(("Selectionner un couple pour afficher ses details"))) || 
 				(boxCouple.getText().equals(("[]")) ||
 						(boxCouple.getText().isBlank()))){
-			Alert alert = new Alert(AlertType.ERROR, "Sélectionner un couple d'étudiants pour les supprimer.", ButtonType.OK);
+			Alert alert = new Alert(AlertType.ERROR, "Selectionner un couple d'etudiants pour les supprimer.", ButtonType.OK);
 			alert.showAndWait();
 		}
 		else {
@@ -201,27 +219,47 @@ public class MonController {
 				}
 			}
 
-			for (Map.Entry<Tuteur, Tutore> entry : groupeTutorat.entrySet()) {
-				System.out.println("avant if Key : " + entry.getKey() + " value : " + entry.getValue());
+			for (Map.Entry<Tutore, Tuteur> entry : groupeTutorat.entrySet()) {
+				//System.out.println("avant if Key : " + entry.getKey() + " value : " + entry.getValue());
 
-				System.out.println(boxCouple.getText().substring(idx + 1));
+				//System.out.println("on affiche blablabla " + boxCouple.getText().substring(idx + 1));
 
 				if (entry.getKey().getPrenomNom().equals(boxCouple.getText().substring(0, idx))) {
+					tuteurSelectionne=entry.getValue();
+					tutoreSelectionne=entry.getKey();
+					
+					System.out.println("tuteurSelectionne : " + tuteurSelectionne);
+					System.out.println("tutoreSelectionne : " + tutoreSelectionne);
+					
 					// On remet les tuteurs et tutores dans leur listes initiales candidat en mémoire
-					etudiants.ajouterTuteur(entry.getKey());
-					etudiants.ajouterTutore(entry.getValue());
+					/*
+					etudiants.ajouterTutore(entry.getKey());
+					etudiants.ajouterTuteur(entry.getValue());
 					System.out.println("Key : " + entry.getKey() + " value : " + entry.getValue());
 
 					// on remet les tuteurs et tutores dans leur listes initiales candidat en IHM
-					listeTutore.getItems().add(entry.getValue().getPrenomNom());
-					listeTuteur.getItems().add(entry.getKey().getPrenomNom());
+					System.out.println("reussite : " + listeTutore.getItems().add(""+entry.getKey().getPrenomNom()));
+					listeTuteur.getItems().add(""+entry.getValue().getPrenomNom());
+
+					groupeTutorat.remove(entry.getKey());
+					listeTutorat.getItems().remove(boxCouple.getText());
+					*/
+					
+					
+					etudiants.ajouterTutore(tutoreSelectionne);
+					etudiants.ajouterTuteur(tuteurSelectionne);
+					System.out.println("Key : " + entry.getKey() + " value : " + entry.getValue());
+
+					// on remet les tuteurs et tutores dans leur listes initiales candidat en IHM
+					listeTutore.getItems().add(""+tutoreSelectionne.getPrenomNom());
+					listeTuteur.getItems().add(""+tuteurSelectionne.getPrenomNom());
 
 					groupeTutorat.remove(entry.getKey());
 					listeTutorat.getItems().remove(boxCouple.getText());
 				}
 			}
 
-
+			
 			/*	//ajout des 2 personnes dans la liste tutorat   			
 			//on prend substring pour separer le tutore du tuteur
 			for(int i=0; i<groupeTutore.size(); i++) {
@@ -255,6 +293,9 @@ public class MonController {
 		if(listeTutore.getItems().isEmpty()) {
 			Alert alert = new Alert(AlertType.WARNING, "la liste tutore est vide !", ButtonType.OK);
 			alert.showAndWait();
+		}else if(contenuTutore.getText().equals("Selectionner un tutore pour afficher ses details")) {
+			Alert alert = new Alert(AlertType.WARNING, "Selectionner un tutore pour afficher ses details", ButtonType.OK);
+			alert.showAndWait();
 		}else {
 			for(int i=0; i<etudiants.getListTutore().size(); i++) {
 				if(contenuTutore.getText().equals(etudiants.getListTutore().get(i).getPrenomNom())) {
@@ -267,8 +308,11 @@ public class MonController {
 	}
 
 	public void pressedButtonExclureTuteur(ActionEvent event) {
-		if(listeTuteur.getItems().isEmpty()) {
+		if(listeTuteur.getItems().isEmpty()){
 			Alert alert = new Alert(AlertType.WARNING, "la liste tuteur est vide !", ButtonType.OK);
+			alert.showAndWait();
+		}else if(contenuTuteur.getText().equals("Selectionner un tuteur pour afficher ses details")) {
+			Alert alert = new Alert(AlertType.WARNING, "Selectionner un tuteur pour afficher ses details", ButtonType.OK);
 			alert.showAndWait();
 		}else {
 			for(int i=0; i<etudiants.getListTuteur().size(); i++) {
@@ -286,9 +330,8 @@ public class MonController {
 
 
 		for(Arete<String> couple : affectation.getAffectation()) {
-			listeTutorat.getItems().add(couple.getExtremite1() + "-" + couple.getExtremite2());
-			groupeTutorat.put(etudiants.getTuteur(couple.getExtremite1()), 
-					etudiants.getTutore(couple.getExtremite2()));
+			listeTutorat.getItems().add(couple.getExtremite2() + "-" + couple.getExtremite1());
+			groupeTutorat.put(etudiants.getTutore(couple.getExtremite2()), etudiants.getTuteur(couple.getExtremite1()));
 		}
 
 		listeTutore.getItems().clear();

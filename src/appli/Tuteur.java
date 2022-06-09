@@ -11,7 +11,7 @@ public class Tuteur extends Etudiant{
 			throws IllegalArgumentException {
 		super(identifiant, prenom, nom, moyenne,absence, annee, motivation);
 		if (annee == 1) {
-			throw new IllegalArgumentException("Le tuteur ne peux pas etre en premi�re ann�e");
+			throw new IllegalArgumentException("Le tuteur ne peux pas etre en premiere annee");
 		} else if (annee == 2) {
 			this.annee = annee;
 			this.nbTutoresMax = 1;

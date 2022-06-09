@@ -189,15 +189,15 @@ public class Tutorat  {
 				for(int i = 0; i < difference; i++) {
 					prenomVide = "P_" + rand.nextInt(1000);
 					nomVide = "N_" + rand.nextInt(1000);
-					tutoreFactice = new Tutore("999999", prenomVide, nomVide , 20.0, 1000, 1, '-');
+					tutoreFactice = new Tutore("1000", prenomVide, nomVide , 20.0, 1000, 1, '-');
 					this.listeTutore.add(tutoreFactice);
 				}
 			} else if (difference < 0 ){
 				// - de tuteurs que de tutores
 				for(int i = 0; i < Math.abs(difference); i++) {
-					prenomVide = "PrenomVide" + rand.nextInt(2147483647);
-					nomVide = "NomVide" + rand.nextInt(2147483647);
-					tuteurFactice = new Tuteur("999999", prenomVide, nomVide, 0.00, 1000, 2, '-');
+					prenomVide = "P_" + rand.nextInt(1000);
+					nomVide = "N_" + rand.nextInt(1000);
+					tuteurFactice = new Tuteur("1000", prenomVide, nomVide, 0.00, 1000, 2, '-');
 					this.listeTuteur.add(tuteurFactice);
 				}
 			} else {
