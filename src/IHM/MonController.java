@@ -65,7 +65,7 @@ public class MonController {
 	TextField prenomTuteur;
 	@FXML
 	TextField nomTuteur;
-
+	
 
 	Tutorat etudiants;
 	//ArrayList<Tutore> groupeTutore = new ArrayList<>();
@@ -73,6 +73,7 @@ public class MonController {
 	//ArrayList<Object> groupeTutorat = new ArrayList<>();
 	Map<Tuteur, Tutore> groupeTutorat;
 	int val = 0; 
+
 
 
 	public void initialize() {
@@ -97,6 +98,15 @@ public class MonController {
 		listeTuteur.getSelectionModel().getSelectedItems().addListener(new MonListChangeListener2());
 
 		listeTutorat.getSelectionModel().getSelectedItems().addListener(new MonListChangeListener3());
+	}
+	
+	public int recherche(String nom) {
+		for (int i=0; i<nom.length();i++) {
+			if(nom.charAt(i)=='_') {
+				return i;
+			}
+		}
+		return 0;
 	}
 
 	class MonListChangeListener implements ListChangeListener<String> {
@@ -125,14 +135,6 @@ public class MonController {
 		}
 	}
 
-	public int recherche(String nom) {
-		for (int i=0; i<nom.length();i++) {
-			if(nom.charAt(i)=='_') {
-				return i;
-			}
-		}
-		return 0;
-	}
 
 	public void pressedButtonAffecter(ActionEvent event) {	
 		Tuteur tuteurSelectionne = null;
@@ -274,10 +276,11 @@ public class MonController {
 		}
 	}
 
+
 	public void pressedButtonCalculer(ActionEvent event) {		
 		CalculAffectation<String>  affectation = etudiants.calculAffectation();
 
-		// 1er brassage
+
 		for(Arete<String> couple : affectation.getAffectation()) {
 			listeTutorat.getItems().add(couple.getExtremite1() + "-" + couple.getExtremite2());
 			groupeTutorat.put(etudiants.getTuteur(couple.getExtremite1()), 
@@ -290,52 +293,9 @@ public class MonController {
 		etudiants.getListTutore().clear();
 		etudiants.getListTuteur().clear();
 
-		/*
-		// 2ème brassage
-		List<Tuteur> troisiemeAnnees = new ArrayList<Tuteur>();
-		for (Map.Entry<Tuteur, Tutore> entry : groupeTutorat.entrySet()) {
-			System.out.println("avant if Key : " + entry.getKey() + " value : " + entry.getValue());
-			if(entry.getKey().getNom().contains("N_") && entry.getKey().getPrenom().contains("P_")) {
-				etudiants.getListTutore().add(entry.getValue());
-				listeTutore.getItems().add(entry.getValue().getPrenomNom());
-				// on supprime du tutorat
-				listeTutorat.getItems().remove(entry.getKey() + "-" + entry.getValue());
-				groupeTutorat.remove(entry.getKey());
-			} else if (entry.getKey().getAnnee() == 3) {
-				// On ajoute tous les 3ème années dans une List<Tuteur> troisiemeAnnees
-				troisiemeAnnees.add(entry.getKey());
-			}
-		}
-		if (etudiants.getListTutore().size()  > 0) {
-			// Cela veut dire qu'il y a plus de tutorés que de tuteurs
-			etudiants.setListTuteur(troisiemeAnnees);
-			etudiants.triTuteur();
-			List<Tuteur> tuteursConserves = new ArrayList<>();
-			for(int i = 0; i < etudiants.getListTutore().size(); i++) {
-				if(i < etudiants.getListTuteur().size()) {
-					// On ajoute tous les 3èmes années nécessaires ET disponibles
-					tuteursConserves.add(etudiants.getListTuteur().get(i));
-				}
-			}
-			etudiants.setListTuteur(tuteursConserves);
-			
-			affectation = etudiants.calculAffectation();
-
-			// 1er brassage
-			for(Arete<String> couple : affectation.getAffectation()) {
-				listeTutorat.getItems().add(couple.getExtremite1() + "-" + couple.getExtremite2());
-				groupeTutorat.put(etudiants.getTuteur(couple.getExtremite1()), 
-						etudiants.getTutore(couple.getExtremite2()));
-			}
-
-			listeTutore.getItems().clear();
-			listeTuteur.getItems().clear();
-
-			etudiants.getListTutore().clear();
-			etudiants.getListTuteur().clear();
-		}*/
 		System.out.println("L'affectation est terminée.");
 	}
+
 
 	public void pressedButtonQuitter(ActionEvent event) {
 		Alert alert = new Alert(AlertType.CONFIRMATION, "Souhaitez-vous sauvegarder puis quitter ?", ButtonType.OK);
