@@ -7,7 +7,6 @@ public class Scenario {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		boolean demande = true;
-
 		while (demande) {
 			//ImportCSV1.g=new GrapheNonOrienteValue<String>();
 
@@ -61,7 +60,6 @@ public class Scenario {
 			} else if(choix.equals("4")){
 				etudiants.supprimeCandidat();
 				ImportCSV.writeToFiles(etudiants.getListTuteur(), etudiants.getListTutore());	
-				System.out.println("Le candidat est bien supprime.");
 			} else if(choix.equals("5")) {
 				etudiants.vuTuteur();
 			} else if(choix.equals("6")) {

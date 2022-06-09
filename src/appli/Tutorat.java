@@ -54,7 +54,7 @@ public class Tutorat  {
 	}
 	
 	  public void addForcedAssignments(Tutore tutore, Tuteur tuteur) {
-	        if (this.forcedAssignments.containsKey(tutore)){ throw new IllegalArgumentException("Cette association existe dï¿½ja!");}
+	        if (this.forcedAssignments.containsKey(tutore)){ throw new IllegalArgumentException("Cette association existe déja.");}
 	        this.forcedAssignments.put(tutore, tuteur);
 	    }
 	  
@@ -218,27 +218,26 @@ public class Tutorat  {
 
 		String prenomNom = nom+"_"+prenom;
 		System.out.println(prenomNom);
-
-		this.supprimeCandidat(prenomNom);
 		this.tailleEgale();
-		return true;
+		return this.supprimeCandidat(prenomNom);
 	}
 	
 	public boolean supprimeCandidat(String prenomNom) {
 		for(int i=0; i<this.listeTuteur.size(); i++) {
 			if(prenomNom.equals(this.listeTuteur.get(i).getPrenomNom())){
 				listeTuteur.remove(i);
-				System.out.println("Suppression du tuteur rï¿½ussie.");
+				System.out.println("Suppression du tuteur réussie.");
 				return true;
 			}
 		}
 		for(int i=0; i<this.listeTutore.size(); i++) {
 			if(prenomNom.equals(this.listeTutore.get(i).getPrenomNom())){
 				listeTutore.remove(i);
-				System.out.println("Suppression du tutorï¿½ rï¿½ussie.");
+				System.out.println("Suppression du tutoré réussie.");
 				return true;
 			}
 		}
+		System.out.println("L'etudiant n'existe pas.");
 		return false;
 	}
 	
