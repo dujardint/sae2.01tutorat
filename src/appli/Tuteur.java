@@ -4,13 +4,22 @@ package appli;
 
 public class Tuteur extends Etudiant{
 
+	int nbTutoresMax;
+	int nbTutore;
+	
 	public Tuteur(String identifiant, String prenom, String nom,double moyenne,int absence , int annee, char motivation) 
 			throws IllegalArgumentException {
 		super(identifiant, prenom, nom, moyenne,motivation, annee, motivation);
 		if (annee == 1) {
 			throw new IllegalArgumentException("Le tuteur ne peux pas etre en premi�re ann�e");
-		} else if (annee >= 2) {
+		} else if (annee == 2) {
 			this.annee = annee;
+			this.nbTutoresMax = 1;
+			this.nbTutore = 0;
+		} else if (annee == 3) {
+			this.annee = annee;
+			this.nbTutoresMax = 2;
+			this.nbTutore = 0;
 		}
 	}
 	
@@ -44,11 +53,5 @@ public class Tuteur extends Etudiant{
 	   Tuteur t1 = new Tuteur("tuteur_","Francois","Bertin",13.3,1, 2, '+');
 	   System.out.println(t1);
 	   System.out.println(t1.getPrenomNom());
-	}
-
-
-	public String getPrenomNom() {
-		// TODO Auto-generated method stub
-		return this.prenom + "_" + this.nom;
 	}
 }

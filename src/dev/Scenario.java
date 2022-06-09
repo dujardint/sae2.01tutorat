@@ -3,7 +3,7 @@ package dev;
 import java.util.* ;
 import appli.Tutorat;
 
-public class ScenarioCSV {
+public class Scenario {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		boolean demande = true;
@@ -18,18 +18,18 @@ public class ScenarioCSV {
 			System.out.println(
 					("0 pour calculer\n"
 							+ "1 pour afficher la liste des etudiants inscrits\n"
-							+ "2 pour vérifier la taille\n"
+							+ "2 pour verifier la taille\n"
 							+ "3 pour ajouter un candidat (tuteur ou tutore) \n"
 							+ "4 pour supprimer un candidat\n"
 							+ "5 pour rechercher un tuteur \n"
-							+ "6 pour rechercher un tutor�\n"
+							+ "6 pour rechercher un tutore\n"
 							+ "7 pour quitter"));
 			System.out.print("Votre choix : ");
 			String choix = scan.nextLine();
 			System.out.println();
 			
 			if(choix.equals("0")) {
-				System.out.println("Vous avez décidé de ne rien modifier. L'algo va s'executer.");
+				System.out.println("Vous avez decide de ne rien modifier. L'algo va s'executer.");
 				System.out.println(etudiants.afficherResultatAffectation());
 				String convaincu;
 				do {
@@ -50,10 +50,10 @@ public class ScenarioCSV {
 				System.out.println("Nombre de tutores : " + etudiants.getListTutore().size());
 				etudiants.purgeCandidatFactices();
 				if (etudiants.getListTuteur().size() != etudiants.getListTutore().size()) {
-					System.out.println("Les listes Tuteurs / Tutorés ne sont pas de taille égale. Ajout d'un candidat factice afin de pouvoir d�terminer les couples possibles.");
+					System.out.println("Les listes Tuteurs / Tutores ne sont pas de taille egales. Ajout d'un candidat factice afin de pouvoir determiner les couples possibles.");
 					etudiants.tailleEgale();
 				} else {
-					System.out.println("Les listes Tuteurs / Tutor�s sont de taille �gale. Nous pouvons d�terminer les couples possibles.");
+					System.out.println("Les listes Tuteurs / Tutores sont de taille egales. Nous pouvons determiner les couples possibles.");
 				}
 			} else if(choix.equals("3")) {
 				etudiants.ajoutCandidat(true,1);
@@ -61,20 +61,20 @@ public class ScenarioCSV {
 			} else if(choix.equals("4")){
 				etudiants.supprimeCandidat();
 				ImportCSV.writeToFiles(etudiants.getListTuteur(), etudiants.getListTutore());	
-				System.out.println("Le candidat est bien supprim�.");
+				System.out.println("Le candidat est bien supprime.");
 			} else if(choix.equals("5")) {
 				etudiants.vuTuteur();
 			} else if(choix.equals("6")) {
 				etudiants.vuTutore();
 
 			} else if(choix.equals("7")) {
-				System.out.println("Vous avez demand� la fermeture du programme.");
+				System.out.println("Vous avez demande la fermeture du programme.");
 				demande=false;
 			} else {
 				System.out.println("Nous n'avons pas compris votre choix, veuillez reessayer.");
 			}
 		}
-		System.out.println("Merci d'avoir utilisé notre merveilleuse application.");
+		System.out.println("Merci d'avoir utilise notre merveilleuse application.");
 		scan.close();
 	}
 
