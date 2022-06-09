@@ -108,7 +108,7 @@ class ScenarioTest {
 	}
 
 	@Test
-	void testGetEtudiant() {
+	void testGetTutore() {
 		tutoreList = new ArrayList<>();
 		u1 = new Tutore("tutore_", "Claude", "Allard", 9.8, nbAbscenceDefaut, annee, motivation);
 		tutoreList.add(u1);
@@ -119,5 +119,21 @@ class ScenarioTest {
 		assertEquals("Allard_Claude", u1.getPrenomNom());
 		assertEquals(1, u1.getAbsences());
 	}
+	
+	@Test
+	void testGetTuteur() {
+		tutorList = new ArrayList<>();
+		t1 = new Tuteur("tuteur_", "Sophie", "Houset", 18, nbAbscenceDefaut, 3, '=');
+		tutorList.add(t1);
+
+		assertEquals(18, t1.getMoyenne());
+		assertEquals(3, t1.getAnnee());
+		assertEquals('=', t1.getMotivation());
+		assertEquals("Houset_Sophie", t1.getPrenomNom());
+		assertEquals(1, t1.getAbsences());
+	}
+	
+	
+	
 		
 }

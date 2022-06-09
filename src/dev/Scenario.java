@@ -32,7 +32,7 @@ public class Scenario {
 				System.out.println(etudiants.afficherResultatAffectation());
 				String convaincu;
 				do {
-					System.out.println("Est ce que l'affectation vous va ? (=> o ou n)");
+					System.out.println("Est ce que l'affectation vous convient ? (=> o ou n)");
 					convaincu = scan.nextLine();
 					if (convaincu.equals("O") || convaincu.equals("o") || convaincu.equals("oui") || convaincu.equals("OUI")) {
 						demande = false;

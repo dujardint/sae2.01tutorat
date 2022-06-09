@@ -249,7 +249,7 @@ public class Tutorat  {
 		System.out.println("Entre le prenom");
 		String prenom = scan.nextLine();
 		
-		nom = nom+"_"+prenom;
+		nom = prenom + "_" +nom;
 		boolean trouve = false;
 		for(int i=0; i<listeTuteur.size(); i++) {
 			if(nom.equals(listeTuteur.get(i).getPrenomNom())){
@@ -275,8 +275,8 @@ public class Tutorat  {
 		
 		System.out.println("Entre le prenom");
 		String prenom = scan.nextLine();
-		
-		nom = nom+"_"+prenom;
+		nom = prenom + "_" +nom;
+
 		boolean trouve = false;
 		for(int i=0; i<listeTutore.size(); i++) {
 			if(nom.equals(listeTutore.get(i).getPrenomNom())){
