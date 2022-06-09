@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import appli.Tuteur;
 import appli.Tutorat;
@@ -116,6 +117,8 @@ public class MonController {
 			prenomTutore.setText(contenuTutore.getText().substring(0, recherche(contenuTutore.getText())));
 			nomTutore.setText(contenuTutore.getText().substring(recherche(contenuTutore.getText())+1,contenuTutore.getText().length()));
 			annneTutore.setText(1+"");
+			moyTutore.setText(""+ Math.random() * ( 20.0 - 0.0 ));
+			
 		}
 	}
 
@@ -125,6 +128,7 @@ public class MonController {
 			contenuTuteur.setText(contenuTuteur.getText().substring(1, contenuTuteur.getText().length()-1));
 			prenomTuteur.setText(contenuTuteur.getText().substring(0, recherche(contenuTuteur.getText())));
 			nomTuteur.setText(contenuTuteur.getText().substring(recherche(contenuTuteur.getText())+1,contenuTuteur.getText().length()));
+		
 		}
 	}
 
