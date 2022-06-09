@@ -38,7 +38,7 @@ public class ImportCSV {
 			System.out.println("Le fichier n'existe pas.");
 			System.err.print(e.getMessage());
 		} catch(IOException ioe) {
-			System.out.println("Problème à la fermeture du flux.");
+			System.out.println("Probleme a la fermeture du flux.");
 			System.err.print(ioe.getMessage());
 		}
 		return lignes; 

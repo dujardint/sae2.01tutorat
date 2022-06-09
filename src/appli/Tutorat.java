@@ -132,10 +132,10 @@ public class Tutorat  {
 		purgeCandidatFactices();
 		int difference = this.listeTuteur.size() - this.listeTutore.size();
 		if (difference > 0) {
-			//System.out.println("Il y a plus de tuteurs que de tutores, nous proc�dons � un r��quilibrage pour la simulation.");
+			//System.out.println("Il y a plus de tuteurs que de tutores, nous procedons a un reequilibrage pour la simulation.");
 			return this.ajoutCandidat(false, difference);
 		} else if (difference < 0) {
-			//System.out.println("Il y a plus de tutores que de tuteurs, nous proc�dons � un r��quilibrage pour la simulation.");
+			//System.out.println("Il y a plus de tutores que de tuteurs, nous procedons a un reequilibrage pour la simulation.");
 			return this.ajoutCandidat(false, difference);
 		} 
 		return true;
@@ -143,7 +143,7 @@ public class Tutorat  {
 
 	public boolean ajoutCandidat(boolean manuel, int difference) {
 		if (manuel) {
-			// C'est l'utilisateur qui entre les param�tres du Candidat
+			// C'est l'utilisateur qui entre les parametres du Candidat
 			Scanner scan = new Scanner(System.in);
 			System.out.println("Entrez le nom pour ajouter un tutore");
 			String nom = scan.nextLine();
@@ -156,7 +156,7 @@ public class Tutorat  {
 			double moyenne = Double.parseDouble(scan.nextLine().replace(',', '.'));
 			System.out.println("Entrez le nombre d'abscence(s)");
 			int nbAbsence = scan.nextInt();
-			System.out.println("Entrez l'ann�e");
+			System.out.println("Entrez l'annee");
 			int annee = scan.nextInt();
 			System.out.println("Entrez la motivation (+,-,=)");
 			char motivation = scan.next().charAt(0);
@@ -164,7 +164,7 @@ public class Tutorat  {
 			if(annee==1) {
 				for(int i=0; i < listeTutore.size(); i++) {
 					if(prenomNom.equals(listeTutore.get(i).getPrenomNom())){
-						System.out.println("Il existe deja ce tutore. Il n'y a pas de nécessité de l'ajouter.");	
+						System.out.println("Il existe deja ce tutore. Il n'y a pas de necessite de l'ajouter.");	
 						return false;
 					}
 				}
@@ -172,7 +172,7 @@ public class Tutorat  {
 			} else {
 				for(int i=0; i<listeTuteur.size(); i++) {
 					if(prenomNom.equals(listeTuteur.get(i).getPrenomNom())){
-						System.out.println("il existe deja ce tuteur. Il n'y a pas de nécessité de l'ajouter.");	
+						System.out.println("il existe deja ce tuteur. Il n'y a pas de necessite de l'ajouter.");	
 						return false;
 					}
 				}
@@ -210,10 +210,10 @@ public class Tutorat  {
 
 	public boolean supprimeCandidat() {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Entrez le nom de l'�tudiant � supprimer :");
+		System.out.println("Entrez le nom de l'etudiant � supprimer :");
 		String nom = scan.nextLine();
 
-		System.out.println("Entrez le prénom de l'�tudiant  supprimer :");
+		System.out.println("Entrez le prenom de l'etudiant � supprimer :");
 		String prenom = scan.nextLine();
 
 		String prenomNom = nom+"_"+prenom;
@@ -262,7 +262,7 @@ public class Tutorat  {
 			}
 		}
 		if(!trouve) {
-			System.out.println("le tuteur n'est pas dans la liste");
+			System.out.println("Le tuteur n'est pas dans la liste");
 		}
 			
 		return true;
@@ -359,7 +359,7 @@ public class Tutorat  {
 
 	public String toString() {
 		this.purgeCandidatFactices();
-		String retour = "Tutorés : \n" + this.listeTutore.size() +"\n";
+		String retour = "Tutores : \n" + this.listeTutore.size() +"\n";
 		for(Tutore t : this.listeTutore) {
 			retour = retour + t.toString() + "\n";
 		}

@@ -15,20 +15,20 @@ public class Scenario {
 			
 			System.out.println("Bienvenue dans l'application officielle de tutorat !\nQue voulez-vous faire ? ");
 			System.out.println(
-					("0 pour calculer\n"
-							+ "1 pour afficher la liste des etudiants inscrits\n"
-							+ "2 pour verifier la taille\n"
-							+ "3 pour ajouter un candidat (tuteur ou tutore) \n"
-							+ "4 pour supprimer un candidat\n"
-							+ "5 pour rechercher un tuteur \n"
-							+ "6 pour rechercher un tutore\n"
-							+ "7 pour quitter"));
+					("[0] Pour calculer\n"
+							+ "[1] Pour afficher la liste des etudiants inscrits\n"
+							+ "[2] Pour verifier la taille\n"
+							+ "[3] Pour ajouter un candidat (tuteur ou tutore) \n"
+							+ "[4] Pour supprimer un candidat\n"
+							+ "[5] Pour rechercher un tuteur \n"
+							+ "[6] Pour rechercher un tutore\n"
+							+ "[7] Pour quitter"));
 			System.out.print("Votre choix : ");
 			String choix = scan.nextLine();
 			System.out.println();
 			
 			if(choix.equals("0")) {
-				System.out.println("Vous avez decide de ne rien modifier. L'algo va s'executer.");
+				System.out.println("Vous avez decide de ne rien modifier. L'algo va s'executer.\n");
 				System.out.println(etudiants.afficherResultatAffectation());
 				String convaincu;
 				do {
@@ -44,6 +44,7 @@ public class Scenario {
 				
 			} else if(choix.equals("1")) {
 				System.out.println(etudiants.toString());
+				
 			} else if(choix.equals("2")){
 				System.out.println("Nombre de tuteurs : " + etudiants.getListTuteur().size());
 				System.out.println("Nombre de tutores : " + etudiants.getListTutore().size());
@@ -54,20 +55,25 @@ public class Scenario {
 				} else {
 					System.out.println("Les listes Tuteurs / Tutores sont de taille egales. Nous pouvons determiner les couples possibles.");
 				}
+				
 			} else if(choix.equals("3")) {
 				etudiants.ajoutCandidat(true,1);
 				ImportCSV.writeToFiles(etudiants.getListTuteur(), etudiants.getListTutore());	
+				
 			} else if(choix.equals("4")){
 				etudiants.supprimeCandidat();
 				ImportCSV.writeToFiles(etudiants.getListTuteur(), etudiants.getListTutore());	
+				
 			} else if(choix.equals("5")) {
 				etudiants.vuTuteur();
+				
 			} else if(choix.equals("6")) {
 				etudiants.vuTutore();
 
 			} else if(choix.equals("7")) {
 				System.out.println("Vous avez demande la fermeture du programme.");
 				demande=false;
+				
 			} else {
 				System.out.println("Nous n'avons pas compris votre choix, veuillez reessayer.");
 			}
