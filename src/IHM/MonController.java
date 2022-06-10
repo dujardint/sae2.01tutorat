@@ -17,6 +17,7 @@ import fr.ulille.but.sae2_02.graphes.CalculAffectation;
 import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -26,6 +27,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class MonController {
@@ -45,6 +48,9 @@ public class MonController {
 	ListView<String> listeTutorat;
 	@FXML
 	TextField rechercheTuteur;
+
+	@FXML
+	TextField rechercheTutore;
 	@FXML
 	TextArea contenuTutore;
 	@FXML
@@ -95,6 +101,10 @@ public class MonController {
 	int val = 0; 
 
 
+	WebView webView;
+	WebEngine engine;
+
+
 
 	public void initialize() {
 		System.out.println("Initialisation...");
@@ -111,7 +121,39 @@ public class MonController {
 			listeTuteur.getItems().add(etudiants.getListTuteur().get(i).getPrenomNom());
 		}
 
-		rechercheTuteur.getAccessibleText();
+
+		rechercheTutore.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent actionEvent) {
+				for(int i=0; i<listeTutore.getItems().size(); i++) {
+					if (rechercheTutore.getText().equals(etudiants.getListTutore().get(i).getNom())) {
+						System.out.println("nom tutore trouve");
+						//soit on met dans la zone du details du tutore l'etudiant ou soit on affiche la liste que avec le nom donne
+						
+					}
+					if (rechercheTutore.getText().equals(etudiants.getListTutore().get(i).getPrenom())) {
+						System.out.println("prenom tutore trouve");
+					}
+				}
+			}});
+
+
+
+
+		rechercheTuteur.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent actionEvent) {
+				for(int i=0; i<listeTuteur.getItems().size(); i++) {
+					if (rechercheTuteur.getText().equals(etudiants.getListTuteur().get(i).getNom())) {
+						System.out.println("nom tuteur trouve");
+					}
+					if (rechercheTuteur.getText().equals(etudiants.getListTuteur().get(i).getPrenom())) {
+						System.out.println("prenom tuteur trouve");
+					}
+				}
+			}});
+
+
 
 		listeTutore.getSelectionModel().getSelectedItems().addListener(new MonListChangeListener());
 
@@ -121,6 +163,7 @@ public class MonController {
 
 		miseAjourTaille();
 	}
+
 
 	public int recherche(String nom) {
 		for (int i=0; i<nom.length();i++) {

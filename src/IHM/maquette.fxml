@@ -103,10 +103,16 @@
                               <ListView fx:id="listeTuteur" prefHeight="556.0" prefWidth="212.0" />
                            </children>
                         </HBox>
-                        <TextField fx:id="rechercheTuteur" layoutX="19.0" layoutY="655.0" prefHeight="24.0" prefWidth="102.0" />
-                        <TextField layoutX="468.0" layoutY="655.0" prefHeight="24.0" prefWidth="102.0" />
-                        <Label layoutX="36.0" layoutY="637.0" text="Rechercher : " />
-                        <Label layoutX="485.0" layoutY="637.0" text="Rechercher : " />
+                        <TextField fx:id="rechercheTutore" layoutX="15.0" layoutY="658.0" prefHeight="24.0" prefWidth="164.0" promptText="Entrez un nom ou un prénom">
+                           <font>
+                              <Font size="11.0" />
+                           </font></TextField>
+                        <TextField fx:id="rechercheTuteur" layoutX="427.0" layoutY="656.0" prefHeight="27.0" prefWidth="164.0" promptText="Entrez un nom ou un prénom">
+                           <font>
+                              <Font size="11.0" />
+                           </font></TextField>
+                        <Label layoutX="37.0" layoutY="637.0" text="Rechercher un tutoré : " />
+                        <Label layoutX="449.0" layoutY="637.0" text="Rechercher un tuteur : " />
                         <Label alignment="CENTER" layoutX="221.0" layoutY="15.0" prefHeight="27.0" prefWidth="174.0" style="&#10;" text="Tutorat" textAlignment="CENTER" wrapText="false">
                            <font>
                               <Font size="18.0" fx:id="x11" />
@@ -116,10 +122,10 @@
                            </textFill>
                         </Label>
                         <TextArea fx:id="boxCouple" editable="false" layoutX="183.0" layoutY="613.0" prefHeight="65.0" prefWidth="236.0" text="Selectionner un couple pour afficher ses details" wrapText="true" />
-                        <TextField fx:id="effectifTutore" editable="false" layoutX="96.0" layoutY="603.0" prefHeight="25.0" prefWidth="50.0" />
-                        <Label layoutX="39.0" layoutY="607.0" text="Effectif :" />
-                        <TextField fx:id="effectifTuteur" editable="false" layoutX="509.0" layoutY="603.0" prefHeight="25.0" prefWidth="50.0" />
-                        <Label layoutX="447.0" layoutY="607.0" text="Effectif :" />
+                        <TextField fx:id="effectifTutore" editable="false" layoutX="97.0" layoutY="583.0" prefHeight="25.0" prefWidth="50.0" />
+                        <Label layoutX="41.0" layoutY="586.0" text="Effectif :" />
+                        <TextField fx:id="effectifTuteur" editable="false" layoutX="509.0" layoutY="583.0" prefHeight="25.0" prefWidth="50.0" />
+                        <Label layoutX="452.0" layoutY="586.0" text="Effectif :" />
                         <TextField fx:id="effectifTutorat" editable="false" layoutX="296.0" layoutY="582.0" prefHeight="25.0" prefWidth="50.0" />
                         <Label layoutX="239.0" layoutY="586.0" text="Effectif :" />
               </children>
