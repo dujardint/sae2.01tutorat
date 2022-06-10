@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 import appli.Tuteur;
@@ -67,6 +68,24 @@ public class MonController {
 	@FXML
 	TextField nomTuteur;
 
+	@FXML
+	TextField absenceTutore;
+	@FXML
+	TextField motivationTutore;
+
+	@FXML
+	TextField absenceTuteur;
+	@FXML
+	TextField motivationTuteur;
+
+
+	@FXML
+	TextField effectifTuteur;
+	@FXML
+	TextField effectifTutore;
+	@FXML
+	TextField effectifTutorat;
+
 
 	Tutorat etudiants;
 	//ArrayList<Tutore> groupeTutore = new ArrayList<>();
@@ -99,6 +118,8 @@ public class MonController {
 		listeTuteur.getSelectionModel().getSelectedItems().addListener(new MonListChangeListener2());
 
 		listeTutorat.getSelectionModel().getSelectedItems().addListener(new MonListChangeListener3());
+
+		miseAjourTaille();
 	}
 
 	public int recherche(String nom) {
@@ -126,6 +147,10 @@ public class MonController {
 			nomTutore.setText(temp.getNom());
 			moyTutore.setText(""+temp.getMoyenne());
 			anneeTutore.setText(""+temp.getAnnee());
+			absenceTutore.setText(""+temp.getAbsences());
+			motivationTutore.setText(""+temp.getMotivation());
+
+			miseAjourTaille();
 		}
 	}
 
@@ -144,6 +169,10 @@ public class MonController {
 			nomTuteur.setText(temp1.getNom());
 			moyTuteur.setText(""+temp1.getMoyenne());
 			anneeTuteur.setText(""+temp1.getAnnee());
+			absenceTuteur.setText(""+temp1.getAbsences());
+			motivationTuteur.setText(""+temp1.getMotivation());
+
+			miseAjourTaille();
 		}
 	}
 
@@ -151,6 +180,8 @@ public class MonController {
 		public void onChanged(Change<? extends String> report) {
 			boxCouple.setText(""+ report.getList());
 			boxCouple.setText(boxCouple.getText().substring(1, boxCouple.getText().length()-1));
+
+			miseAjourTaille();
 		}
 	}
 
@@ -161,7 +192,7 @@ public class MonController {
 
 		//si rien selectionner on alerte l'utilisateur
 		if(contenuTutore.getText().equals("Selectionner un tutore pour afficher ses details") || 
-				contenuTuteur.getText().equals("Selectionner un tuteur pour afficher ses details.") ||
+				contenuTuteur.getText().equals("Selectionner un tuteur pour afficher ses details") ||
 				contenuTuteur.getText().isBlank() ||
 				contenuTutore.getText().isBlank() ||
 				contenuTutore.getText().equals(contenuTuteur.getText())){
@@ -194,6 +225,8 @@ public class MonController {
 
 			listeTutore.getItems().remove(contenuTutore.getText());
 			listeTuteur.getItems().remove(contenuTuteur.getText());
+
+			miseAjourTaille();
 		}
 
 	}
@@ -227,10 +260,10 @@ public class MonController {
 				if (entry.getKey().getPrenomNom().equals(boxCouple.getText().substring(0, idx))) {
 					tuteurSelectionne=entry.getValue();
 					tutoreSelectionne=entry.getKey();
-					
+
 					System.out.println("tuteurSelectionne : " + tuteurSelectionne);
 					System.out.println("tutoreSelectionne : " + tutoreSelectionne);
-					
+
 					// On remet les tuteurs et tutores dans leur listes initiales candidat en mémoire
 					/*
 					etudiants.ajouterTutore(entry.getKey());
@@ -243,9 +276,9 @@ public class MonController {
 
 					groupeTutorat.remove(entry.getKey());
 					listeTutorat.getItems().remove(boxCouple.getText());
-					*/
-					
-					
+					 */
+
+
 					etudiants.ajouterTutore(tutoreSelectionne);
 					etudiants.ajouterTuteur(tuteurSelectionne);
 					System.out.println("Key : " + entry.getKey() + " value : " + entry.getValue());
@@ -256,10 +289,12 @@ public class MonController {
 
 					groupeTutorat.remove(entry.getKey());
 					listeTutorat.getItems().remove(boxCouple.getText());
+
+					miseAjourTaille();
 				}
 			}
 
-			
+
 			/*	//ajout des 2 personnes dans la liste tutorat   			
 			//on prend substring pour separer le tutore du tuteur
 			for(int i=0; i<groupeTutore.size(); i++) {
@@ -304,6 +339,8 @@ public class MonController {
 			}
 			listeTutore.getItems().remove(contenuTutore.getText());
 
+			miseAjourTaille();
+
 		}
 	}
 
@@ -321,26 +358,91 @@ public class MonController {
 				}
 			}
 			listeTuteur.getItems().remove(contenuTuteur.getText());
+
+
+			miseAjourTaille();
 		}
 	}
 
 
 	public void pressedButtonCalculer(ActionEvent event) {		
-		CalculAffectation<String>  affectation = etudiants.calculAffectation();
 
-
-		for(Arete<String> couple : affectation.getAffectation()) {
-			listeTutorat.getItems().add(couple.getExtremite2() + "-" + couple.getExtremite1());
-			groupeTutorat.put(etudiants.getTutore(couple.getExtremite2()), etudiants.getTuteur(couple.getExtremite1()));
+		if( (etudiants.getListTutore().isEmpty()) && (etudiants.getListTuteur().isEmpty()) ) {
+			Alert alert = new Alert(AlertType.ERROR, "L'affectation est termine, il n'y a plus de tuteur a affecter avec de tutore !", ButtonType.OK);
+			alert.showAndWait();
 		}
+		else {
 
+
+
+			CalculAffectation<String>  affectation = etudiants.calculAffectation();
+
+
+			for(Arete<String> couple : affectation.getAffectation()) {
+				listeTutorat.getItems().add(couple.getExtremite2() + "-" + couple.getExtremite1());
+				groupeTutorat.put(etudiants.getTutore(couple.getExtremite2()), etudiants.getTuteur(couple.getExtremite1()));
+			}
+
+			listeTutore.getItems().clear();
+			listeTuteur.getItems().clear();
+
+			etudiants.getListTutore().clear();
+			etudiants.getListTuteur().clear();
+
+			miseAjourTaille();
+
+			System.out.println("L'affectation est terminée.");
+		}
+	}
+
+	private void miseAjourTaille() {
+		effectifTuteur.setText(""+listeTuteur.getItems().size());
+		effectifTutore.setText(""+listeTutore.getItems().size());
+		effectifTutorat.setText(""+groupeTutorat.size());
+
+	}
+
+
+	public void pressedButtonReinitialiser(ActionEvent event) {
 		listeTutore.getItems().clear();
 		listeTuteur.getItems().clear();
+		listeTutorat.getItems().clear();
 
 		etudiants.getListTutore().clear();
 		etudiants.getListTuteur().clear();
+		groupeTutorat.clear();
 
-		System.out.println("L'affectation est terminée.");
+		initialize();
+	}
+
+
+
+	public void pressedButtonSave(ActionEvent event) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Sauvegarder ?");
+		alert.setHeaderText("Voulez-vous sauvegarder la liste du tutorat ?");
+		alert.setContentText("le fichier s'appellera : tutorat.csv");
+
+		ButtonType oui = new ButtonType("Oui");
+		ButtonType non = new ButtonType("Non");
+
+		// Remove default ButtonTypes
+		alert.getButtonTypes().clear();
+
+		alert.getButtonTypes().addAll(oui, non);
+
+		// option != null.
+		Optional<ButtonType> option = alert.showAndWait();
+
+		if (option.get() == null) {
+			System.out.println("null");
+		} else if (option.get() == oui) {
+			System.out.println("sauvegarde en cours...");
+		} else if (option.get() == non) {
+			System.out.println("sauvegarde refuser");
+		} else {
+			System.out.println("rien");
+		}
 	}
 
 
