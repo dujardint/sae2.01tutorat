@@ -1,12 +1,9 @@
 package IHM;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 
 import appli.Tuteur;
 import appli.Tutorat;
@@ -14,7 +11,6 @@ import appli.Tutore;
 import dev.ImportCSV;
 import fr.ulille.but.sae2_02.graphes.Arete;
 import fr.ulille.but.sae2_02.graphes.CalculAffectation;
-import fr.ulille.but.sae2_02.graphes.GrapheNonOrienteValue;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,12 +19,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class MonController {
@@ -98,12 +91,6 @@ public class MonController {
 	//ArrayList<Tuteur> groupeTuteur = new ArrayList<>();
 	//ArrayList<Object> groupeTutorat = new ArrayList<>();
 	Map<Tutore, Tuteur> groupeTutorat;
-	int val = 0; 
-
-
-	WebView webView;
-	WebEngine engine;
-
 
 
 	public void initialize() {
@@ -126,29 +113,39 @@ public class MonController {
 			@Override
 			public void handle(ActionEvent actionEvent) {
 				for(int i=0; i<listeTutore.getItems().size(); i++) {
-					if (rechercheTutore.getText().equals(etudiants.getListTutore().get(i).getNom())) {
-						System.out.println("nom tutore trouve");
-						//soit on met dans la zone du details du tutore l'etudiant ou soit on affiche la liste que avec le nom donne
-						
-					}
-					if (rechercheTutore.getText().equals(etudiants.getListTutore().get(i).getPrenom())) {
-						System.out.println("prenom tutore trouve");
+					if (rechercheTutore.getText().equals(etudiants.getListTutore().get(i).getNom()) ||  
+							(rechercheTutore.getText().equals(etudiants.getListTutore().get(i).getPrenom()))) {
+						System.out.println("tutore trouve");
+						Tutore temp=null;
+						temp=etudiants.getListTutore().get(i);
+						contenuTutore.setText(""+temp.getPrenomNom());
+						prenomTutore.setText(temp.getPrenom());
+						nomTutore.setText(temp.getNom());
+						moyTutore.setText(""+temp.getMoyenne());
+						anneeTutore.setText(""+temp.getAnnee());
+						absenceTutore.setText(""+temp.getAbsences());
+						motivationTutore.setText(""+temp.getMotivation());
 					}
 				}
 			}});
-
-
 
 
 		rechercheTuteur.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent actionEvent) {
 				for(int i=0; i<listeTuteur.getItems().size(); i++) {
-					if (rechercheTuteur.getText().equals(etudiants.getListTuteur().get(i).getNom())) {
-						System.out.println("nom tuteur trouve");
-					}
-					if (rechercheTuteur.getText().equals(etudiants.getListTuteur().get(i).getPrenom())) {
-						System.out.println("prenom tuteur trouve");
+					if (rechercheTuteur.getText().equals(etudiants.getListTuteur().get(i).getNom()) ||  
+							(rechercheTuteur.getText().equals(etudiants.getListTuteur().get(i).getPrenom()))) {
+						System.out.println("tuteur trouve");
+						Tuteur temp1=null;
+						temp1=etudiants.getListTuteur().get(i);
+						contenuTuteur.setText(""+temp1.getPrenomNom());
+						prenomTuteur.setText(temp1.getPrenom());
+						nomTuteur.setText(temp1.getNom());
+						moyTuteur.setText(""+temp1.getMoyenne());
+						anneeTuteur.setText(""+temp1.getAnnee());
+						absenceTuteur.setText(""+temp1.getAbsences());
+						motivationTuteur.setText(""+temp1.getMotivation());
 					}
 				}
 			}});
