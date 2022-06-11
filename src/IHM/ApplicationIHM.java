@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class ApplicationIHM extends Application{
 	public void start(Stage stage) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		URL fxmlFileUrl = getClass().getResource("maquette.fxml");
+		URL fxmlFileUrl = getClass().getResource("maquetteV2.fxml");
 		if (fxmlFileUrl == null) {
 			System.out.println("Impossible de charger le fichier fxml");
 			System.exit(-1);

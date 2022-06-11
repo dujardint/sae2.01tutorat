@@ -84,6 +84,10 @@ public class MonController {
 	TextField effectifTutore;
 	@FXML
 	TextField effectifTutorat;
+	
+	final String messageContenuTuteur = "Sélectionnez un tuteur";
+	final String messageContenuTutore = "Sélectionnez un tutoré";
+	final String messageBoxCouple = "Sélectionnez un couple";
 
 
 	Tutorat etudiants;
@@ -95,7 +99,14 @@ public class MonController {
 
 	public void initialize() {
 		System.out.println("Initialisation...");
+		
+		contenuTutore.setText("Sélectionnez un tutoré");
+		contenuTuteur.setText("Sélectionnez un tuteur");
+		boxCouple.setText("Sélectionnez un couple");
+		
 		this.groupeTutorat = new HashMap<>();
+		
+		
 
 		etudiants = new Tutorat(ImportCSV.readFileTuteur(ImportCSV.FILEPATH_TUTEUR),
 				ImportCSV.readFileTutore(ImportCSV.FILEPATH_TUTORE));
@@ -231,8 +242,8 @@ public class MonController {
 		Tutore tutoreSelectionne = null ;
 
 		//si rien selectionner on alerte l'utilisateur
-		if(contenuTutore.getText().equals("Selectionner un tutore pour afficher ses details") || 
-				contenuTuteur.getText().equals("Selectionner un tuteur pour afficher ses details") ||
+		if(contenuTutore.getText().equals(messageContenuTutore) || 
+				contenuTuteur.getText().equals(messageContenuTuteur) ||
 				contenuTuteur.getText().isBlank() ||
 				contenuTutore.getText().isBlank() ||
 				contenuTutore.getText().equals(contenuTuteur.getText())){
@@ -277,7 +288,7 @@ public class MonController {
 		Tutore tutoreSelectionne = null ;
 
 		//si rien selectionner on alerte l'utilisateur
-		if((boxCouple.getText().equals(("Selectionner un couple pour afficher ses details"))) || 
+		if((boxCouple.getText().equals((messageBoxCouple))) || 
 				(boxCouple.getText().equals(("[]")) ||
 						(boxCouple.getText().isBlank()))){
 			Alert alert = new Alert(AlertType.ERROR, "Selectionner un couple d'etudiants pour les supprimer.", ButtonType.OK);
@@ -368,7 +379,7 @@ public class MonController {
 		if(listeTutore.getItems().isEmpty()) {
 			Alert alert = new Alert(AlertType.WARNING, "la liste tutore est vide !", ButtonType.OK);
 			alert.showAndWait();
-		}else if(contenuTutore.getText().equals("Selectionner un tutore pour afficher ses details")) {
+		}else if(contenuTutore.getText().equals(messageContenuTutore)) {
 			Alert alert = new Alert(AlertType.WARNING, "Selectionner un tutore pour afficher ses details", ButtonType.OK);
 			alert.showAndWait();
 		}else {
@@ -388,7 +399,7 @@ public class MonController {
 		if(listeTuteur.getItems().isEmpty()){
 			Alert alert = new Alert(AlertType.WARNING, "la liste tuteur est vide !", ButtonType.OK);
 			alert.showAndWait();
-		}else if(contenuTuteur.getText().equals("Selectionner un tuteur pour afficher ses details")) {
+		}else if(contenuTuteur.getText().equals(messageContenuTuteur)) {
 			Alert alert = new Alert(AlertType.WARNING, "Selectionner un tuteur pour afficher ses details", ButtonType.OK);
 			alert.showAndWait();
 		}else {
@@ -408,7 +419,7 @@ public class MonController {
 	public void pressedButtonCalculer(ActionEvent event) {		
 
 		if( (etudiants.getListTutore().isEmpty()) && (etudiants.getListTuteur().isEmpty()) ) {
-			Alert alert = new Alert(AlertType.ERROR, "L'affectation est termine, il n'y a plus de tuteur a affecter avec de tutore !", ButtonType.OK);
+			Alert alert = new Alert(AlertType.ERROR, "L'affectation est terminé, il n'y a plus de tuteur à affecter avec de tutoré !", ButtonType.OK);
 			alert.showAndWait();
 		}
 		else {
@@ -431,7 +442,7 @@ public class MonController {
 
 			miseAjourTaille();
 
-			System.out.println("L'affectation est terminÃ©e.");
+			System.out.println("L'affectation est terminee.");
 		}
 	}
 
@@ -439,7 +450,6 @@ public class MonController {
 		effectifTuteur.setText(""+listeTuteur.getItems().size());
 		effectifTutore.setText(""+listeTutore.getItems().size());
 		effectifTutorat.setText(""+groupeTutorat.size());
-
 	}
 
 
