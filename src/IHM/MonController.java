@@ -1,7 +1,9 @@
 package IHM;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
-
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
 
@@ -84,13 +86,13 @@ public class MonController {
 	TextField effectifTutore;
 	@FXML
 	TextField effectifTutorat;
-	
-	final String messageContenuTuteur = "S�lectionnez un tuteur";
-	final String messageContenuTutore = "S�lectionnez un tutor�";
-	final String messageBoxCouple = "S�lectionnez un couple";
+
+	final String messageContenuTuteur = "Sélectionnez un tuteur";
+	final String messageContenuTutore = "Sélectionnez un tutoré";
+	final String messageBoxCouple = "Sélectionnez un couple";
 
 
-	Tutorat etudiants;
+	Tutorat etudiants, etudiantsCopie;
 	//ArrayList<Tutore> groupeTutore = new ArrayList<>();
 	//ArrayList<Tuteur> groupeTuteur = new ArrayList<>();
 	//ArrayList<Object> groupeTutorat = new ArrayList<>();
@@ -99,16 +101,19 @@ public class MonController {
 
 	public void initialize() {
 		System.out.println("Initialisation...");
-		
-		contenuTutore.setText("S�lectionnez un tutor�");
-		contenuTuteur.setText("S�lectionnez un tuteur");
-		boxCouple.setText("S�lectionnez un couple");
-		
+
+		contenuTuteur.setText(messageContenuTuteur);
+		contenuTutore.setText(messageContenuTutore);
+		boxCouple.setText(messageBoxCouple);
+
 		this.groupeTutorat = new HashMap<>();
-		
-		
+
+
 
 		etudiants = new Tutorat(ImportCSV.readFileTuteur(ImportCSV.FILEPATH_TUTEUR),
+				ImportCSV.readFileTutore(ImportCSV.FILEPATH_TUTORE));
+
+		etudiantsCopie = new Tutorat(ImportCSV.readFileTuteur(ImportCSV.FILEPATH_TUTEUR),
 				ImportCSV.readFileTutore(ImportCSV.FILEPATH_TUTORE));
 
 		for(int i=0; i<etudiants.getListTutore().size(); i++) {
@@ -123,10 +128,12 @@ public class MonController {
 		rechercheTutore.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent actionEvent) {
+				boolean trouve=false;
 				for(int i=0; i<listeTutore.getItems().size(); i++) {
 					if (rechercheTutore.getText().equals(etudiants.getListTutore().get(i).getNom()) ||  
 							(rechercheTutore.getText().equals(etudiants.getListTutore().get(i).getPrenom()))) {
 						System.out.println("tutore trouve");
+						trouve=true;
 						Tutore temp=null;
 						temp=etudiants.getListTutore().get(i);
 						contenuTutore.setText(""+temp.getPrenomNom());
@@ -138,16 +145,22 @@ public class MonController {
 						motivationTutore.setText(""+temp.getMotivation());
 					}
 				}
+				if (!trouve) {
+					Alert alert = new Alert(AlertType.INFORMATION, "Le tutoré que vous recherchez n'existe pas dans sa liste ou alors a déja été attribué !\n\nAvez-vous bien écrit son nom ou son prénom ?", ButtonType.OK);
+					alert.showAndWait();
+				}
 			}});
 
 
 		rechercheTuteur.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent actionEvent) {
+				boolean trouve=false;
 				for(int i=0; i<listeTuteur.getItems().size(); i++) {
 					if (rechercheTuteur.getText().equals(etudiants.getListTuteur().get(i).getNom()) ||  
 							(rechercheTuteur.getText().equals(etudiants.getListTuteur().get(i).getPrenom()))) {
 						System.out.println("tuteur trouve");
+						trouve=true;
 						Tuteur temp1=null;
 						temp1=etudiants.getListTuteur().get(i);
 						contenuTuteur.setText(""+temp1.getPrenomNom());
@@ -159,8 +172,11 @@ public class MonController {
 						motivationTuteur.setText(""+temp1.getMotivation());
 					}
 				}
+				if (!trouve) {
+					Alert alert = new Alert(AlertType.INFORMATION, "Le tuteur que vous recherchez n'existe pas dans sa liste ou alors a déja été attribué !\\n\\nAvez-vous bien écrit son nom ou son prénom ?", ButtonType.OK);
+					alert.showAndWait();
+				}
 			}});
-
 
 
 		listeTutore.getSelectionModel().getSelectedItems().addListener(new MonListChangeListener());
@@ -192,15 +208,15 @@ public class MonController {
 			for(int i=0; i<etudiants.getListTutore().size(); i++) {
 				if(contenuTutore.getText().equals(etudiants.getListTutore().get(i).getPrenomNom())){
 					temp=etudiants.getListTutore().get(i);
+
+					prenomTutore.setText(temp.getPrenom());
+					nomTutore.setText(temp.getNom());
+					moyTutore.setText(""+temp.getMoyenne());
+					anneeTutore.setText(""+temp.getAnnee());
+					absenceTutore.setText(""+temp.getAbsences());
+					motivationTutore.setText(""+temp.getMotivation());
 				}
 			}
-			prenomTutore.setText(temp.getPrenom());
-			nomTutore.setText(temp.getNom());
-			moyTutore.setText(""+temp.getMoyenne());
-			anneeTutore.setText(""+temp.getAnnee());
-			absenceTutore.setText(""+temp.getAbsences());
-			motivationTutore.setText(""+temp.getMotivation());
-
 			miseAjourTaille();
 		}
 	}
@@ -214,15 +230,15 @@ public class MonController {
 			for(int i=0; i<etudiants.getListTuteur().size(); i++) {
 				if(contenuTuteur.getText().equals(etudiants.getListTuteur().get(i).getPrenomNom())){
 					temp1=etudiants.getListTuteur().get(i);
+
+					prenomTuteur.setText(temp1.getPrenom());
+					nomTuteur.setText(temp1.getNom());
+					moyTuteur.setText(""+temp1.getMoyenne());
+					anneeTuteur.setText(""+temp1.getAnnee());
+					absenceTuteur.setText(""+temp1.getAbsences());
+					motivationTuteur.setText(""+temp1.getMotivation());
 				}
 			}
-			prenomTuteur.setText(temp1.getPrenom());
-			nomTuteur.setText(temp1.getNom());
-			moyTuteur.setText(""+temp1.getMoyenne());
-			anneeTuteur.setText(""+temp1.getAnnee());
-			absenceTuteur.setText(""+temp1.getAbsences());
-			motivationTuteur.setText(""+temp1.getMotivation());
-
 			miseAjourTaille();
 		}
 	}
@@ -231,6 +247,43 @@ public class MonController {
 		public void onChanged(Change<? extends String> report) {
 			boxCouple.setText(""+ report.getList());
 			boxCouple.setText(boxCouple.getText().substring(1, boxCouple.getText().length()-1));
+
+			int id=0;
+			while(boxCouple.getText().charAt(id)!='-') {
+				id++;
+			}
+			String tutoreNom = boxCouple.getText().substring(0, id);
+			String tuteurNom = boxCouple.getText().substring(id+1);
+
+			contenuTutore.setText(tutoreNom);
+			contenuTuteur.setText(tuteurNom);
+
+			for(int i=0; i<etudiantsCopie.getListTutore().size(); i++) {
+				if(etudiantsCopie.getListTutore().get(i).getPrenomNom().equals(tutoreNom)) {
+					Tutore temp=null;
+					temp=etudiantsCopie.getListTutore().get(i);
+					prenomTutore.setText(temp.getPrenom());
+					nomTutore.setText(temp.getNom());
+					moyTutore.setText(""+temp.getMoyenne());
+					anneeTutore.setText(""+temp.getAnnee());
+					absenceTutore.setText(""+temp.getAbsences());
+					motivationTutore.setText(""+temp.getMotivation());
+				}
+			}
+
+			for(int i=0; i<etudiantsCopie.getListTuteur().size(); i++) {
+				if(etudiantsCopie.getListTuteur().get(i).getPrenomNom().equals(tuteurNom)){
+					Tuteur temp1=null;
+					temp1=etudiantsCopie.getListTuteur().get(i);
+
+					prenomTuteur.setText(temp1.getPrenom());
+					nomTuteur.setText(temp1.getNom());
+					moyTuteur.setText(""+temp1.getMoyenne());
+					anneeTuteur.setText(""+temp1.getAnnee());
+					absenceTuteur.setText(""+temp1.getAbsences());
+					motivationTuteur.setText(""+temp1.getMotivation());
+				}
+			}
 
 			miseAjourTaille();
 		}
@@ -250,9 +303,13 @@ public class MonController {
 			Alert alert = new Alert(AlertType.ERROR, "selectionner au moins 2 etudiants pour les affecter !", ButtonType.OK);
 			alert.showAndWait();
 		}
+
+		else if(listeTutorat.getItems().contains(contenuTutore.getText() + "-" +contenuTuteur.getText())){
+			Alert alert = new Alert(AlertType.ERROR, "le couple existe deja!", ButtonType.OK);
+			alert.showAndWait();
+		}
 		else {
 			//ajout des 2 personnes dans la liste tutorat
-
 
 			for(int i=0; i<etudiants.getListTutore().size(); i++) {
 				if(contenuTutore.getText().equals(etudiants.getListTutore().get(i).getPrenomNom())) {
@@ -282,7 +339,6 @@ public class MonController {
 
 	}
 
-
 	public void pressedButtonSuppriner(ActionEvent event) {	
 		Tuteur tuteurSelectionne = null;
 		Tutore tutoreSelectionne = null ;
@@ -304,10 +360,6 @@ public class MonController {
 			}
 
 			for (Map.Entry<Tutore, Tuteur> entry : groupeTutorat.entrySet()) {
-				//System.out.println("avant if Key : " + entry.getKey() + " value : " + entry.getValue());
-
-				//System.out.println("on affiche blablabla " + boxCouple.getText().substring(idx + 1));
-
 				if (entry.getKey().getPrenomNom().equals(boxCouple.getText().substring(0, idx))) {
 					tuteurSelectionne=entry.getValue();
 					tutoreSelectionne=entry.getKey();
@@ -316,19 +368,6 @@ public class MonController {
 					System.out.println("tutoreSelectionne : " + tutoreSelectionne);
 
 					// On remet les tuteurs et tutores dans leur listes initiales candidat en mémoire
-					/*
-					etudiants.ajouterTutore(entry.getKey());
-					etudiants.ajouterTuteur(entry.getValue());
-					System.out.println("Key : " + entry.getKey() + " value : " + entry.getValue());
-
-					// on remet les tuteurs et tutores dans leur listes initiales candidat en IHM
-					System.out.println("reussite : " + listeTutore.getItems().add(""+entry.getKey().getPrenomNom()));
-					listeTuteur.getItems().add(""+entry.getValue().getPrenomNom());
-
-					groupeTutorat.remove(entry.getKey());
-					listeTutorat.getItems().remove(boxCouple.getText());
-					 */
-
 
 					etudiants.ajouterTutore(tutoreSelectionne);
 					etudiants.ajouterTuteur(tuteurSelectionne);
@@ -344,35 +383,8 @@ public class MonController {
 					miseAjourTaille();
 				}
 			}
-
-
-			/*	//ajout des 2 personnes dans la liste tutorat   			
-			//on prend substring pour separer le tutore du tuteur
-			for(int i=0; i<groupeTutore.size(); i++) {
-				if(boxCouple.getText().substring(0, idx).equals(groupeTutore.get(i).getPrenomNom())) {
-					//groupeTutore.remove(i);
-				}
-			}
-
-			for(int i=0; i<groupeTuteur.size(); i++) {
-				if(boxCouple.getText().substring(idx+1, boxCouple.getText().length()).equals(groupeTuteur.get(i).getPrenomNom())) {
-					groupeTuteur.remove(i);
-				}
-			}
-			 */
-
-			//suppression des 2 personnes dans les listes d'origines
-
-
-			/*for(int i=0; i<groupeTuteur.size(); i++) {
-				//if(contenuTuteur.getText().equals(groupeTuteur.get(i).getPrenomNom())) {
-					//groupeTuteur.remove(i);
-				}
-			}
-			//listeTutorat.getItems().remove(boxCouple.getText());*/
 		}	
 	}
-
 
 
 	public void pressedButtonExclureTutore(ActionEvent event) {
@@ -391,7 +403,6 @@ public class MonController {
 			listeTutore.getItems().remove(contenuTutore.getText());
 
 			miseAjourTaille();
-
 		}
 	}
 
@@ -410,7 +421,6 @@ public class MonController {
 			}
 			listeTuteur.getItems().remove(contenuTuteur.getText());
 
-
 			miseAjourTaille();
 		}
 	}
@@ -419,15 +429,12 @@ public class MonController {
 	public void pressedButtonCalculer(ActionEvent event) {		
 
 		if( (etudiants.getListTutore().isEmpty()) && (etudiants.getListTuteur().isEmpty()) ) {
-			Alert alert = new Alert(AlertType.ERROR, "L'affectation est termin�, il n'y a plus de tuteur � affecter avec de tutor� !", ButtonType.OK);
+			Alert alert = new Alert(AlertType.ERROR, "L'affectation est termine, il n'y a plus de tuteur a affecter avec de tutore !", ButtonType.OK);
 			alert.showAndWait();
 		}
 		else {
 
-
-
 			CalculAffectation<String>  affectation = etudiants.calculAffectation();
-
 
 			for(Arete<String> couple : affectation.getAffectation()) {
 				listeTutorat.getItems().add(couple.getExtremite2() + "-" + couple.getExtremite1());
@@ -466,39 +473,98 @@ public class MonController {
 	}
 
 
-
-	public void pressedButtonSave(ActionEvent event) {
+	public void pressedButtonSave(ActionEvent event) throws IOException {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Sauvegarder ?");
 		alert.setHeaderText("Voulez-vous sauvegarder la liste du tutorat ?");
-		alert.setContentText("le fichier s'appellera : tutorat.csv");
+		alert.setContentText("le fichier s'appellera : tutorat.csv\nIl sera placé dans la racine de l'application");
 
 		ButtonType oui = new ButtonType("Oui");
 		ButtonType non = new ButtonType("Non");
 
-		// Remove default ButtonTypes
 		alert.getButtonTypes().clear();
 
 		alert.getButtonTypes().addAll(oui, non);
 
-		// option != null.
 		Optional<ButtonType> option = alert.showAndWait();
 
 		if (option.get() == null) {
 			System.out.println("null");
 		} else if (option.get() == oui) {
 			System.out.println("sauvegarde en cours...");
-		} else if (option.get() == non) {
+
+			FileWriter file = null;
+			try
+			{
+				String DELIMITER = ",";
+				String SEPARATOR = "\n";  
+				file = new FileWriter("tutorat.csv");
+				//Ajouter l'en-tête
+				file.append("Annee,Nom,Prenom,Moyenne,Nombres d'Absences,Motivation, ,Annee2,Nom2,Prenom2,Moyenne2,Nombres d'Absences2,Motivation2");
+				//Ajouter une nouvelle ligne après l'en-tête
+				file.append(SEPARATOR);
+
+				for (Map.Entry<Tutore, Tuteur> entry : groupeTutorat.entrySet()) {
+					Tutore key = entry.getKey();
+					Tuteur value = entry.getValue();
+					//	Tuteur tuteur = (Tuteur) it.next();
+					file.append(""+key.getAnnee());
+					file.append(DELIMITER);
+					file.append(key.getNom());
+					file.append(DELIMITER);
+					file.append(key.getPrenom());
+					file.append(DELIMITER);
+					file.append(""+key.getMoyenne());
+					file.append(DELIMITER);
+					file.append(""+key.getAbsences());
+					file.append(DELIMITER);
+					file.append(""+key.getMotivation());
+					file.append(DELIMITER);
+					file.append(DELIMITER);
+
+					file.append(""+value.getAnnee());
+					file.append(DELIMITER);
+					file.append(value.getNom());
+					file.append(DELIMITER);
+					file.append(value.getPrenom());
+					file.append(DELIMITER);
+					file.append(""+value.getMoyenne());
+					file.append(DELIMITER);
+					file.append(""+value.getAbsences());
+					file.append(DELIMITER);
+					file.append(""+value.getMotivation());
+					file.append(SEPARATOR);
+				}
+				file.close();
+				System.out.println("sauvegarde terminé.");
+
+
+				//alerter l'utilisateur si c'estbien enregistré
+				/*if(file.) {
+						Alert alert1 = new Alert(AlertType.ERROR, "enregistrement fait !", ButtonType.OK);
+						alert1.showAndWait();
+					}
+				 */
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+
+		}else if (option.get() == non) {
 			System.out.println("sauvegarde refuser");
 		} else {
 			System.out.println("rien");
 		}
 	}
 
-
+	/*
+	 * Methode non utilise car plus de bouton qui permettent de quitter l'appli
 	public void pressedButtonQuitter(ActionEvent event) {
 		Alert alert = new Alert(AlertType.CONFIRMATION, "Souhaitez-vous sauvegarder puis quitter ?", ButtonType.OK);
 		alert.showAndWait();
 		((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
 	}
+	 */
 }
+
