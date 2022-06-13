@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>C:\Users\thoma\Desktop\IHM-beeuwsaert-dujardin-houset\Application\TutoratB-G1.jar</jar>
+  <outfile>C:\Users\thoma\Desktop\IHM-beeuwsaert-dujardin-houset\Application\Attribution de Tutorat.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>C:\Users\thoma\Google Drive Scolaire\Université\Cours BUT1 S2 INFO\SAE 2.01 + 2.02 Développement d&apos;une application + exploration algo\Partie IHM\iconeAppTutorat.ico</icon>
+  <jre>
+    <path></path>
+    <bundledJre64Bit>false</bundledJre64Bit>
+    <bundledJreAsFallback>false</bundledJreAsFallback>
+    <minVersion>1.7</minVersion>
+    <maxVersion>17</maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+    <runtimeBits>64/32</runtimeBits>
+    <opt>--module-path C:\javafx-sdk-17.0.2\lib --add-modules javafx.controls,javafx.fxml</opt>
+  </jre>
+  <versionInfo>
+    <fileVersion>1.0.0.0</fileVersion>
+    <txtFileVersion>1.0</txtFileVersion>
+    <fileDescription>Application d&apos;attribution de tutorat SAE 2.01 &amp; 2.02</fileDescription>
+    <copyright>Thomas DUJARDIN - Augustin BEEUWSAERT - Sophie Houset</copyright>
+    <productVersion>1.0.0.0</productVersion>
+    <txtProductVersion>1.0</txtProductVersion>
+    <productName>Thomas DUJARDIN - Augustin BEEUWSAERT - Sophie Houset</productName>
+    <companyName>IUT A Lille BUT INFORMATIQUE</companyName>
+    <internalName>Université de Lille</internalName>
+    <originalFilename>AttributionTutorat.exe</originalFilename>
+    <trademarks></trademarks>
+    <language>FRENCH</language>
+  </versionInfo>
+  <messages>
+    <startupErr>An error occurred while starting the application.
+Verifier que vous avez bien le dossier &quot;res&quot; qui contient les fichiers &quot;tutore.csv&quot; et &quot;tuteur.csv&quot; ainsi que les images</startupErr>
+    <bundledJreErr>This application requires a Java Runtime Environment.</bundledJreErr>
+    <jreVersionErr>This application requires a Java Runtime Environment</jreVersionErr>
+    <launcherErr>The registry refers to a nonexistent Java Runtime Environment installation or the runtime is corrupted.</launcherErr>
+    <instanceAlreadyExistsMsg>An application instance is already running.</instanceAlreadyExistsMsg>
+  </messages>
+</launch4jConfig>
